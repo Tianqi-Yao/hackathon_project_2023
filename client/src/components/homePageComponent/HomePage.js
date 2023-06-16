@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import GoogleMap from '../mapComponent/GoogleMap'
-import Nav from '../navComponent/Nav'
+import MapContainer from "../mapComponent/MapContainer";
 
 function HomePage(props) {
     return (
@@ -10,7 +9,8 @@ function HomePage(props) {
             <h1>HomePage</h1>
             <Nav />
             <p>Count: {props.count}</p>
-            <GoogleMap />
+            <MapContainer />
+            <button type="button" className="btn btn-primary">Primary HomePage</button>
         </div>
     );
 }
