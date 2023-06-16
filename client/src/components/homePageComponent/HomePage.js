@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import MapContainer from "../mapComponent/MapContainer";
 
 function HomePage(props) {
     return (
@@ -7,6 +8,7 @@ function HomePage(props) {
 
             <h1>HomePage</h1>
             <p>Count: {props.count}</p>
+            <MapContainer />
             <button type="button" className="btn btn-primary">Primary HomePage</button>
         </div>
     );
