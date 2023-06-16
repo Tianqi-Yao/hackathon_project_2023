@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Loader } from '@googlemaps/js-api-loader';
 
@@ -70,7 +70,7 @@ const MapContainer = () => {
             console.log("****************************");
             service.getDetails(request3, callback);
             function callback(place, status) {
-                if (status == places.PlacesServiceStatus.OK) {
+                if (status === places.PlacesServiceStatus.OK) {
                     // createMarker(place);
                     console.log("place!!!!!!!!!!!!!!!!",place);
                 }

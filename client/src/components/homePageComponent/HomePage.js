@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import MapContainer from "../mapComponent/MapContainer";
+import Test from "../../langchain/test";    
 
 function HomePage(props) {
     return (
@@ -10,6 +11,7 @@ function HomePage(props) {
             <p>Count: {props.count}</p>
             <MapContainer />
             <button type="button" className="btn btn-primary">Primary HomePage</button>
+            <Test />
         </div>
     );
 }
