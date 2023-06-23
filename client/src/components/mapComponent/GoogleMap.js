@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Loader } from "@googlemaps/js-api-loader"
 
 const GoogleMap = () => {
-    const [searchResultList, setSearchResultList] = useState([{name:1,vicinity:2}])
+    const [searchResultList, setSearchResultList] = useState([])
     const mapRef = useRef(null);
     const mapObjRef = useRef(null); // 用于存储map对象\
     const loader = useMemo(() => new Loader({
         apiKey: process.env.REACT_APP_MAP_API_KEY, //替换为你的Google API密钥
         version: "weekly",
     }), []);  // 空依赖数组，确保 loader 只被创建一次
-
+    
     useEffect(() => {
         // 初始化Map
         loader.importLibrary('maps').then((maps) => {
@@ -52,19 +52,20 @@ const GoogleMap = () => {
                     console.log("nearbySearch result: ", results); // 获取到的餐馆搜索结果，数组形式
                     setSearchResultList(results)
                 }
+                if (results.length === 0) {
+                    console.log("No data can be searched");
+                }
             });
         }).catch((err) => {
             console.log(err, "err");
         });
     }
-
-    console.log("searchResultList",searchResultList);
     return (
         <>
             <div className='Map' ref={mapRef} style={{ width: '80vw', height: '80vh' }}></div>
             <ul>food near me:  
                 {searchResultList.map((item)=>(
-                    <li key="temp.reference">
+                    <li key={item.reference}>
                         <p>name: {item.name}</p>
                         <p>location: {item.vicinity}</p>
                     </li>

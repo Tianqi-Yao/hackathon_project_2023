@@ -1,14 +1,17 @@
 import { connect } from "react-redux";
 import { actions } from "./demoActions";
+import Nav from '../navComponent/Nav'
+
 
 function Demo(props) {
     return (
         <div className="Demo">
             <h1>Demo</h1>
+            <Nav />
             <p>Count: {props.count}</p>
             <p>Name: {props.name}</p>
             <p>Users:</p>
-            {props.users.slice(0, 3).map((user,i) => (
+            {props.users.slice(0, 3).map((user, i) => (
                 <p key={i}>{user.name}</p>
             ))}
             <p>MyApiData: {props.myApiData}</p>

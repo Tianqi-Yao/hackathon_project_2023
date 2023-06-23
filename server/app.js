@@ -11,8 +11,7 @@ app.get('/', (req, res) => {
 }
 );
 app.get('/api', async(req, res) => {
-    urlParam = "https://www.yelp.com/menu/jack-allens-kitchen-austin-17"
-    const plainText = await getWebData(urlParam);
+    const plainText = await getWebData("https://www.yelp.com/menu/jack-allens-kitchen-austin-17");
     res.status(200).json({note:"This is an example, the message is from https://www.yelp.com/menu/jack-allens-kitchen-austin-17 ", message: plainText })
 }
 );
@@ -26,9 +25,9 @@ app.get('*', (req, res) => {
     res.sendFile(__dirname + '/404.html');
 }
 );
-app.listen(3001, () => {
+app.listen(3002, () => {
     console.log("We've now got a server!");
-    console.log('Your routes will be running on http://localhost:3001');
+    console.log('Your routes will be running on http://localhost:3002');
 }
 );
 
