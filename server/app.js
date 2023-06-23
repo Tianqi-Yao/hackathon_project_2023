@@ -30,7 +30,9 @@ app.get('/api', async (req, res) => {
 );
 app.get('/api/:url', async (req, res) => {
     let urlParam = "https://www.yelp.com/menu/" + req.params.url;
-    const plainText = await getWebDataByPlaywright(urlParam);
+
+    const plainText = await getWebData(urlParam);
+
     res.status(200).json({ message: plainText })
 }
 );
@@ -137,6 +139,7 @@ function truncateString(str, maxLength) {
     }
 
     return JSON.stringify(truncatedStr).slice(1, -1);
+
 }
 
 async function getWebDataByPlaywright_Test(url) {
@@ -165,4 +168,5 @@ async function getWebDataByPlaywright_Test(url) {
     // 关闭浏览器实例
     await browser.close();
     // return plainText
+
 }
