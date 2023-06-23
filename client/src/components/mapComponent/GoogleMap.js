@@ -4,7 +4,7 @@ import { Loader } from "@googlemaps/js-api-loader"
 const GoogleMap = () => {
     const [searchResultList, setSearchResultList] = useState([])
     const mapRef = useRef(null);
-    const mapObjRef = useRef(null); // 用于存储map对象\
+    const mapObjRef = useRef(null); // 用于存储map对象
     const loader = useMemo(() => new Loader({
         apiKey: process.env.REACT_APP_MAP_API_KEY, //替换为你的Google API密钥
         version: "weekly",

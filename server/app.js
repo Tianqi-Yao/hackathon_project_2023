@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const playwright = require('playwright');
 const fs = require('fs');
+const axios = require('axios');
 
 app.use(cors());
 
@@ -10,13 +11,25 @@ app.get('/', (req, res) => {
     res.status(200).json({ message: 'Hello World!' })
 }
 );
-app.get('/api', async(req, res) => {
+app.get('/api', async (req, res) => {
     const plainText = await getWebData("https://www.yelp.com/menu/jack-allens-kitchen-austin-17");
-    res.status(200).json({note:"This is an example, the message is from https://www.yelp.com/menu/jack-allens-kitchen-austin-17 ", message: plainText })
+    const prompt = "Extract the following menu, ingredients, and prices, and export them in json format: "
+
+    let truncatedString = truncateString(plainText, 1000);
+    fs.writeFile('output2.txt', prompt + truncatedString, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("The file was saved!");
+    });
+    const resData = await analyzingDataFromAIApi(prompt + truncatedString)  // return json data
+    console.log("resData:", resData);
+
+    res.status(200).json({ note: "This is an example, the message is from https://www.yelp.com/menu/jack-allens-kitchen-austin-17 ", message: resData })
 }
 );
-app.get('/api/:url', async(req, res) => {
-    let urlParam = "https://www.yelp.com/menu/"+req.params.url;
+app.get('/api/:url', async (req, res) => {
+    let urlParam = "https://www.yelp.com/menu/" + req.params.url;
     const plainText = await getWebData(urlParam);
     res.status(200).json({ message: plainText })
 }
@@ -25,9 +38,9 @@ app.get('*', (req, res) => {
     res.sendFile(__dirname + '/404.html');
 }
 );
-app.listen(3002, () => {
+app.listen(3001, () => {
     console.log("We've now got a server!");
-    console.log('Your routes will be running on http://localhost:3002');
+    console.log('Your routes will be running on http://localhost:3001');
 }
 );
 
@@ -74,4 +87,45 @@ async function getWebData(url) {
     // 关闭浏览器实例
     await browser.close();
     return plainText
+}
+
+async function analyzingDataFromAIApi(content) {
+    console.log("start use OpenAI");
+    console.log("content:", content);
+    const options = {
+        method: 'POST',
+        url: 'http://172.27.8.212:5000',
+        data: {
+            content: content,
+        }
+    };
+    try {
+        const response = await axios.request(options);
+        console.log("AI result: ", response.data);
+        return response.data
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function truncateString(str, maxLength) {
+    // 如果字符串长度小于等于最大长度，直接返回原字符串
+    if (str.length <= maxLength) {
+        return JSON.stringify(str).slice(1, -1);
+    }
+
+    // 截取字符串到最大长度
+    let truncatedStr = str.substr(0, maxLength);
+
+    // 使用正则表达式匹配最后一个$符号及其后面的数字部分
+    let regex = /\$([\d.]+)(?!.*\$\d)/;
+    let match = truncatedStr.match(regex);
+
+    // 如果找到匹配项，则截取字符串到匹配项结束的位置
+    if (match) {
+        let matchIndex = match.index + match[0].length;
+        truncatedStr = truncatedStr.substr(0, matchIndex);
+    }
+
+    return JSON.stringify(truncatedStr).slice(1, -1);
 }
