@@ -13,6 +13,8 @@ function App() {
           {/* <Demo /> */}
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/SearchPage" element={<SearchPage />}></Route>
+          <Route path="/demo" element={<Demo />} />
+          <Route path="/api" element={<Api />} />
         </Routes>
       </div>
     </Router>

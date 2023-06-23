@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import MapContainer from "../mapComponent/MapContainer";
+import GoogleMap from '../mapComponent/GoogleMap'
+import Nav from '../navComponent/Nav'
 
 function HomePage(props) {
     return (
         <div className="HomePage">
 
             <h1>HomePage</h1>
+            <Nav />
             <Nav />
             <p>Count: {props.count}</p>
             <MapContainer />

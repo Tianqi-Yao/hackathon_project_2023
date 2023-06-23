@@ -49,7 +49,7 @@ app.get('*', (req, res) => {
 );
 app.listen(3005, () => {
     console.log("We've now got a server!");
-    console.log('Your routes will be running on http://localhost:3005');
+    console.log('Your routes will be running on http://localhost:3001');
 }
 );
 
