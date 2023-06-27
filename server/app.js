@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 }
 );
 app.get('/api', async (req, res) => {
-    const plainText = await getWebData("https://www.yelp.com/menu/jack-allens-kitchen-austin-17");
+    const plainText = await getWebDataByPlaywright("https://www.yelp.com/menu/jack-allens-kitchen-austin-17");
     const prompt = "Extract the following menu, ingredients, and prices, and export them in json format: "
 
     let truncatedString = truncateString(plainText, 1000);
@@ -30,17 +30,26 @@ app.get('/api', async (req, res) => {
 );
 app.get('/api/:url', async (req, res) => {
     let urlParam = "https://www.yelp.com/menu/" + req.params.url;
-    const plainText = await getWebData(urlParam);
+    const plainText = await getWebDataByPlaywright(urlParam);
     res.status(200).json({ message: plainText })
 }
 );
+
+app.get('/test', async (req, res) => {
+    // const plainText = await getWebDataByPlaywright_Test("https://www.yelp.com/biz/1618-asian-fusion-austin?adjust_creative=DCZgw_02OZNeg4oTnfSNUQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=DCZgw_02OZNeg4oTnfSNUQ");
+    const plainText = await getWebDataByPlaywright_Test("https://www.yelp.com/biz/cocos-cafe-austin");
+    // console.log('plainText',plainText);
+    res.status(200).json({ message: plainText })
+}
+);
+
 app.get('*', (req, res) => {
     res.sendFile(__dirname + '/404.html');
 }
 );
-app.listen(3001, () => {
+app.listen(3009, () => {
     console.log("We've now got a server!");
-    console.log('Your routes will be running on http://localhost:3001');
+    console.log('Your routes will be running on http://localhost:3009');
 }
 );
 
@@ -48,7 +57,7 @@ app.listen(3001, () => {
 
 // 从提供的URL, 获取在网页中->"menu-sections" class container内的所有内容的纯文本
 // 提供的URL应该"暂定"要求是yelp里的菜单页面,以确保获取内容一致. eg: https://www.yelp.com/menu/the-salt-lick-bbq-driftwood
-async function getWebData(url) {
+async function getWebDataByPlaywright(url) {
     // 启动一个新的 Chromium 浏览器实例
     const browser = await playwright.chromium.launch();
 
@@ -128,4 +137,32 @@ function truncateString(str, maxLength) {
     }
 
     return JSON.stringify(truncatedStr).slice(1, -1);
+}
+
+async function getWebDataByPlaywright_Test(url) {
+    // 启动一个新的 Chromium 浏览器实例
+    const browser = await playwright.chromium.launch();
+
+    // 创建一个新的浏览器上下文。这代表了一个浏览器会话。
+    const context = await browser.newContext();
+
+    // 在当前浏览器上下文中打开一个新的页面
+    const page = await context.newPage();
+
+    // 导航到指定的 URL
+    console.log("url: ", url);
+    await page.goto(url);
+
+    
+    const menuBtnLocator = page.getByText('Full menu', { exact: true })
+    if (await menuBtnLocator.count() > 0) {
+        await menuBtnLocator.click();
+        console.log('Button found and clicked');
+        console.log("page.url(): ", page.url());
+    } else {
+        console.log('Button not found');
+    }
+    // 关闭浏览器实例
+    await browser.close();
+    // return plainText
 }

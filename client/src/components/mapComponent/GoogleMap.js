@@ -68,6 +68,7 @@ const GoogleMap = () => {
                     <li key={item.reference}>
                         <p>name: {item.name}</p>
                         <p>location: {item.vicinity}</p>
+                        <p>lat,lng: {item.geometry.location.lat()},  {item.geometry.location.lng()}</p>
                     </li>
                 ))}
             </ul>

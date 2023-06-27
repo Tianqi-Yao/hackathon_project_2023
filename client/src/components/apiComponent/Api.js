@@ -8,7 +8,7 @@ function Api() {
 
 
     const handleApiBtn = async () => {
-        await axios.get("http://localhost:3001/api")
+        await axios.get("http://localhost:3009/api")
             .then(res => {
                 console.log("res.data",res.data);
                 setData(res.data.message.result)
@@ -24,7 +24,7 @@ function Api() {
 
     }
     const handleTestBtn = () => {
-        axios.get("http://localhost:3001/")
+        axios.get("http://localhost:3009/test")
             .then(res => {
                 console.log(res.data);
                 setData(res.data.message)
