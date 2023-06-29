@@ -1,12 +1,12 @@
-import './App.css';
-import Demo from "./components/demoComponent/Demo.js"
-import HomePage from "./components/homePageComponent/HomePage.js"
-
+import "./App.css";
+import Demo from "./components/demoComponent/Demo.js";
+// import HomePage from "./components/homePageComponent/HomePage.js"
+import HomePage from "./components/pageComponents/homePage/HomePage";
 
 function App() {
   return (
     <div className="App">
-      <Demo />
+      {/* <Demo /> */}
       <HomePage />
     </div>
   );
