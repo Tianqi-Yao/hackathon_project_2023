@@ -1,0 +1,24 @@
+.navbar-container {
+    padding: 2.6rem 5rem;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    color: #ED7F42;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.navbar-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5.88rem;
+    font-size: 0.875rem;
+    color: white;
+}
