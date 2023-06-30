@@ -47,9 +47,9 @@ app.get('*', (req, res) => {
     res.sendFile(__dirname + '/404.html');
 }
 );
-app.listen(3009, () => {
+app.listen(3005, () => {
     console.log("We've now got a server!");
-    console.log('Your routes will be running on http://localhost:3009');
+    console.log('Your routes will be running on http://localhost:3005');
 }
 );
 

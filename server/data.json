@@ -1,0 +1,58 @@
+[
+    {
+        "name": "Crunchy Catfish & Slaw",
+        "description": "Farm raised, flash fried, chipotle spiked tartar sauce.",
+        "reviews": 8,
+        "photos": 7,
+        "price": 11.99
+    },
+    {
+        "name": "Blue Crab Gratin",
+        "description": "Baked crab, artichoke hearts, spinach, parmesan, ciabatta.",
+        "reviews": 25,
+        "photos": 7,
+        "price": 10.99
+    },
+    {
+        "name": "Spinach Gorgonzola Ravioli",
+        "description": "Walnut pesto cream sauce, grated parmesan chipotle puree, grilled ciabatta bread.",
+        "reviews": 16,
+        "photos": 8,
+        "price": 11.99
+    },
+    {
+        "name": "BLT Sliders",
+        "description": "Grilled pork belly, micro greens, fried green tomatoes pimiento cheese, jak's slaw.",
+        "reviews": 25,
+        "photos": 8,
+        "price": 10.99
+    },
+    {
+        "name": "Red Chile Fries",
+        "description": "Idahos, red chile, scallions, lime, cotija cheese cilantro, garlic aioli.",
+        "reviews": 34,
+        "photos": 7,
+        "price": 7.99
+    },
+    {
+        "name": "Barbacoa Stackers",
+        "description": "Slow roasted barbacoa, refried black beans jack cheese, jak's slaw, cotija cheese.",
+        "reviews": 37,
+        "photos": 10,
+        "price": 9.99
+    },
+    {
+        "name": "Chicken Nachitos",
+        "description": "Slow roasted chicken, refried black beans American cheese, cotija cheese, pickled jalapenos.",
+        "reviews": 18,
+        "photos": 11,
+        "price": 8.99
+    },
+    {
+        "name": "Bacon Wrapped Texas Quail",
+        "description": "Jalapeno jam, peach jam, microgreen fig salad.",
+        "reviews": 6,
+        "photos": 5,
+        "price": 15.99
+    }
+]
