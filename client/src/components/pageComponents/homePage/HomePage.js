@@ -3,6 +3,7 @@ import locationIcon from "../../../assets/images/mdi-location.svg";
 import startIcon from "../../../assets/images/arrow-up.svg";
 import { useState } from "react";
 import Navbar from "../../reusableComponent/navbar/Navbar";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -31,12 +32,14 @@ const HomePage = () => {
               type="text"
               placeholder="Enter you city or zip code"
             />
-            <button className="home-start-button">
-              <div className="home-start-icon">
-                <span>Start now</span>
-                <img src={startIcon} alt="startIcon" />
-              </div>
-            </button>
+            <Link to="/SearchPage">
+              <button className="home-start-button">
+                <div className="home-start-icon">
+                  <span>Start now</span>
+                  <img src={startIcon} alt="startIcon" />
+                </div>
+              </button>
+            </Link>
           </div>
         </div>
         <div className="home-content-right"></div>
