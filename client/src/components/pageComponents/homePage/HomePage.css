@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Poppins:wght@400;600;700&display=swap');
+
+body {
+    background: rgba(28, 37, 53, 0.85) url("../../../assets/images/backgroundImage.png") no-repeat fixed center;
+    background-size: cover;
+    /* background: #1C2535D9 url("../../../../public/images/backgroundImage.png") no-repeat fixed center; */
+    /* background-color: #1C2535D9; */
+    /* background-color: rgba(28, 37, 53, 0.85); */
+    /* background: rgba(28, 37, 53, 0.85) url("../../../../public/images/backgroundImage.png"); */
+}
+
+.home {
+    width: 100%;
+    height: 100vh;
+    background-color: #1C2535D9 ;
+}
+
+.home-content {
+    padding: 5rem 8.62rem;
+
+}
+
+.home-content-left {
+    width: 50%;
+    border-right: 1px solid #3E4D67;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-title-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-title-subgroup {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 1.5rem;
+}
+
+.home-title {
+    color: #535E71;
+    font-size: 3.75rem;
+    font-family: Oswald;
+    font-weight: 700;
+}
+
+.home-subtitle {
+    color: #96D198;
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.home-decription {
+    color: #FFF;
+    font-size: 1rem;
+    font-weight: 400;
+    width: 29rem;
+    margin-top: 12.75rem;
+}
+
+.home-input-bar {
+    position: relative;
+    width: 28.4rem;
+    margin-top: 2.69rem;
+}
+
+.home-location-icon {
+    position: absolute;
+    left: 1.11rem;
+    top: 1.2em;
+}
+
+.home-input {
+    width: 28.4rem;
+    padding: 1.2rem 1rem 1.2rem 3.25rem;
+    border-radius: 10px;
+    background: #525865;
+    box-shadow: 4px 4px 30px 10px rgba(28, 37, 53, 0.30);
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.home-input::placeholder{
+    color: #A6A6A6;
+}
+
+.home-start-button {
+    border-radius: 30px 5px 5px 5px;
+    background: #ED7F42;
+    color: white;
+    padding: 0.63rem 1.3rem 0.63rem 2rem;
+    border: none;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+}
+
+.home-start-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.62rem;
+}
