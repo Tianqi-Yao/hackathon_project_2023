@@ -4,6 +4,32 @@
     background-color: #1C2535D9 ;
 }
 
+.search-page-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.31rem;
+    margin-top: 7.88rem;
+}
+
 .search-page-title {
-    color: white
+    color: white;
+    font-size: 30px;
+    margin-bottom: 3.12rem;
+    font-weight: 500;
+
+}
+
+.search-page-subtitle {
+    color: #96D198;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.search-page-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
