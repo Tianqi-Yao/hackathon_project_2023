@@ -1,4 +1,4 @@
-import Actions from "../../constants";
+import Actions from "../../../constants";
 
 const initialState = {
     count: 1,

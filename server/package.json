@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js & python3 AI/chatgpt.py",
+    "install": "pip install flask && pip install gradio-client"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +17,7 @@
     "playwright": "^1.35.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.35.1"
+    "@playwright/test": "^1.35.1",
+    "nodemon": "^2.0.22"
   }
 }

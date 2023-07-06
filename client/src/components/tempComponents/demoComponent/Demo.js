@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { actions } from "./demoActions";
-import Nav from '../navComponent/Nav'
+import Nav from '../../reusableComponent/navComponent/Nav'
 
 
 function Demo(props) {
@@ -14,10 +14,10 @@ function Demo(props) {
             {props.users.slice(0, 3).map((user, i) => (
                 <p key={i}>{user.name}</p>
             ))}
-            <p>MyApiData: {props.myApiData}</p>
+            <p>MyApiData: {String(props.myApiData.result)}</p>
             <button className="btn btn-primary" onClick={props.minusCount}>Decrement</button>
             <button className="btn btn-primary" onClick={props.addCount}>Increment</button>
-            <button className="btn btn-primary" onClick={props.getUsers}>Increment</button>
+            <button className="btn btn-primary" onClick={props.getUsers}>getUsers</button>
             <button className="btn btn-primary" onClick={props.getMyApi}>getMyApi</button>
         </div>
     );

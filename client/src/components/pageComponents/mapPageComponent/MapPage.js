@@ -1,18 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import GoogleMap from '../mapComponent/GoogleMap'
-import Nav from '../navComponent/Nav'
+import GoogleMap from '../../reusableComponent/mapComponent/GoogleMap'
+import Nav from '../../reusableComponent/navComponent/Nav'
 
-function HomePage(props) {
+function MapPage(props) {
     return (
         <div className="HomePage">
 
             <h1>HomePage</h1>
             <Nav />
-            <Nav />
             <p>Count: {props.count}</p>
-            <MapContainer />
-            <button type="button" className="btn btn-primary">Primary HomePage</button>
+            <GoogleMap />
         </div>
     );
 }
@@ -24,4 +22,4 @@ const mapStateToProps = (state) => ({
     users: state.demoReducers.users
 });
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps)(MapPage);

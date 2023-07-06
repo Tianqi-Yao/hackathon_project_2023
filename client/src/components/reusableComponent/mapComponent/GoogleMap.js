@@ -11,6 +11,7 @@ const GoogleMap = () => {
     }), []);  // 空依赖数组，确保 loader 只被创建一次
     
     useEffect(() => {
+        console.log("process.env.REACT_APP_MAP_API_KEY: ",process.env.REACT_APP_MAP_API_KEY);
         // 初始化Map
         loader.importLibrary('maps').then((maps) => {
             const map = new maps.Map(mapRef.current, {
