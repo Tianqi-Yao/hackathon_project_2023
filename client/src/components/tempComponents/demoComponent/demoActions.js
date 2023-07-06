@@ -1,4 +1,4 @@
-import Actions from "../../constants";
+import Actions from "../../../constants";
 import axios from "axios";
 
 const addCounter = (payload = 1) => ({
@@ -33,9 +33,9 @@ const getUsers = () => {
 
 const getMyApi = () => {
     return (dispatch, getState) => {
-        const url = "http://localhost:3001/api";
+        const url = "http://localhost:3005/api";
         return axios.get(url).then((res) => {
-            console.log(res, "res");
+            console.log("getMyApi res: ",res);
             dispatch(setMyApiData(res.data.message));
         }).catch((err) => {
             console.error(err);

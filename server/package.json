@@ -4,13 +4,20 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js & python3 AI/chatgpt.py",
+    "install": "pip install flask && pip install gradio-client"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.4.0",
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "playwright": "^1.35.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.35.1",
+    "nodemon": "^2.0.22"
   }
 }
