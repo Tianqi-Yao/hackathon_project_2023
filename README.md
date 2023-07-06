@@ -3,11 +3,15 @@
 team member: Jacky, Jiayue, Sam
 
 # config map API
+
 /client/.env.local
 REACT_APP_MAP_API_KEY = APIKEY
 
-# how to run 
+# how to run
+
 /client
 npm start
 /server
+npm i
+npm run install
 npm run dev
