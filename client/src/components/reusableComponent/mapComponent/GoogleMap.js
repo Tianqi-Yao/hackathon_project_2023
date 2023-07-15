@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Loader } from "@googlemaps/js-api-loader"
 
+
 const GoogleMap = () => {
     const [searchResultList, setSearchResultList] = useState([])
     const mapRef = useRef(null);
@@ -70,6 +71,7 @@ const GoogleMap = () => {
                         <p>name: {item.name}</p>
                         <p>location: {item.vicinity}</p>
                         <p>lat,lng: {item.geometry.location.lat()},  {item.geometry.location.lng()}</p>
+                        <button ></button>
                     </li>
                 ))}
             </ul>

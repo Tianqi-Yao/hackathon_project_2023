@@ -1,6 +1,7 @@
 const playwright = require('playwright');
 const fs = require('fs');
 const axios = require('axios');
+const { log } = require('console');
 
 // 从提供的URL, 获取在网页中->"menu-sections" class container内的所有内容的纯文本
 // 提供的URL应该"暂定"要求是yelp里的菜单页面,以确保获取内容一致. eg: https://www.yelp.com/menu/the-salt-lick-bbq-driftwood
@@ -21,8 +22,65 @@ async function getWebDataByPlaywright(url) {
     //等待页面加载完成
     await page.waitForLoadState('networkidle');
 
-    // just get class="menu-sections" content
-    const content = await page.$eval('.menu-sections', el => el.innerHTML);
+    // // just get class="menu-sections" content
+    // const content = await page.$eval('.menu-sections', el => el.innerHTML);
+
+    // //保存 content 内容
+    // fs.writeFile('public/temp/output3.txt', content, function (err) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     console.log("The file3 was saved!");
+    // });
+
+    const detailData = []
+
+    // 使用 .eval 获取页面中class="arrange_unit arrange_unit--fill menu-item-detailss"里面的所有h4和p标签内容
+    const detailSections = await page.$$('.arrange_unit.arrange_unit--fill.menu-item-details');
+    for (const eachDetailSection of detailSections) {
+        const menuSectionData = await eachDetailSection.$eval('h4', el => el.textContent.trim());
+        // 如果不存在p标签, 则menuSectionData2为空
+        let menuSectionData2 = "";
+        const elementHandle = await eachDetailSection.$('p');
+        if (elementHandle !== null) {
+            menuSectionData2 = await eachDetailSection.$eval('p', el => el.textContent.trim());
+        }
+        detailData.push({ food:menuSectionData, ingradients:menuSectionData2 })
+    }
+
+
+    // 保存 detailData 内容,到json文件
+    fs.writeFile('public/temp/output4.json', JSON.stringify(detailData), function (err) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("The file4 was saved!");
+    });
+
+    // 保存 detailData 里的 food内容,到 json    
+    const foodData = []
+    for (const eachDetailData of detailData) {
+        foodData.push(eachDetailData.food)
+    }
+    fs.writeFile('public/temp/output5.json', JSON.stringify(foodData), function (err) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("The file5 was saved!");
+    });
+    // 保存 detailData 里的 ingradients内容,到 json
+    const ingradientsData = []
+    for (const eachDetailData of detailData) {
+        ingradientsData.push(eachDetailData.ingradients)
+    }
+    fs.writeFile('public/temp/output6.json', JSON.stringify(ingradientsData), function (err) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("The file6 was saved!");
+    });
+
+
 
 
     // 获取页面内容并提取纯文本
@@ -37,11 +95,11 @@ async function getWebDataByPlaywright(url) {
     plainText = plainText.replace(/\s+/g, ' ').trim();
 
     // output plain text to file
-    fs.writeFile('/public/temp/output.txt', plainText, function (err) {
+    fs.writeFile('public/temp/output1.txt', plainText, function (err) {
         if (err) {
             console.log(err);
         }
-        console.log("The file was saved!");
+        console.log("The file1 was saved!");
     });
     // 关闭浏览器实例
     await browser.close();
@@ -104,7 +162,7 @@ async function getWebDataByPlaywright_Test(url) {
     console.log("url: ", url);
     await page.goto(url);
 
-    
+
     const menuBtnLocator = page.getByText('Full menu', { exact: true })
     if (await menuBtnLocator.count() > 0) {
         await menuBtnLocator.click();
@@ -120,8 +178,8 @@ async function getWebDataByPlaywright_Test(url) {
 }
 
 module.exports = {
-    getWebDataByPlaywright,
-    analyzingDataFromAIApi,
-    truncateString,
-    getWebDataByPlaywright_Test
+    getWebDataByPlaywright,     // 从提供的URL, 获取在网页中->"menu-sections" class container内的所有内容的纯文本
+    analyzingDataFromAIApi,     // 从提供的纯文本, 通过AI分析, 返回分析结果
+    truncateString,             // 截取字符串到最大长度
+    getWebDataByPlaywright_Test // 测试用
 }
