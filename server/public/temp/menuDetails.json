@@ -1,0 +1,72 @@
+[
+  {
+    "food": "Paitan Ramen",
+    "ingredients": "Creamy broth ramen made from a blend of chicken and pork broth. Served with arugula  ajitama (umami egg)  red onions  and your choice of chicken or pork chashu.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/qqTIQ2vl2G_RBKE4rT0hWQ/60s.jpg"
+  },
+  {
+    "food": "Ma-yu Ramen",
+    "ingredients": "Creamy paitan broth ramen made from a mixture of chicken and pork with black garlic oil. Served with scallions  seared bamboo shoots  and bean sprouts & red cabbage mix. Choose between chicken or pork chashu.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/wjIBA4j90t0aNQ4AfaAzkQ/60s.jpg"
+  },
+  {
+    "food": "Paitan JR",
+    "ingredients": "Kids ramen under 12. 1/2 portions of paitan broth and noodles  includes ajitama and choice of chicken or pork chashu. No extras available.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/assets/2/www/img/dca54f97fb84/default_avatars/menu_medium_square.png"
+  },
+  {
+    "food": "Spicy Paitan Ramen",
+    "ingredients": "The spicy version of our creamy paitan ramen with a hint of nuttiness. Served with fresh cilantro  ajitama (umami egg)  toasted cashew nuts  roasted cherry tomatoes  white onion  house made la-yu (chili oil) and your choice of protein.**Contains sesame",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/FacBgGp_MxURoZ0tb6EAdg/60s.jpg"
+  },
+  {
+    "food": "Just Like Paitan (Vegan)",
+    "ingredients": "Creamy vegan broth with kale noodles topped with ATX kakiage tempura ball made with onions  arugula  and beni-shoga.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/hRFAmbOsIJmljunQ8kZzHA/60s.jpg"
+  },
+  {
+    "food": "Mini Chashudon",
+    "ingredients": "Rice with your choice of chicken or pork chashu topped with our special japanese dressing.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/4GoB19cFxejC0onC9lNWfA/60s.jpg"
+  },
+  {
+    "food": "Indomitable Chicken Wing ICW (GF)",
+    "ingredients": "5 or 10 deep fried chicken wings tossed with our Japanese curry rub.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/JuxuudxnDXpECTVpqUeDCA/60s.jpg"
+  },
+  {
+    "food": "Edamame (V, GF)",
+    "ingredients": "Who doesn't like edamame?",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/jymTjvRyoMHqHtjoLbXPMg/60s.jpg"
+  },
+  {
+    "food": "Takoyaki",
+    "ingredients": "Octopus balls is our ball-shaped Japanese snack made with wheat flour-based batter filled with octopus topped with mayo  takoyaki sauce  bonito flakes  aonori  and beni shouga.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/nO-nxExiU9nrofRp0RAJ6g/60s.jpg"
+  },
+  {
+    "food": "ATX Tempura (Vegan)",
+    "ingredients": "Tempura onions  arugula  and beni-shoga seasoned with ao-nori salt.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/5AFwH3ofl9TrQG_fSqksHw/60s.jpg"
+  },
+  {
+    "food": "Indomitable Fries",
+    "ingredients": "Criss cut waffle fries served with Yuzu Aioli.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/bphoto/7civ3EvdbF67VLleLkTdYA/60s.jpg"
+  },
+  {
+    "food": "Soft Drinks",
+    "ingredients": "",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/assets/2/www/img/dca54f97fb84/default_avatars/menu_medium_square.png"
+  },
+  {
+    "food": "Ramune Drink",
+    "ingredients": "Carbonated original flavor.",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/assets/2/www/img/dca54f97fb84/default_avatars/menu_medium_square.png"
+  },
+  {
+    "food": "Topo Chico",
+    "ingredients": "",
+    "imgSrc": "https://s3-media0.fl.yelpcdn.com/assets/2/www/img/dca54f97fb84/default_avatars/menu_medium_square.png"
+  }
+]

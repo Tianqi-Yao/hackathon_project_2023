@@ -1,7 +1,6 @@
 const playwright = require('playwright');
 const fs = require('fs');
 const axios = require('axios');
-const { log } = require('console');
 
 // 从提供的URL, 获取在网页中->"menu-sections" class container内的所有内容的纯文本
 // 提供的URL应该"暂定"要求是yelp里的菜单页面,以确保获取内容一致. eg: https://www.yelp.com/menu/the-salt-lick-bbq-driftwood
