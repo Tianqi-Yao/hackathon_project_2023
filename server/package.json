@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js & python3 AI/chatgpt.py",
-    "install": "pip install flask && pip install gradio-client"
+    "install": "pip3 install flask && pip3 install gradio-client"
   },
   "author": "",
   "license": "ISC",
