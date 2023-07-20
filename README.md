@@ -15,5 +15,4 @@ npm start
 
 /server
 npm i
-npm run install
 npm run dev
