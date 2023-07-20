@@ -4,8 +4,10 @@ import startIcon from "../../../assets/images/arrow-up.svg";
 import { useState } from "react";
 import Navbar from "../../reusableComponent/navbar/Navbar";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { actions } from "../../../actions";
 
-const HomePage = () => {
+const HomePage = (props) => {
   return (
     <div className="home">
       <Navbar />
@@ -48,4 +50,13 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+  count: state.home.count,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addCount: () => dispatch(actions.addCounter()),
+  minusCount: () => dispatch(actions.minusCounter()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
