@@ -135,27 +135,28 @@ const GoogleMap = () => {
       });
   };
 
-  const nearbySearchFunc = (loader, map, nearbySearchRequest) => {
-    loader
-      .importLibrary("places")
-      .then((places) => {
-        // 创建 PlacesService 对象
-        let placesService = new places.PlacesService(map);
-        // 调用 nearbySearch 方法, 获取周围餐馆
-        placesService.nearbySearch(nearbySearchRequest, (results, status) => {
-          if (status === places.PlacesServiceStatus.OK) {
-            console.log("nearbySearch result: ", results); // 获取到的餐馆搜索结果，数组形式
-            setSearchResultList(results);
-          }
-          if (results.length === 0) {
-            console.log("No data can be searched");
-          }
-        });
-      })
-      .catch((err) => {
-        console.log(err, "err");
-      });
-  };
+  // const nearbySearchFunc = (loader, map, nearbySearchRequest) => {
+  //   loader
+  //     .importLibrary("places")
+  //     .then((places) => {
+  //       // 创建 PlacesService 对象
+  //       let placesService = new places.PlacesService(map);
+  //       // 调用 nearbySearch 方法, 获取周围餐馆
+  //       placesService.nearbySearch(nearbySearchRequest, (results, status) => {
+  //         if (status === places.PlacesServiceStatus.OK) {
+  //           console.log("nearbySearch result: ", results); // 获取到的餐馆搜索结果，数组形式
+  //           setSearchResultList(results);
+  //         }
+  //         if (results.length === 0) {
+  //           console.log("No data can be searched");
+  //         }
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "err");
+  //     });
+  // };
+
   return (
     <>
       <div

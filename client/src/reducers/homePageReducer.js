@@ -1,3 +1,5 @@
+import Actions from "../constants";
+
 const initialState = {
   restaurantData: [],
   mapData: {
@@ -12,6 +14,7 @@ const initialState = {
   restaurantKeywords: [],
   searchInputKeywords: [],
   displayedRestaurantsData: [],
+  count: 1, // test
 };
 
 // restaurantData: [
@@ -72,6 +75,16 @@ const initialState = {
 
 const homePageReducer = (state = initialState, action) => {
   switch (action.type) {
+    case Actions.ADD_COUNT:
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
+    case Actions.MINUS_COUNT:
+      return {
+        ...state,
+        count: state.count - action.payload,
+      };
     default:
       return state;
   }

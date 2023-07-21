@@ -1,6 +1,6 @@
 import "./App.css";
 import DemoPage from "./components/tempComponents/demoComponent/Demo.js";
-import MapPage from "./components/pageComponents/mapPageComponent/MapPage.js"
+import MapPage from "./components/pageComponents/mapPage/MapPage.js";
 import HomePage from "./components/pageComponents/homePage/HomePage";
 import SearchPage from "./components/pageComponents/searchPage/SearchPage";
 import ApiPage from "./components/tempComponents/apiComponent/Api";
@@ -17,7 +17,6 @@ function App() {
           <Route path="/SearchPage" element={<SearchPage />}></Route>
           <Route path="/demo" element={<DemoPage />} />
           <Route path="/api" element={<ApiPage />} />
-
         </Routes>
       </div>
     </Router>
