@@ -124,6 +124,24 @@ router.get('/food/:food', async (req, res) => {
 }
 );
 
+// running - 获取食物的卡路里,通过调用第三方API,输入食物的长文本,返回数组
+router.post('/ingradients', async (req, res) => {
+    // console.log("req**:",req);
+    let ingradientsList = [];
+    console.log('req.body.ingredientsStrList: ', req.body);
+    for (const iterator of req.body.ingredientsStrList) {
+        console.log('iterator: ', iterator);
+        const temp = await getCalorieByFood(iterator);
+        ingradientsList = ingradientsList.concat(temp);
+    }
+    console.log('ingradientsList!!!!!!: ', ingradientsList);
+    res.status(200).json({
+        home: "/",
+        message: ingradientsList
+    })
+}
+);
+
 router.get('/searchBusinessByYelp', async (req, res) => {
     const lat = req.query.lat;
     const lng = req.query.lng;

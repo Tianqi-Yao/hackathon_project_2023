@@ -41,10 +41,22 @@ const MapComponent = (props) => {
     // setCurlocation({lat, lng})
     console.log(`Latitude: ${lat}, Longitude: ${lng}`);
     await nearbySearchYelpFunc(lat, lng);
+
   };
 
-  /************** help func ***************/
+  const handleClickbtn = async () => {
+    const ingradientsList = await analyzeMenu();
+    // 遍历restaurantData, 为每个restaurant里的menu添加对应的ingradientsList 元素
+    // const restaurantData = props.restaurantData;
+    // restaurantData.forEach((restaurant) => {
+    //   restaurant.menu.forEach((menu) => {
+    //     menu.ingradients = ingradientsList[menu.name];
+    //   })
+    // })
+  }
 
+  /************** help func ***************/
+  // Find nearby restaurants and get information about their menus and reviews.
   const nearbySearchYelpFunc = async (lat, lng) => {
     const { radius } = props;
     console.log("nearbySearchYelpFunc clicked, radius: ", radius);
@@ -79,7 +91,6 @@ const MapComponent = (props) => {
         ));
         console.log("results: ", results);
         const filteredResults = results.filter(result => result.menu && result.menu.length > 0);
-
         console.log("filteredResults: ", filteredResults);
         await props.updateRestaurantList(filteredResults);
       })
@@ -104,6 +115,33 @@ const MapComponent = (props) => {
     } catch (error) {
       console.log("getInfo err: ", error);
     }
+  }
+
+  const analyzeMenu = async() => {
+    const ingredientsStrList = []
+    let ingredientsStr = ''
+    props.restaurantData.forEach((restaurant) => {
+      restaurant.menu.forEach((menu) => {
+          ingredientsStr += menu.ingredients + ' '
+          if (ingredientsStr.length > 1200) {
+            ingredientsStrList.push(ingredientsStr)
+            ingredientsStr = ''
+          }
+      })
+    })
+    console.log("ingredientsStrList: ", ingredientsStrList);
+    try {
+      const res = await axios.post("http://localhost:3005/ingradients", {
+        ingredientsStrList,
+      })
+      const ingradientsList = res.data.message;
+      console.log("analyzeMenu res: ", ingradientsList);
+      return ingradientsList;
+  
+    } catch (error) {
+      console.log("analyzeMenu err: ", error);
+    }
+
   }
 
   // const getMenuInfo = async (url) => {
@@ -145,6 +183,7 @@ const MapComponent = (props) => {
         ref={mapRef}
         style={{ width: "80vw", height: "80vh" }}
       ></div>
+      <button onClick={handleClickbtn}>btn</button>
     </>
   );
 };
