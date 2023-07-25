@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import MapComponent from "../../reusableComponent/mapComponent/MapComponent";
-import GoogleMap from "../../reusableComponent/mapComponent/GoogleMap";
 import Nav from "../../reusableComponent/navComponent/Nav";
 import { actions } from "../../../actions";
 
@@ -10,8 +9,6 @@ function MapPage(props) {
     <div className="HomePage">
       <h1>HomePage</h1>
       <Nav />
-      {/* <p>Count: {props.count}</p> */}
-      {/* <GoogleMap /> */}
       <MapComponent />
       <div>{props.count}</div>
       <button onClick={props.minusCount}>Decrement</button>
