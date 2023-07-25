@@ -3,7 +3,7 @@ import Actions from "../constants";
 const initialState = {
   restaurantData: [],
   mapData: {
-    radius: null,
+    radius: 1500,
     inputLocationStr: null,
     userCoordination: {
       latitude: "",
@@ -84,6 +84,12 @@ const homePageReducer = (state = initialState, action) => {
       return {
         ...state,
         count: state.count - action.payload,
+      };
+    case Actions.UPDATE_RESTAURANT_LIST:
+      // console.log("UPDATE_RESTAURANT_LIST action.payload: ", action.payload);
+      return {
+        ...state,
+        restaurantData: [...state.restaurantData, ...action.payload],
       };
     default:
       return state;

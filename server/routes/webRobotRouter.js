@@ -6,6 +6,7 @@ const MenuScraper = require('../public/javascripts/MenuScraper');
 const ReviewsScraper = require('../public/javascripts/ReviewsScraper');
 const router = express.Router();
 const fs = require('fs');
+const { off } = require('process');
 
 
 // default route
@@ -96,8 +97,17 @@ router.get('/food/:food', async (req, res) => {
 router.get('/searchBusinessByYelp', async (req, res) => {
     const lat = req.query.lat;
     const lng = req.query.lng;
+    const radius = req.query.radius;
     console.log("in router get")
-    const data = await searchBusinessByYelp(lat, lng)
+    const data1 = await searchBusinessByYelp(lat, lng, radius, 0);
+    const data2 = await searchBusinessByYelp(lat, lng, radius, 50);
+    const data3 = await searchBusinessByYelp(lat, lng, radius, 100);
+    const data4 = await searchBusinessByYelp(lat, lng, radius, 150);
+
+    // 合并 data1, data2, data3, data4
+    const data = data1.businesses.concat(data2.businesses, data3.businesses, data4.businesses);
+
+
     res.status(200).json({
         home: "/",
         message: "searchBusinessByYelp",

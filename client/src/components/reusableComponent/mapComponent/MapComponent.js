@@ -5,7 +5,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { actions } from "../../../actions";
 
-const MapComponent = () => {
+const MapComponent = (props) => {
   const mapRef = useRef(null);
   const mapObjRef = useRef(null); // 用于存储map对象
   const loader = useMemo(
@@ -40,26 +40,25 @@ const MapComponent = () => {
     // setCurlocation({lat, lng})
     console.log(`Latitude: ${lat}, Longitude: ${lng}`);
     // 调用搜索方法和配置参数
-    const nearbySearchRequest = {
-      location: { lat, lng }, // 地图中的位置
-      radius: "500", // 搜索半径，单位是米
-      type: ["restaurant"], // 搜索的地点类型，这里是餐馆
-    };
+    
     nearbySearchYelpFunc(lat, lng);
   };
 
   const nearbySearchYelpFunc = (lat, lng) => {
-    console.log("nearbySearchYelpFunc clicked");
+    const { radius } = props;
+    console.log("nearbySearchYelpFunc clicked, radius: " , radius);
     axios
       .get("http://localhost:3005/searchBusinessByYelp", {
         params: {
           lat: lat,
           lng: lng,
+          radius: radius,
         },
       })
       .then((res) => {
         console.log("nearbySearchYelpFunc res: ", res.data.data);
         // setSearchResultList(res.data.data?.businesses); redux
+        props.updateRestaurantList(res.data.data);
       })
       .catch((err) => {
         console.log("nearbySearchYelpFunc err: ", err);
@@ -80,11 +79,13 @@ const MapComponent = () => {
 
 const mapStateToProps = (state) => ({
   count: state.home.count,
+  radius: state.home.mapData.radius,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addCount: () => dispatch(actions.addCounter()),
   minusCount: () => dispatch(actions.minusCounter()),
+  updateRestaurantList: (payload) => dispatch(actions.updateRestaurantList(payload)),  
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapComponent);

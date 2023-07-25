@@ -1,15 +1,16 @@
 const axios = require("axios");
+require('dotenv').config()
 
-async function searchBusinessByYelp(lat, lng) {
+
+async function searchBusinessByYelp(lat, lng, radius = 2000, offset) {
   const options = {
     method: "GET",
     url: "https://api.yelp.com/v3/businesses/search",
-    params: { latitude: lat, longitude: lng },
+    // limit: 0 - 50;  radius: 0 - 40000; offset: 0 - 1000
+    params: { latitude: lat, longitude: lng, limit: 50, radius: radius, offset: offset, term: 'food' },  
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer gHHslBAwr8R1CTnH7z5l7Mc-EiYx-6lDJYZwIDfs6rpLmEFhgE05PaEk1p6CLrK6qjsB_xTeGKn9KQIMoSyorcYWM8-BDO9-gw3wYEeD0yZqdWE-qmyDbmzRwfCNZHYx",
-      // Authorization: `Bearer ${process.env.YELP_API_KEY}`
+      Authorization: `Bearer ${process.env.YELP_API_KEY}`
     },
   };
   console.log("########searchBusinessByYelp options", options);
