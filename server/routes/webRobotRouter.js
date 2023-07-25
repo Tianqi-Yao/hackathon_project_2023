@@ -49,35 +49,45 @@ router.get('/api', async (req, res) => {
     // const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
     const url = req.query.url;
     console.log("server get url: ", url);
-    const menuScraper = new MenuScraper();
-    const results = await menuScraper.menuScrape(url);
-    if (results === null || results === undefined || results === []) {
-        console.log("no data");
+    try {
+        const menuScraper = new MenuScraper();
+        const results = await menuScraper.menuScrape(url);
+        if (results === null || results === undefined || results === []) {
+            console.log("no data");
+            res.status(200).json({
+                home: "/",
+                note: `The message is from ${url}`,
+                data: null,
+                data2: null
+            })
+        } else {
+            // menuScraper.saveResults(results);
+            const reviewsScraper = new ReviewsScraper();
+            const results2 = await reviewsScraper.reviewsScrape(url);
+            console.log('Scrape completed!');
+            res.status(200).json({
+                home: "/",
+                note: `The message is from ${url}`,
+                data: results?.menuDetails,
+                data2: results2?.reviewDetails
+            })
+        }
+    } catch (error) {
+        console.log("!!!!*****####error: ", error);
         res.status(200).json({
             home: "/",
             note: `The message is from ${url}`,
             data: null,
             data2: null
         })
-    } else {
-        // menuScraper.saveResults(results);
-        const reviewsScraper = new ReviewsScraper();
-        const results2 = await reviewsScraper.reviewsScrape(url);
-        console.log('Scrape completed!');
-        res.status(200).json({
-            home: "/",
-            note: `The message is from ${url}`,
-            data: results?.menuDetails,
-            data2: results2?.reviewDetails
-        })
     }
 }
 );
 
-//  running - 获取菜谱 json 数据, 通过 playwright 获取网页数据, 返回 json 数据
+//  stop - 获取菜谱 json 数据, 通过 playwright 获取网页数据, 返回 json 数据
 router.get('/api2', async (req, res) => {
-    // const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
-    const url = req.query.url;
+    const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
+    // const url = req.query.url;
     console.log("server get url: ", url);
     const menuScraper = new MenuScraper();
     const results = await menuScraper.menuScrape(url);
@@ -95,10 +105,10 @@ router.get('/api2', async (req, res) => {
 }
 );
 
-// running - 获取评论 json 数据, 通过 playwright 获取网页数据, 返回 json 数据
+// stop - 获取评论 json 数据, 通过 playwright 获取网页数据, 返回 json 数据
 router.get('/api3', async (req, res) => {
-    // const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
-    const url = req.query.url;
+    const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
+    // const url = req.query.url;
     console.log("server get url: ", url);
     const reviewsScraper = new ReviewsScraper();
     const results = await reviewsScraper.reviewsScrape(url);
@@ -113,7 +123,7 @@ router.get('/api3', async (req, res) => {
 }
 );
 
-// running - 获取食物的卡路里,通过调用第三方API,输入食物的字符串,返回数组
+// stop - 获取食物的卡路里,通过调用第三方API,输入食物的字符串,返回数组
 router.get('/food/:food', async (req, res) => {
     const foodList = await getCalorieByFood(req.params.food);
     console.log('foodList!!!!!!: ', foodList);

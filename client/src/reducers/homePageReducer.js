@@ -1,6 +1,7 @@
 import Actions from "../constants";
 
 const initialState = {
+  analyzedRestaurantData: [],
   restaurantData: [],
   mapData: {
     radius: 1500,
@@ -85,11 +86,22 @@ const homePageReducer = (state = initialState, action) => {
         ...state,
         count: state.count - action.payload,
       };
-    case Actions.UPDATE_RESTAURANT_LIST:
-      // console.log("UPDATE_RESTAURANT_LIST action.payload: ", action.payload);
+    case Actions.APPEND_RESTAURANT_LIST:
+      // console.log("APPEND_RESTAURANT_LIST action.payload: ", action.payload);
       return {
         ...state,
         restaurantData: [...state.restaurantData, ...action.payload],
+      };
+    case Actions.APPEND_ANALYZED_RESTAURANT_LIST:
+      // console.log("APPEND_ANALYZED_RESTAURANT_LIST action.payload: ", action.payload);
+      return {
+        ...state,
+        analyzedRestaurantData: [...state.analyzedRestaurantData, ...action.payload]
+      };
+    case Actions.EMPTY_RESTAURANT_LIST:
+      return {
+        ...state,
+        restaurantData: [],
       };
     default:
       return state;

@@ -45,14 +45,103 @@ const MapComponent = (props) => {
   };
 
   const handleClickbtn = async () => {
+    console.log("start analyzeMenu");
     const ingradientsList = await analyzeMenu();
+    console.log("finish analyzeMenu, start assign ingradientsList");
+    // const ingradientsList = [
+    //   {
+    //       "name": "lettuce",
+    //       "calories": 17,
+    //       "serving_size_g": 100,
+    //       "fat_total_g": 0.3,
+    //       "fat_saturated_g": 0,
+    //       "protein_g": 1.2,
+    //       "sodium_mg": 7,
+    //       "potassium_mg": 30,
+    //       "cholesterol_mg": 0,
+    //       "carbohydrates_total_g": 3.3,
+    //       "fiber_g": 2.1,
+    //       "sugar_g": 1.2
+    //   },
+    //   {
+    //       "name": "tomatoes",
+    //       "calories": 18.5,
+    //       "serving_size_g": 100,
+    //       "fat_total_g": 0.2,
+    //       "fat_saturated_g": 0,
+    //       "protein_g": 0.9,
+    //       "sodium_mg": 5,
+    //       "potassium_mg": 23,
+    //       "cholesterol_mg": 0,
+    //       "carbohydrates_total_g": 3.9,
+    //       "fiber_g": 1.2,
+    //       "sugar_g": 2.6
+    //   },
+    //   {
+    //       "name": "cucumbers",
+    //       "calories": 15.1,
+    //       "serving_size_g": 100,
+    //       "fat_total_g": 0.1,
+    //       "fat_saturated_g": 0,
+    //       "protein_g": 0.7,
+    //       "sodium_mg": 1,
+    //       "potassium_mg": 23,
+    //       "cholesterol_mg": 0,
+    //       "carbohydrates_total_g": 3.6,
+    //       "fiber_g": 0.5,
+    //       "sugar_g": 1.7
+    //   },
+    //   {
+    //       "name": "cheese",
+    //       "calories": 393.9,
+    //       "serving_size_g": 100,
+    //       "fat_total_g": 33,
+    //       "fat_saturated_g": 18.9,
+    //       "protein_g": 22.7,
+    //       "sodium_mg": 661,
+    //       "potassium_mg": 459,
+    //       "cholesterol_mg": 100,
+    //       "carbohydrates_total_g": 3.2,
+    //       "fiber_g": 0,
+    //       "sugar_g": 0.5
+    //   }]
     // 遍历restaurantData, 为每个restaurant里的menu添加对应的ingradientsList 元素
-    // const restaurantData = props.restaurantData;
-    // restaurantData.forEach((restaurant) => {
+    const restaurantData = props.restaurantData;
+    const analyzedRestaurantData = restaurantData.map((restaurant) => {
+      const newMenu = restaurant.menu.map((menu) => {
+        const ingradientStr = menu.ingredients;
+        const newIngradientList = [];
+        let isSameItem = false;
+        for (let i = 0; i < ingradientsList.length; i++) {
+          for (const item of newIngradientList) {
+            if (item.name === ingradientsList[i].name) {
+              isSameItem = true;
+              break;
+            }
+          }
+          if (ingradientStr.includes(ingradientsList[i].name ) && !isSameItem) {
+            newIngradientList.push(ingradientsList[i]);
+          }
+        }
+        return { ...menu, ingradientsList: newIngradientList };
+      });
+      return { ...restaurant, menu: newMenu };
+    });
+
+    // forEach((restaurant) => {
     //   restaurant.menu.forEach((menu) => {
-    //     menu.ingradients = ingradientsList[menu.name];
+    //     console.log("menu food: ", menu.food);
+    //     const ingradientStr = menu.ingredients;
+    //     for (let i = 0; i < ingradientsList.length; i++) {
+    //       if (ingradientStr.includes(ingradientsList[i])) {
+    //         menu.ingradientsList.push(ingradientsList[i]);
+    //       }
+    //     }
     //   })
     // })
+    console.log("finish assign, analyzedRestaurantData: ", analyzedRestaurantData);
+    props.emptyRestaurantList();  // 清空restaurantData
+    props.appendAnalyzedRestaurantList(analyzedRestaurantData);  // 将分析后的数据存入redux
   }
 
   /************** help func ***************/
@@ -73,7 +162,7 @@ const MapComponent = (props) => {
         restInfoCount.current = restaurantList.length;
         console.log("nearbySearchYelpFunc res: ", restaurantList);
         const results = await Promise.all(restaurantList.map(async (item, i) => {
-          if (item.menu) {
+          if (item.menu) {  // !!! 如果已经有menu, 则不再获取
             return item;
           }
           console.log(`getInfo url - ${i}: `, item.url);
@@ -92,7 +181,7 @@ const MapComponent = (props) => {
         console.log("results: ", results);
         const filteredResults = results.filter(result => result.menu && result.menu.length > 0);
         console.log("filteredResults: ", filteredResults);
-        await props.updateRestaurantList(filteredResults);
+        await props.appendRestaurantList(filteredResults);
       })
       .catch((err) => {
         console.log("nearbySearchYelpFunc err: ", err);
@@ -117,16 +206,16 @@ const MapComponent = (props) => {
     }
   }
 
-  const analyzeMenu = async() => {
+  const analyzeMenu = async () => {
     const ingredientsStrList = []
     let ingredientsStr = ''
     props.restaurantData.forEach((restaurant) => {
       restaurant.menu.forEach((menu) => {
-          ingredientsStr += menu.ingredients + ' '
-          if (ingredientsStr.length > 1200) {
-            ingredientsStrList.push(ingredientsStr)
-            ingredientsStr = ''
-          }
+        ingredientsStr += menu.ingredients + ' '
+        if (ingredientsStr.length > 1200) {
+          ingredientsStrList.push(ingredientsStr)
+          ingredientsStr = ''
+        }
       })
     })
     console.log("ingredientsStrList: ", ingredientsStrList);
@@ -137,7 +226,7 @@ const MapComponent = (props) => {
       const ingradientsList = res.data.message;
       console.log("analyzeMenu res: ", ingradientsList);
       return ingradientsList;
-  
+
     } catch (error) {
       console.log("analyzeMenu err: ", error);
     }
@@ -197,7 +286,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addCount: () => dispatch(actions.addCounter()),
   minusCount: () => dispatch(actions.minusCounter()),
-  updateRestaurantList: (payload) => dispatch(actions.updateRestaurantList(payload)),
+  appendRestaurantList: (payload) => dispatch(actions.appendRestaurantList(payload)),
+  appendAnalyzedRestaurantList: (payload) => dispatch(actions.appendAnalyzedRestaurantList(payload)),
+  emptyRestaurantList: () => dispatch(actions.emptyRestaurantList()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapComponent);

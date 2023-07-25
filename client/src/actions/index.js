@@ -10,14 +10,24 @@ const minusCounter = (payload = 1) => ({
   payload,
 });
 
-const updateRestaurantList = (payload) => ({
-  type: Actions.UPDATE_RESTAURANT_LIST,
+const appendRestaurantList = (payload) => ({
+  type: Actions.APPEND_RESTAURANT_LIST,
   payload,
 });
 
+const appendAnalyzedRestaurantList = (payload) => ({
+  type: Actions.APPEND_ANALYZED_RESTAURANT_LIST,
+  payload,
+});
+
+const emptyRestaurantList = () => ({
+  type: Actions.EMPTY_RESTAURANT_LIST,
+});
 
 export const actions = {
   addCounter,
   minusCounter,
-  updateRestaurantList,
+  appendRestaurantList,
+  appendAnalyzedRestaurantList,
+  emptyRestaurantList,
 };
