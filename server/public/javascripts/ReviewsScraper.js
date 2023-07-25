@@ -12,6 +12,7 @@ class ReviewsScraper {
         const page = await context.newPage(); // 在当前浏览器上下文中打开一个新的页面
 
         await page.goto(url);
+        await page.waitForTimeout(300);
         // 查看是否有 reviews
         const reviews = await page.$('a[href="#reviews"]');
         // console.log("reviews: ", reviews);

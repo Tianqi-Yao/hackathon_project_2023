@@ -119,13 +119,15 @@ const MapComponent = (props) => {
               break;
             }
           }
-          if (ingradientStr.includes(ingradientsList[i].name ) && !isSameItem) {
+          if (ingradientStr.includes(ingradientsList[i].name) && !isSameItem) {
             newIngradientList.push(ingradientsList[i]);
           }
         }
-        return { ...menu, ingradientsList: newIngradientList };
+        const calorie = newIngradientList.reduce((acc, cur) => acc + cur.calories, 0);
+        return { ...menu, calorie, ingradientsList: newIngradientList }; // 每道菜
       });
-      return { ...restaurant, menu: newMenu };
+      const averageCalorie = newMenu.reduce((acc, cur) => acc + cur.calorie, 0) / newMenu.length; // 计算平均卡路里
+      return { ...restaurant, averageCalorie, menu: newMenu };  //每个餐厅
     });
 
     // forEach((restaurant) => {
