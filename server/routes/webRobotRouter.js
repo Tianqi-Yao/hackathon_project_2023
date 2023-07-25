@@ -45,8 +45,8 @@ router.get('/api', async (req, res) => {
 
 //  running - 获取菜谱 json 数据, 通过 playwright 获取网页数据, 返回 json 数据
 router.get('/api2', async (req, res) => {
-    // const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
-    const url = req.query.url;
+    const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
+    // const url = req.query.url;
     console.log("server get url: ", url);
     const menuScraper = new MenuScraper();
     const results = await menuScraper.menuScrape(url);
@@ -66,8 +66,8 @@ router.get('/api2', async (req, res) => {
 
 // running - 获取评论 json 数据, 通过 playwright 获取网页数据, 返回 json 数据
 router.get('/api3', async (req, res) => {
-    // const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
-    const url = req.query.url;
+    const url = "https://www.yelp.com/biz/jack-allens-kitchen-austin-17"
+    // const url = req.query.url;
     console.log("server get url: ", url);
     const reviewsScraper = new ReviewsScraper();
     const results = await reviewsScraper.reviewsScrape(url);
