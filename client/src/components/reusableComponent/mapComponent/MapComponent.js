@@ -36,15 +36,23 @@ const MapComponent = (props) => {
   }, []);
 
   const handleClickMap = async (event) => {
+    if (window.confirm("Do you want to click on the map?")) {
+      console.log("handleClickMap clicked");
+      await fetchAllRestaurantInfo(event);
+    }
+  };
+
+  
+
+  /************** help func ***************/
+  // Find nearby restaurants and get information about their menus and reviews.
+  const fetchAllRestaurantInfo = async (event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
     // setCurlocation({lat, lng})
     console.log(`Latitude: ${lat}, Longitude: ${lng}`);
     await nearbySearchYelpFunc(lat, lng);
-
-  };
-
-  const handleClickbtn = async () => {
+    /************** start analyzeMenu ***************/
     console.log("start analyzeMenu");
     const ingradientsList = await analyzeMenu();
     console.log("finish analyzeMenu, start assign ingradientsList");
@@ -129,25 +137,12 @@ const MapComponent = (props) => {
       const averageCalorie = newMenu.reduce((acc, cur) => acc + cur.calorie, 0) / newMenu.length; // 计算平均卡路里
       return { ...restaurant, averageCalorie, menu: newMenu };  //每个餐厅
     });
-
-    // forEach((restaurant) => {
-    //   restaurant.menu.forEach((menu) => {
-    //     console.log("menu food: ", menu.food);
-    //     const ingradientStr = menu.ingredients;
-    //     for (let i = 0; i < ingradientsList.length; i++) {
-    //       if (ingradientStr.includes(ingradientsList[i])) {
-    //         menu.ingradientsList.push(ingradientsList[i]);
-    //       }
-    //     }
-    //   })
-    // })
     console.log("finish assign, analyzedRestaurantData: ", analyzedRestaurantData);
     props.emptyRestaurantList();  // 清空restaurantData
     props.appendAnalyzedRestaurantList(analyzedRestaurantData);  // 将分析后的数据存入redux
   }
 
-  /************** help func ***************/
-  // Find nearby restaurants and get information about their menus and reviews.
+
   const nearbySearchYelpFunc = async (lat, lng) => {
     const { radius } = props;
     console.log("nearbySearchYelpFunc clicked, radius: ", radius);
@@ -274,7 +269,6 @@ const MapComponent = (props) => {
         ref={mapRef}
         style={{ width: "80vw", height: "80vh" }}
       ></div>
-      <button onClick={handleClickbtn}>btn</button>
     </>
   );
 };
