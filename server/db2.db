@@ -1,0 +1,44 @@
+// Additional columns in restaurants table
+CREATE TABLE IF NOT EXISTS restaurants (
+    //...
+    phone VARCHAR(20),
+    transactions VARCHAR(255), 
+    //...
+  )
+  
+  // Reviews table 
+  CREATE TABLE IF NOT EXISTS reviews (
+    review_id INT PRIMARY KEY,
+    restaurant_id INT,
+    text VARCHAR(500),
+    rating INT,
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants(restaurant_id)
+  )
+  
+  // Update menu table
+  CREATE TABLE IF NOT EXISTS menu (
+    //...
+    price DECIMAL(5,2)
+    // Remove rating, review
+  )
+  
+  // Additional columns in ingredients
+  CREATE TABLE IF NOT EXISTS ingredients (
+    //... 
+    serving_size INT,
+    fat_total DECIMAL(4,1),
+    protein DECIMAL(4,1),
+    // etc for other nutrients
+  )
+  
+  // Insert data
+  INSERT INTO restaurants (name, latitude, etc) VALUES (...);
+  
+  INSERT INTO menu (restaurant_id, name, etc) 
+    VALUES ((SELECT restaurant_id FROM restaurants WHERE name = 'X'), ...);
+  
+  INSERT INTO ingredients (dish_id, name, calories, etc)
+    VALUES ((SELECT dish_id FROM menu WHERE name = 'Y'), ...);
+  
+  INSERT INTO reviews (restaurant_id, text, rating)
+    VALUES((SELECT restaurant_id FROM restaurants WHERE name = 'X'), ...);
