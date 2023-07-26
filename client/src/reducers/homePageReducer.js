@@ -4,7 +4,7 @@ const initialState = {
   analyzedRestaurantData: [],
   restaurantData: [],
   mapData: {
-    radius: 1500,
+    radius: 1500,  // 0 - 40000 meters
     inputLocationStr: null,
     userCoordination: {
       latitude: "",
