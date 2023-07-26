@@ -17,7 +17,8 @@
     border-radius: 0rem 0.625rem 0.625rem 0rem;
     background: #1C2535;
     box-shadow: -5px 0px 20px 1px rgba(0, 0, 0, 0.50);
-    padding: 1.94rem 1.5rem;
+    padding: 2rem 2rem;
+    overflow: hidden;
     z-index: 2;
 }
 
@@ -32,9 +33,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2.44rem;
-    padding-left: 0.56rem;
-    padding-right: 0.19;
+    margin-bottom: 0.94rem;
+    padding: 0 0.56rem;
 }
 
 .map-radius-number {
@@ -46,25 +46,29 @@
 .restaurant-item {
     display: flex;
     flex-direction: column;
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .restaurant-info-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom:solid #253249 1px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-between;
     padding-bottom: 1.31rem;
 }
 
-.restaurant-info-left {
+.restaurant-info-top {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     gap: 0.38rem;
+    margin-bottom: 0.44rem;
 }
 
 .restaurant-info-left-top {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 2.81rem;
 }
@@ -81,6 +85,12 @@
     font-weight: 400;
 }
 
+.restaurant-rating {
+    color: #ED7F42;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
 .restaurant-address-container {
     display: flex;
     color: #898989;
@@ -89,27 +99,63 @@
     gap: 0.3rem;
 }
 
-.restaurant-info-right {
+.restaurant-info-bottom {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 1.19rem;
+}
+
+.tags-container {
+    display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+     
+}
+
+.average-calorie{
+    border-radius: 0.3125rem;
+    background: #96D198;   
+    padding: 0.19rem 0.45rem;
+    color: #1C2535;
+}
+
+.categories {
+    border-radius: 0.3125rem;
+    background: #D4672A;
+    padding: 0.19rem 0.45rem;
+    color: #fff;
+}
+
+.menu-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.44rem;
     color: #ED7F42;
-    font-size: 0.75rem;
-    font-weight: 400;
-    gap: 0.38rem;
+    cursor: pointer;
 }
 
 .dish-info-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   padding: 1.19rem 0;
+   border-top:solid #253249 0.063rem;
+}
+
+.dish-info-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.75rem;
     font-weight: 400;
-    padding: 1.19rem 0;
+    margin-bottom: 0.44rem;
 }
 
-.dish-info-left {
+.dish-info-top-left {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,9 +172,62 @@
     align-items: center;
     gap: 0.44rem;
     color: #898989;
+    cursor: pointer;
+}
+
+.dish-description {
+    color: #898989;
+    font-family: Poppins;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.nutrition-info-container {
+    /* width: 25.9375rem; */
+    width: 80%;
+    height: 9rem;
+    margin: 1.62rem auto 0.8rem auto;
+    border-radius: 0.625rem;
+    box-shadow: 0px 0px 16px 3px rgba(0, 0, 0, 0.30);
+}
+
+.nutrition-info-top {
+    height: 2.75rem;
+    border-radius: 0.625rem 0.625rem 0rem 0rem;
+    background: #D4672A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4.88rem;
+}
+
+.calorie-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.56rem;
+}
+
+.calorie {
+    color: #FFF;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.calorie-title {
+    color: #EFCCB9;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #EFCCB9;
+}
+
+.nutrition-info-bottom {
+    height: 6.25rem;
+    border-radius: 0rem 0rem 0.625rem 0.625rem;
+    background: #303845;
 }
 
 .line-break {
-    border: solid 1px #3A4455;
-    margin: 0 -1.5rem;
+    border: solid 0.063rem #3A4455;
+    margin: 0 -2rem;
 }
