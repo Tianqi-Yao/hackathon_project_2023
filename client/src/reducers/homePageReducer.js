@@ -4,7 +4,7 @@ const initialState = {
   analyzedRestaurantData: [],
   restaurantData: [],
   mapData: {
-    radius: 1500,  // 0 - 40000 meters
+    radius: 1500, // 0 - 40000 meters
     inputLocationStr: null,
     userCoordination: {
       latitude: "",
@@ -16,6 +16,7 @@ const initialState = {
   searchInputKeywords: [],
   displayedRestaurantsData: [],
   isSearchingDish: false,
+  searchedDishId: [],
   count: 1, // test
 };
 
@@ -98,7 +99,10 @@ const homePageReducer = (state = initialState, action) => {
       // console.log("APPEND_ANALYZED_RESTAURANT_LIST action.payload: ", action.payload);
       return {
         ...state,
-        analyzedRestaurantData: [...state.analyzedRestaurantData, ...action.payload]
+        analyzedRestaurantData: [
+          ...state.analyzedRestaurantData,
+          ...action.payload,
+        ],
       };
     case Actions.EMPTY_RESTAURANT_LIST:
       return {
