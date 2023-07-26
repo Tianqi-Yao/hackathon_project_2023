@@ -12,13 +12,16 @@ class ReviewsScraper {
         const page = await context.newPage(); // 在当前浏览器上下文中打开一个新的页面
 
         await page.goto(url);
-        // 点击 href="#reviews" 的链接
-        await page.click('a[href="#reviews"]');
-        // 等待页面加载1000毫秒
-        // await page.waitForTimeout(500);
-
-        const reviewDetails = await this.getReviewDetails(page);
-
+        await page.waitForTimeout(300);
+        // 查看是否有 reviews
+        const reviews = await page.$('a[href="#reviews"]');
+        // console.log("reviews: ", reviews);
+        let reviewDetails
+        if (reviews) {
+            // 点击 href="#reviews" 的链接
+            await page.click('a[href="#reviews"]');
+            reviewDetails = await this.getReviewDetails(page);
+        }
         await browser.close();
 
         return {

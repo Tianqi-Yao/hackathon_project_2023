@@ -1,9 +1,10 @@
 import Actions from "../constants";
 
 const initialState = {
+  analyzedRestaurantData: [],
   restaurantData: [],
   mapData: {
-    radius: null,
+    radius: 1500,  // 0 - 40000 meters
     inputLocationStr: null,
     userCoordination: {
       latitude: "",
@@ -86,6 +87,23 @@ const homePageReducer = (state = initialState, action) => {
       return {
         ...state,
         count: state.count - action.payload,
+      };
+    case Actions.APPEND_RESTAURANT_LIST:
+      // console.log("APPEND_RESTAURANT_LIST action.payload: ", action.payload);
+      return {
+        ...state,
+        restaurantData: [...state.restaurantData, ...action.payload],
+      };
+    case Actions.APPEND_ANALYZED_RESTAURANT_LIST:
+      // console.log("APPEND_ANALYZED_RESTAURANT_LIST action.payload: ", action.payload);
+      return {
+        ...state,
+        analyzedRestaurantData: [...state.analyzedRestaurantData, ...action.payload]
+      };
+    case Actions.EMPTY_RESTAURANT_LIST:
+      return {
+        ...state,
+        restaurantData: [],
       };
     default:
       return state;

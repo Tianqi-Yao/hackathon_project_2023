@@ -15,16 +15,17 @@ class MenuScraper {
         // 等 1 秒
         await page.waitForTimeout(500);
         // 保存截图
-        await page.screenshot({ path: 'public/temp/menu.png' });
+        // await page.screenshot({ path: 'public/temp/menu.png' });
         console.log("finish loading main page");
 
         // 点击菜单按钮
         const menuBtnLocator = page.getByText('Full menu', { exact: true })
         if (await menuBtnLocator.count() > 0) {
             await menuBtnLocator.click();
+            await page.waitForTimeout(1000);
             await page.waitForLoadState('networkidle');
-            console.log('Button found and clicked and finish loading menu page');
-            console.log("page.url(): ", page.url());
+            // console.log('Button found and clicked and finish loading menu page');
+            // console.log("page.url(): ", page.url());
         } else {
             console.log('Button not found');
             return null
@@ -55,16 +56,20 @@ class MenuScraper {
             let food = await item.$eval('h4', el => el.textContent);
             food = food.replace(/\s+/g, ' ').trim();
             let ingredients
+            let imgSrc
             try {
                 ingredients = await item.$eval('p', el => el.textContent);
                 ingredients = ingredients.replace(/,/g, ' ').trim();
             } catch (error) {
                 ingredients = '';
             }
-            let imgSrc = await item.$eval('img', el => el.src);
-            details.push({ food, ingredients,imgSrc });
+            try {
+                imgSrc = await item.$eval('img', el => el.src);
+                details.push({ food, ingredients,imgSrc });
+            } catch (error) {
+                imgSrc = '';
+            }
         }
-
         return details;
     }
 

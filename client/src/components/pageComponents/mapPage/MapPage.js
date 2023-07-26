@@ -2,7 +2,6 @@ import "./MapPage.css";
 import React from "react";
 import { connect } from "react-redux";
 import MapComponent from "../../reusableComponent/mapComponent/MapComponent";
-import GoogleMap from "../../reusableComponent/mapComponent/GoogleMap";
 import Nav from "../../reusableComponent/navComponent/Nav";
 import { actions } from "../../../actions";
 import Navbar from "../../reusableComponent/navbar/Navbar";

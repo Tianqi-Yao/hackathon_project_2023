@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/.pnp
+# /public/temp
 .pnp.js
 
 # testing

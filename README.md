@@ -5,7 +5,9 @@ team member: Jacky, Jiayue, Sam
 # config map API
 
 /client/.env.local
-REACT_APP_MAP_API_KEY = APIKEY
+REACT_APP_MAP_API_KEY=APIKEY
+/server/.env
+YELP_API_KEY=APIKEY
 
 # how to run
 

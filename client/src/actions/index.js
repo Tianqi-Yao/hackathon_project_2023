@@ -1,5 +1,4 @@
 import Actions from "../constants";
-import axios from "axios";
 
 const addCounter = (payload = 1) => ({
   type: Actions.ADD_COUNT,
@@ -11,39 +10,24 @@ const minusCounter = (payload = 1) => ({
   payload,
 });
 
-const setUsers = (payload) => ({
-  type: Actions.SET_USERS,
+const appendRestaurantList = (payload) => ({
+  type: Actions.APPEND_RESTAURANT_LIST,
   payload,
 });
 
-const setMyApiData = (payload) => ({
-  type: Actions.SET_MY_API_DATA,
+const appendAnalyzedRestaurantList = (payload) => ({
+  type: Actions.APPEND_ANALYZED_RESTAURANT_LIST,
   payload,
 });
 
-// // thunk
-// const getUsers = () => {
-//     return (dispatch, getState) => {
-//         const url = "https://jsonplaceholder.typicode.com/users";
-//         return axios.get(url).then((res) => {
-//             dispatch(setUsers(res.data));
-//         });
-//     };
-// };
-
-// const getMyApi = () => {
-//     return (dispatch, getState) => {
-//         const url = "http://localhost:3005/api";
-//         return axios.get(url).then((res) => {
-//             console.log("getMyApi res: ",res);
-//             dispatch(setMyApiData(res.data.message));
-//         }).catch((err) => {
-//             console.error(err);
-//         });
-//     };
-// };
+const emptyRestaurantList = () => ({
+  type: Actions.EMPTY_RESTAURANT_LIST,
+});
 
 export const actions = {
   addCounter,
   minusCounter,
+  appendRestaurantList,
+  appendAnalyzedRestaurantList,
+  emptyRestaurantList,
 };
