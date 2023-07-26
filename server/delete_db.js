@@ -13,35 +13,43 @@ var connection = mysql.createConnection({
   });
 
 connection.connect(function(err) {
-if (err) {
-    throw err
-}
+    if (err) {
+        throw err
+    }
 
-// We will need to drop some tables first,
-// On reserve order from the down to the top
-connection.query(`
-DROP TABLE IF EXISTS ingredients;
-`, function(err) {
-if (err) throw err;
-
-console.log("Ingredients table dropped");
-});
-
-connection.query(`
-DROP TABLE IF EXISTS menu;
-`, function(err) {
-if (err) throw err;
-
-console.log("Menu table dropped");
-});
-
-connection.query(`
-    DROP TABLE IF EXISTS restaurant;
-`, function(err) {
+    // We will need to drop some tables first,
+    // On reserve order from the down to the top
+    connection.query(`
+    DROP TABLE IF EXISTS Ingredients;
+    `, function(err) {
     if (err) throw err;
 
-    console.log("Restaurant table dropped");
-});
+    console.log("Ingredients table dropped");
+    });
 
-connection.end();
+    connection.query(`
+    DROP TABLE IF EXISTS Menus;
+    `, function(err) {
+    if (err) throw err;
+
+    console.log("Menu table dropped");
+    });
+
+    connection.query(`
+        DROP TABLE IF EXISTS Reviews;
+    `, function(err) {
+        if (err) throw err;
+
+        console.log("Reviews table dropped");
+    });
+
+    connection.query(`
+        DROP TABLE IF EXISTS Restaurants;
+    `, function(err) {
+        if (err) throw err;
+
+        console.log("Restaurants table dropped");
+    });
+
+    connection.end();
 });
