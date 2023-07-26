@@ -104,4 +104,8 @@ const Review = sequelize.define('Review', {
   timestamps: false
 });
 
+sequelize.sync()
+  .then(() => console.log('Database & tables created!'))
+  .catch(error => console.log('This error occurred', error));
+
 module.exports = { sequelize, Restaurant, Category, Menu, Ingredient, Review };

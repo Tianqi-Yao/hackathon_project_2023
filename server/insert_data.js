@@ -1994,7 +1994,7 @@ const restaurantData = {
   ]
 }
 
-Restaurant.create({
+Restaurant.findOrCreate({
   id: restaurantData.id,
   alias: restaurantData.alias,
   name: restaurantData.name,
@@ -2054,5 +2054,6 @@ Restaurant.create({
   });
 
   Review.bulkCreate(reviews);
+  console.log("!!!!added!!!!!");
 })
 .catch(error => console.log('Error inserting data: ', error));
