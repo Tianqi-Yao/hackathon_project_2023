@@ -241,7 +241,12 @@ const MapComponent = (props) => {
       <div
         className="Map map-component"
         ref={mapRef}
-        style={{ width: "80vw", height: "80vh" }}
+        style={{
+          width: "57%",
+          height: "38rem",
+          borderRadius: "0.625rem 0rem 0rem 0.625rem",
+          boxShadow: "-5px 0px 20px 1px rgba(0, 0, 0, 0.50)",
+        }}
       ></div>
     </>
   );

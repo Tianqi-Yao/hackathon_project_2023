@@ -1,13 +1,24 @@
 .search-bar {
     position: relative;
-    width: 55.5rem;
+    width: 56%;
     height: 4.25rem;
 }
 
+.search-bar-small {
+    position: relative;
+    width: 57%;
+    height: 2.7rem;
+}
+
+.search-icon-right {
+    display: flex;
+}
+ 
 .search-bar-input {
     width: 100%;
     height: 100%;
     padding-left: 5.25rem;
+    padding-right: 7.75rem;
     border-radius: 0.625rem;
     background: #525865;
     box-shadow: 4px 4px 30px 20px rgba(28, 37, 53, 0.30);
@@ -16,8 +27,33 @@
     color: white;
 }
 
+.search-bar-input-small {
+    width: 100%;
+    height: 100%;
+    padding-left: 3.58rem;
+    padding-right: 5.375rem;
+    border-radius: 0.625rem;
+    background: #525865;
+    box-shadow: 4px 4px 30px 20px rgba(28, 37, 53, 0.30);
+    border:none;
+    font-size: 0.875rem;
+    color: white;
+}
+
 .search-bar-input::placeholder{
     color: #A6A6A6;
+}
+
+.search-bar-input-small::placeholder{
+    color: #A6A6A6;
+}
+
+.search-bar-input:focus{
+    outline: none;
+}
+
+.search-bar-input-small:focus{
+    outline: none;
 }
 
 .search-icon {
@@ -26,15 +62,32 @@
     left: 2rem;
 }
 
+.search-icon-small {
+    position: absolute;
+    top: 0.69rem;
+    left: 1.56rem;
+}
+
 .mic-icon {
     position: absolute;
     top: 1.25rem;
     right: 4.94rem;
+}
 
+.mic-icon-small {
+    position: absolute;
+    top: 0.88rem;
+    right: 3.62rem;
 }
 
 .location-icon {
     position: absolute;
     top: 1.25rem;
     right: 2rem;
+}
+
+.location-icon-small {
+    position: absolute;
+    top: 0.75rem;
+    right: 1.75rem;
 }
