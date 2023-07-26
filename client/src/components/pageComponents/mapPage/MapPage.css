@@ -1,0 +1,134 @@
+.map-page {
+    width: 100%;
+    height: 100vh;
+    background-color: #1C2535D9 ;
+    color: white;
+}
+
+.map-main-content {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2.62rem;
+}
+
+.restaurants-container {
+    width: 43%;
+    height: 38.1875rem;
+    border-radius: 0rem 0.625rem 0.625rem 0rem;
+    background: #1C2535;
+    box-shadow: -5px 0px 20px 1px rgba(0, 0, 0, 0.50);
+    padding: 1.94rem 1.5rem;
+    z-index: 2;
+}
+
+.map-radius-container {
+    width: 7.625rem;
+    height: 1.5625rem;
+    border-radius: 0.3125rem;
+    border: 0.5px solid #898989;
+    color: #898989;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.44rem;
+    padding-left: 0.56rem;
+    padding-right: 0.19;
+}
+
+.map-radius-number {
+    color: #FFF;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.restaurant-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurant-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom:solid #253249 1px;
+    padding-bottom: 1.31rem;
+}
+
+.restaurant-info-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.38rem;
+}
+
+.restaurant-info-left-top {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2.81rem;
+}
+
+.restaurant-name {
+    color: #FFF;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.restaurant-distance {
+    color: #ED7F42;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.restaurant-address-container {
+    display: flex;
+    color: #898989;
+    font-size: 0.75rem;
+    font-weight: 400;
+    gap: 0.3rem;
+}
+
+.restaurant-info-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ED7F42;
+    font-size: 0.75rem;
+    font-weight: 400;
+    gap: 0.38rem;
+}
+
+.dish-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding: 1.19rem 0;
+}
+
+.dish-info-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.38rem;
+}
+
+.dish-calorie {
+    color: #96D198;
+}
+
+.dish-expand-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.44rem;
+    color: #898989;
+}
+
+.line-break {
+    border: solid 1px #3A4455;
+    margin: 0 -1.5rem;
+}

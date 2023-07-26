@@ -14,6 +14,7 @@ const initialState = {
   restaurantKeywords: [],
   searchInputKeywords: [],
   displayedRestaurantsData: [],
+  isSearchingDish: false,
   count: 1, // test
 };
 
@@ -30,6 +31,7 @@ const initialState = {
 //     menu: [
 //       ...menu,
 //       {
+//         id:null,
 //         food: "",
 //         calorie: null,
 //         price: null,
