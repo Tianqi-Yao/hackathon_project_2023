@@ -12,9 +12,9 @@ import dropdownIcon from "../../../assets/images/dropdown.svg";
 import { data } from "../../../assets/data/testData.js";
 
 const MapPage = (props) => {
-  const [expandDetail, setExpandDetail] = useState(false);
   const [displayData, setDisplayData] = useState([]); // move to redux
   const [restaurantId, setRestaurantId] = useState([]);
+  const [dishId, setDishId] = useState([]);
   const [loading, setLoading] = useState(false);
   const [radius, setRadius] = useState(null);
 
@@ -36,8 +36,10 @@ const MapPage = (props) => {
       : setRestaurantId((prev) => [...prev, id]);
     console.log(displayData);
   };
-  const handleExpandDetail = () => {
-    setExpandDetail((prev) => !prev);
+  const handleExpandDetail = (id) => {
+    dishId.includes(id)
+      ? setDishId(dishId.filter((existindId) => existindId !== id))
+      : setDishId((prev) => [...prev, id]);
   };
 
   const restaurantDistance = (distance) => {
@@ -74,7 +76,13 @@ const MapPage = (props) => {
                           restaurant.is_closed ? "closed" : "open"
                         }`}</div>
                       </div>
-                      <div className="restaurant-rating">{`${restaurant.price} · ${restaurant.rating} (${restaurant.review_count})`}</div>
+                      <div className="restaurant-rating">{`${
+                        restaurant.price == undefined
+                          ? ""
+                          : restaurant.price + " ·"
+                      } ${restaurant.rating} (${
+                        restaurant.review_count
+                      })`}</div>
                     </div>
                     <div className="restaurant-address-container">
                       {restaurant.location.display_address.map((address) =>
@@ -118,7 +126,7 @@ const MapPage = (props) => {
                           </div>
                           <div
                             className="dish-expand-container"
-                            onClick={handleExpandDetail}
+                            onClick={() => handleExpandDetail(item.uuid)}
                           >
                             <div>expand</div>
                             <img src={expandDetailIcon} alt="expand icon" />
@@ -127,7 +135,7 @@ const MapPage = (props) => {
                         <div className="dish-description">
                           {item.ingredients}
                         </div>
-                        {expandDetail && (
+                        {dishId.includes(item.uuid) && (
                           <div className="nutrition-info-container">
                             <div className="nutrition-info-top">
                               <div className="calorie-info-container">

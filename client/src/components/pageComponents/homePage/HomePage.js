@@ -32,7 +32,7 @@ const HomePage = (props) => {
             <input
               className="home-input"
               type="text"
-              placeholder="Enter you city or zip code"
+              placeholder="Enter a city, address or zip code"
             />
             <Link to="/SearchPage">
               <button className="home-start-button">
