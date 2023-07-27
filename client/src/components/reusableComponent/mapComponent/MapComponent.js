@@ -19,10 +19,6 @@ const MapComponent = (props) => {
   ); // 空依赖数组，确保 loader 只被创建一次
 
   useEffect(() => {
-    console.log(
-      "process.env.REACT_APP_MAP_API_KEY: ",
-      process.env.REACT_APP_MAP_API_KEY
-    );
     // 初始化Map
     loader.importLibrary("maps").then((maps) => {
       const map = new maps.Map(mapRef.current, {
@@ -54,69 +50,16 @@ const MapComponent = (props) => {
     const filteredResults = await nearbySearchYelpFunc(lat, lng);
     /************** start analyzeMenu ***************/
     console.log("start analyzeMenu");
-    const ingradientsList = await analyzeMenu(filteredResults);
+    let ingradientsList = await analyzeMenu(filteredResults);
+    if (ingradientsList === false) {
+      ingradientsList = await analyzeMenu(filteredResults);
+    }
     console.log("finish analyzeMenu, start assign ingradientsList");
-    // const ingradientsList = [
-    //   {
-    //       "name": "lettuce",
-    //       "calories": 17,
-    //       "serving_size_g": 100,
-    //       "fat_total_g": 0.3,
-    //       "fat_saturated_g": 0,
-    //       "protein_g": 1.2,
-    //       "sodium_mg": 7,
-    //       "potassium_mg": 30,
-    //       "cholesterol_mg": 0,
-    //       "carbohydrates_total_g": 3.3,
-    //       "fiber_g": 2.1,
-    //       "sugar_g": 1.2
-    //   },
-    //   {
-    //       "name": "tomatoes",
-    //       "calories": 18.5,
-    //       "serving_size_g": 100,
-    //       "fat_total_g": 0.2,
-    //       "fat_saturated_g": 0,
-    //       "protein_g": 0.9,
-    //       "sodium_mg": 5,
-    //       "potassium_mg": 23,
-    //       "cholesterol_mg": 0,
-    //       "carbohydrates_total_g": 3.9,
-    //       "fiber_g": 1.2,
-    //       "sugar_g": 2.6
-    //   },
-    //   {
-    //       "name": "cucumbers",
-    //       "calories": 15.1,
-    //       "serving_size_g": 100,
-    //       "fat_total_g": 0.1,
-    //       "fat_saturated_g": 0,
-    //       "protein_g": 0.7,
-    //       "sodium_mg": 1,
-    //       "potassium_mg": 23,
-    //       "cholesterol_mg": 0,
-    //       "carbohydrates_total_g": 3.6,
-    //       "fiber_g": 0.5,
-    //       "sugar_g": 1.7
-    //   },
-    //   {
-    //       "name": "cheese",
-    //       "calories": 393.9,
-    //       "serving_size_g": 100,
-    //       "fat_total_g": 33,
-    //       "fat_saturated_g": 18.9,
-    //       "protein_g": 22.7,
-    //       "sodium_mg": 661,
-    //       "potassium_mg": 459,
-    //       "cholesterol_mg": 100,
-    //       "carbohydrates_total_g": 3.2,
-    //       "fiber_g": 0,
-    //       "sugar_g": 0.5
-    //   }]
+
     // 遍历restaurantData, 为每个restaurant里的menu添加对应的ingradientsList 元素
     const analyzedRestaurantData = filteredResults.map((restaurant) => {
       const newMenu = restaurant.menu.map((menu) => {
-        const ingradientStr = menu.ingredients;
+        const ingradientStr = menu.ingredients.toLowerCase();
         const newIngradientList = [];
         let isSameItem = false;
         for (let i = 0; i < ingradientsList.length; i++) {
@@ -131,7 +74,10 @@ const MapComponent = (props) => {
           }
         }
         const calorie = newIngradientList.reduce((acc, cur) => acc + cur.calories, 0);
-        return { ...menu, calorie, ingradientsList: newIngradientList }; // 每道菜
+        const totalFat = newIngradientList.reduce((acc, cur) => acc + cur.fat_total_g, 0);
+        const totalProtien = newIngradientList.reduce((acc, cur) => acc + cur.protein_g, 0);
+        const totalCarbohydrates = newIngradientList.reduce((acc, cur) => acc + cur.carbohydrates_total_g, 0);
+        return { ...menu, calorie, totalFat, totalProtien, totalCarbohydrates, ingradientsList: newIngradientList }; // 每道菜
       });
       const averageCalorie = newMenu.reduce((acc, cur) => acc + cur.calorie, 0) / newMenu.length; // 计算平均卡路里
       return { ...restaurant, averageCalorie, menu: newMenu };  //每个餐厅
@@ -189,7 +135,7 @@ const MapComponent = (props) => {
       return filteredResults;
     } catch (err) {
       console.log("nearbySearchYelpFunc err: ", err);
-    } 
+    }
   };
 
   const getInfo = async (url) => {
@@ -232,6 +178,7 @@ const MapComponent = (props) => {
 
     } catch (error) {
       console.log("analyzeMenu err: ", error);
+      return false
     }
 
   }

@@ -1,6 +1,6 @@
 const playwright = require('playwright');
 const fs = require('fs');
-
+const {v4: uuidv4} = require('uuid')
 class MenuScraper {
 
     async menuScrape(url) {
@@ -22,7 +22,6 @@ class MenuScraper {
         const menuBtnLocator = page.getByText('Full menu', { exact: true })
         if (await menuBtnLocator.count() > 0) {
             await menuBtnLocator.click();
-            await page.waitForTimeout(1000);
             await page.waitForLoadState('networkidle');
             // console.log('Button found and clicked and finish loading menu page');
             // console.log("page.url(): ", page.url());
@@ -65,7 +64,8 @@ class MenuScraper {
             }
             try {
                 imgSrc = await item.$eval('img', el => el.src);
-                details.push({ food, ingredients,imgSrc });
+                const uuid = uuidv4();
+                details.push({ uuid, food, ingredients,imgSrc });
             } catch (error) {
                 imgSrc = '';
             }
