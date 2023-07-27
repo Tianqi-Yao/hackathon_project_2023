@@ -15,10 +15,17 @@ const MapPage = (props) => {
   const [expandDetail, setExpandDetail] = useState(false);
   const [displayData, setDisplayData] = useState([]); // move to redux
   const [restaurantId, setRestaurantId] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [radius, setRadius] = useState(null);
 
   // temp test
   useEffect(() => {
     setDisplayData(data);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleRadius = () => {};
@@ -38,6 +45,8 @@ const MapPage = (props) => {
     return convertedDistance.toFixed(1);
   };
 
+  const handleScroll = () => {};
+
   return (
     <div className="map-page">
       <Navbar />
@@ -47,14 +56,10 @@ const MapPage = (props) => {
         <div className="map-main-content">
           <MapComponent />
           <div className="restaurants-container">
-            <div className="map-radius-container">
+            <div className="map-radius-container" onClick={handleRadius}>
               <div>Radius</div>
               <div className="map-radius-number">1.5 km</div>
-              <img
-                src={dropdownIcon}
-                alt="Dropdown Icon"
-                onClick={handleRadius}
-              />
+              <img src={dropdownIcon} alt="Dropdown Icon" />
             </div>
             {displayData.map((restaurant) => (
               <div className="restaurant-item-container" key={restaurant.id}>
@@ -193,9 +198,7 @@ const MapPage = (props) => {
           </div>
         </div>
       </main>
-      {/* <div>{props.count}</div>
-      <button onClick={props.minusCount}>Decrement</button>
-      <button onClick={props.addCount}>Increment</button> */}
+      <footer>© 2023 all rights reserved.</footer>
     </div>
   );
 };
