@@ -24,10 +24,28 @@ const emptyRestaurantList = () => ({
   type: Actions.EMPTY_RESTAURANT_LIST,
 });
 
+const getInputLocation = (payload) => ({
+  type: Actions.GET_INPUT_LOCATION,
+  payload,
+});
+
+const getSearchInput = (payload) => ({
+  type: Actions.GET_SEARCH_INPUT,
+  payload,
+});
+
+const setRadius = (payload) => ({
+  type: Actions.SET_RADIUS,
+  payload,
+});
+
 export const actions = {
   addCounter,
   minusCounter,
   appendRestaurantList,
   appendAnalyzedRestaurantList,
   emptyRestaurantList,
+  getInputLocation,
+  getSearchInput,
+  setRadius,
 };

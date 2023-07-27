@@ -5,13 +5,13 @@ const initialState = {
   restaurantData: [],
   mapData: {
     radius: 1500, // 0 - 40000 meters
-    inputLocationStr: null,
+    inputLocationStr: "",
     userCoordination: {
       latitude: "",
       longitude: "",
     },
   },
-  searchInput: null,
+  searchInput: "",
   restaurantKeywords: [],
   searchInputKeywords: [],
   displayedRestaurantsData: [],
@@ -108,6 +108,27 @@ const homePageReducer = (state = initialState, action) => {
       return {
         ...state,
         restaurantData: [],
+      };
+    case Actions.GET_INPUT_LOCATION:
+      return {
+        ...state,
+        mapData: {
+          ...state.mapData,
+          inputLocationStr: action.payload,
+        },
+      };
+    case Actions.GET_SEARCH_INPUT:
+      return {
+        ...state,
+        searchInput: action.payload,
+      };
+    case Actions.SET_RADIUS:
+      return {
+        ...state,
+        mapData: {
+          ...state.mapData,
+          radius: action.payload,
+        },
       };
     default:
       return state;

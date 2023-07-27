@@ -18,24 +18,88 @@
     background: #1C2535;
     box-shadow: -5px 0px 20px 1px rgba(0, 0, 0, 0.50);
     padding: 2rem 2rem;
-    overflow: hidden;
+    overflow: auto;
     z-index: 2;
 }
 
 .map-radius-container {
-    width: 7.625rem;
-    height: 1.5625rem;
-    border-radius: 0.3125rem;
-    border: 0.5px solid #898989;
     color: #898989;
     font-size: 0.75rem;
     font-weight: 600;
+    position: relative;
+}
+
+.map-radius{
+    border-radius: 0.3125rem;
+    border: 0.031rem solid #898989;
+    width: 8rem;
+    height: 1.5625rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.94rem;
     padding: 0 0.56rem;
     cursor: pointer;
+}
+
+.map-radius-dropdown {
+    position: absolute;
+    border-radius: 0.3125rem;
+    border: 0.031rem solid #898989;
+    background-color: #1C2535;
+    width: 8rem;
+    height: 7.875rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    margin-bottom: 0.94rem;
+    padding: 0 0.56rem;
+    cursor: pointer;
+    z-index: 3;
+    opacity: 0;
+}
+
+.map-radius-dropdown-shown {
+    position: absolute;
+    top: 0;
+    border-radius: 0.3125rem;
+    border: 0.031rem solid #898989;
+    background-color: #1C2535;
+    width: 8rem;
+    height: 7.875rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    margin-bottom: 0.94rem;
+    padding: 0 0.56rem;
+    cursor: pointer;
+    z-index: 3;
+    opacity: 1;
+}
+
+.radius-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 0.062rem #253249 ;
+    padding: 0.44rem 0;
+}
+
+.radius-selections-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.radius-selection {
+    padding: 0.44rem 0;
+    border-bottom: solid 0.062rem #253249;
+    color: #FFF;
+    font-size: 0.75rem;
+    font-weight: 400;
 }
 
 .map-radius-number {
@@ -140,6 +204,10 @@
     cursor: pointer;
 }
 
+.expanded-menu {
+    transform: rotate(90deg);
+}
+
 .dish-info-container {
    display: flex;
    flex-direction: column;
@@ -173,8 +241,22 @@
     justify-content: center;
     align-items: center;
     gap: 0.44rem;
-    color: #898989;
+    /* color: #898989; */
+    color: #fff;
     cursor: pointer;
+}
+
+.dish-expand-container-disabled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.44rem;
+    color: #616161;
+    cursor: default;
+}
+
+.expanded-detail {
+    transform: rotate(90deg);
 }
 
 .dish-description {

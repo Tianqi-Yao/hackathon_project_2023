@@ -12,33 +12,48 @@ import dropdownIcon from "../../../assets/images/dropdown.svg";
 import { data } from "../../../assets/data/testData.js";
 
 const MapPage = (props) => {
-  const [displayData, setDisplayData] = useState([]); // move to redux
   const [restaurantId, setRestaurantId] = useState([]);
   const [dishId, setDishId] = useState([]);
+  const [isChangingRadius, setIsChangingRadius] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [radius, setRadius] = useState(null);
+  const [startIndex, setStartIndex] = useState(0);
+  const [visibleData, setVisibleData] = useState([]);
+  const shownItems = 5;
 
-  // temp test
   useEffect(() => {
-    setDisplayData(data);
+    updateVisibleData();
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    updateVisibleData();
+  }, [startIndex, data]);
 
-  const handleRadius = () => {};
+  const handleRadius = () => {
+    setIsChangingRadius((prev) => !prev);
+  };
+
+  const handleRadiusValue = (value) => {
+    props.setRadius(value);
+    setIsChangingRadius(false);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && typeof e.target.value === "number") {
+      props.setRadius(e.target.value);
+      setIsChangingRadius(false);
+    }
+  };
 
   const handleExpandMenu = (id) => {
     restaurantId.includes(id)
-      ? setRestaurantId(restaurantId.filter((existindId) => existindId !== id))
+      ? setRestaurantId(restaurantId.filter((existingId) => existingId !== id))
       : setRestaurantId((prev) => [...prev, id]);
-    console.log(displayData);
+    console.log(data);
+    console.log(visibleData);
   };
   const handleExpandDetail = (id) => {
     dishId.includes(id)
-      ? setDishId(dishId.filter((existindId) => existindId !== id))
+      ? setDishId(dishId.filter((existingId) => existingId !== id))
       : setDishId((prev) => [...prev, id]);
   };
 
@@ -47,7 +62,23 @@ const MapPage = (props) => {
     return convertedDistance.toFixed(1);
   };
 
-  const handleScroll = () => {};
+  const handleScroll = (e) => {
+    const container = e.target;
+    if (
+      container.scrollTop + container.clientHeight >=
+      container.scrollHeight
+    ) {
+      console.log("scrolled");
+      // fetch data
+      setStartIndex((prevStartIndex) => prevStartIndex + shownItems);
+    }
+  };
+
+  const updateVisibleData = () => {
+    const endIndex = startIndex + shownItems;
+    const newData = data.slice(0, endIndex);
+    setVisibleData(newData);
+  };
 
   return (
     <div className="map-page">
@@ -57,13 +88,59 @@ const MapPage = (props) => {
         <SearchBar size={"small"} />
         <div className="map-main-content">
           <MapComponent />
-          <div className="restaurants-container">
-            <div className="map-radius-container" onClick={handleRadius}>
-              <div>Radius</div>
-              <div className="map-radius-number">1.5 km</div>
-              <img src={dropdownIcon} alt="Dropdown Icon" />
+          <div className="restaurants-container" onScroll={handleScroll}>
+            <div className="map-radius-container">
+              <div className="map-radius">
+                <div>Radius</div>
+                <div className="map-radius-number">
+                  {props.radius / 1000} km
+                </div>
+                <img
+                  src={dropdownIcon}
+                  alt="Dropdown Icon"
+                  onClick={handleRadius}
+                />
+              </div>
+              <div
+                className={`map-radius-dropdown${
+                  isChangingRadius ? "-shown" : ""
+                }`}
+              >
+                <div className="radius-top">
+                  <div>Radius</div>
+                  <div className="map-radius-number">
+                    {props.radius / 1000} km
+                  </div>
+                  <img
+                    src={dropdownIcon}
+                    alt="Dropdown Icon"
+                    onClick={handleRadius}
+                  />
+                </div>
+                <div className="radius-selections-container">
+                  <div
+                    className="radius-selection"
+                    onClick={() => handleRadiusValue(5000)}
+                  >
+                    5 km
+                  </div>
+                  <div
+                    className="radius-selection"
+                    onClick={() => handleRadiusValue(100000)}
+                  >
+                    10 km
+                  </div>
+                  <div
+                    className="radius-selection"
+                    onClick={() => handleRadiusValue(150000)}
+                  >
+                    15 km
+                  </div>
+                </div>
+              </div>
             </div>
-            {displayData.map((restaurant) => (
+
+            {visibleData.map((restaurant) => (
               <div className="restaurant-item-container" key={restaurant.id}>
                 <div className="restaurant-item">
                   <div className="restaurant-info-container">
@@ -110,7 +187,15 @@ const MapPage = (props) => {
                         onClick={() => handleExpandMenu(restaurant.id)}
                       >
                         <div>Menu</div>
-                        <img src={expandMenuIcon} alt="expand icon" />
+                        <img
+                          className={
+                            restaurantId.includes(restaurant.id)
+                              ? "expanded-menu"
+                              : ""
+                          }
+                          src={expandMenuIcon}
+                          alt="expand icon"
+                        />
                       </div>
                     </div>
                   </div>
@@ -120,17 +205,38 @@ const MapPage = (props) => {
                         <div className="dish-info-top">
                           <div className="dish-info-top-left">
                             <div className="dish-name">{item.food}</div>
-                            <div className="dish-calorie">{`${Math.round(
-                              item.calorie
-                            )} cal`}</div>
+                            <div className="dish-calorie">
+                              {item.calorie === 0
+                                ? "unknown"
+                                : `${Math.round(item.calorie)} cal`}
+                            </div>
                           </div>
-                          <div
-                            className="dish-expand-container"
-                            onClick={() => handleExpandDetail(item.uuid)}
-                          >
-                            <div>expand</div>
-                            <img src={expandDetailIcon} alt="expand icon" />
-                          </div>
+                          {item.calorie === 0 ? (
+                            <div className="dish-expand-container-disabled">
+                              <div>expand</div>
+                              <img
+                                className="expand-disabled"
+                                src={expandDetailIcon}
+                                alt="expand icon"
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              className="dish-expand-container"
+                              onClick={() => handleExpandDetail(item.uuid)}
+                            >
+                              <div>expand</div>
+                              <img
+                                className={
+                                  dishId.includes(item.uuid)
+                                    ? "expanded-detail"
+                                    : ""
+                                }
+                                src={expandDetailIcon}
+                                alt="expand icon"
+                              />
+                            </div>
+                          )}
                         </div>
                         <div className="dish-description">
                           {item.ingredients}
@@ -142,9 +248,11 @@ const MapPage = (props) => {
                                 <div className="calorie-title">
                                   Total Calorie
                                 </div>
-                                <div className="calorie">{`${Math.round(
-                                  item.calorie
-                                )} cal`}</div>
+                                <div className="calorie">
+                                  {item.calorie === 0
+                                    ? "unknown"
+                                    : `${Math.round(item.calorie)} cal`}
+                                </div>
                               </div>
                             </div>
                             <div className="nutrition-info-bottom">
@@ -204,6 +312,7 @@ const MapPage = (props) => {
               </div>
             ))}
           </div>
+          {/* temp button */}
         </div>
       </main>
       <footer>© 2023 all rights reserved.</footer>
@@ -222,6 +331,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addCount: () => dispatch(actions.addCounter()),
   minusCount: () => dispatch(actions.minusCounter()),
+  setRadius: (value) => dispatch(actions.setRadius(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPage);
