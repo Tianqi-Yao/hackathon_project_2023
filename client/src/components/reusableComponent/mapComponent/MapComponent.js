@@ -64,7 +64,7 @@ const MapComponent = (props) => {
         let isSameItem = false;
         for (let i = 0; i < ingradientsList.length; i++) {
           for (const item of newIngradientList) {
-            if (item.name === ingradientsList[i].name) {
+            if (item.name.includes(ingradientsList[i].name)) {  // 如果newIngradientList里已经有了这个元素，就不再添加
               isSameItem = true;
               break;
             }
@@ -158,7 +158,7 @@ const MapComponent = (props) => {
   const analyzeMenu = async (filteredResults) => {
     const ingredientsStrList = []
     let ingredientsStr = ''
-    filteredResults.forEach((restaurant) => {
+    await Promise.all(filteredResults.map(async (restaurant) => {
       restaurant.menu.forEach((menu) => {
         ingredientsStr += menu.ingredients + ' '
         if (ingredientsStr.length > 1200) {
@@ -166,7 +166,7 @@ const MapComponent = (props) => {
           ingredientsStr = ''
         }
       })
-    })
+    }))
     console.log("ingredientsStrList: ", ingredientsStrList);
     try {
       const res = await axios.post("http://localhost:3005/ingradients", {
