@@ -145,7 +145,7 @@ const MapComponent = (props) => {
         let isSameItem = false;
         for (let i = 0; i < ingradientsList.length; i++) {
           for (const item of newIngradientList) {
-            if (item.name.includes(ingradientsList[i].name)) {  // 如果newIngradientList里已经有了这个元素，就不再添加
+            if (item?.name.includes(ingradientsList[i].name)) {  // 如果newIngradientList里已经有了这个元素，就不再添加
               isSameItem = true;
               break;
             }
