@@ -29,6 +29,12 @@ const setRadius = (payload) => ({
   payload,
 });
 
+const appendMeetUserData = (payload) => ({
+  type: Actions.APPEND_MEET_USER_DATA,
+  payload,
+});
+
+
 export const actions = {
   appendRestaurantList,
   appendAnalyzedRestaurantList,
@@ -36,4 +42,5 @@ export const actions = {
   getInputLocation,
   getSearchInput,
   setRadius,
+  appendMeetUserData,
 };
