@@ -7,12 +7,12 @@ var connection = mysql.createConnection({
     password: '5ITiwv2Te7OO5J7s',
     database: 'test',
     ssl: {
-      minVersion: 'TLSv1.2',
-      rejectUnauthorized: true
+        minVersion: 'TLSv1.2',
+        rejectUnauthorized: true
     }
-  });
+});
 
-connection.connect(function(err) {
+connection.connect(function (err) {
     if (err) {
         throw err
     }
@@ -21,23 +21,23 @@ connection.connect(function(err) {
     // On reserve order from the down to the top
     connection.query(`
     DROP TABLE IF EXISTS Ingredients;
-    `, function(err) {
-    if (err) throw err;
+    `, function (err) {
+        if (err) throw err;
 
-    console.log("Ingredients table dropped");
+        console.log("Ingredients table dropped");
     });
 
     connection.query(`
     DROP TABLE IF EXISTS Menus;
-    `, function(err) {
-    if (err) throw err;
+    `, function (err) {
+        if (err) throw err;
 
-    console.log("Menu table dropped");
+        console.log("Menu table dropped");
     });
 
     connection.query(`
         DROP TABLE IF EXISTS Categories;
-    `, function(err) {
+    `, function (err) {
         if (err) throw err;
 
         console.log("Categories table dropped");
@@ -45,7 +45,7 @@ connection.connect(function(err) {
 
     connection.query(`
         DROP TABLE IF EXISTS Reviews;
-    `, function(err) {
+    `, function (err) {
         if (err) throw err;
 
         console.log("Reviews table dropped");
@@ -53,7 +53,7 @@ connection.connect(function(err) {
 
     connection.query(`
         DROP TABLE IF EXISTS Restaurants;
-    `, function(err) {
+    `, function (err) {
         if (err) throw err;
 
         console.log("Restaurants table dropped");

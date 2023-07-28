@@ -1,16 +1,16 @@
-function useFetchNewInfo() {
+import {useRef } from 'react';
+import axios from "axios";
 
-    const run = async (event) => {
-        const lat = event.latLng.lat();
-        const lng = event.latLng.lng();
-        // setCurlocation({lat, lng})
-        console.log(`Latitude: ${lat}, Longitude: ${lng}`);
-        const filteredResults = await nearbySearchYelpFunc(lat, lng);
+
+function useFetchNewInfo() {
+    // const [data, setData] = useState(null);
+    const restInfoCount = useRef(0);
+
+    const fetchData = async (radius, lat, lng) => {
+        const filteredResults = await nearbySearchYelpFunc(radius,lat, lng);
 
         // 拿 database 数据, 对比filteredResults, 如果有重复的，就不再添加
         // 拿 database id
-
-
 
         /************** start analyzeMenu ***************/
         console.log("start analyzeMenu");
@@ -73,14 +73,14 @@ function useFetchNewInfo() {
             "finish assign, analyzedRestaurantData: ",
             analyzedRestaurantData
         );
-        props.emptyRestaurantList(); // 清空restaurantData
-        props.appendAnalyzedRestaurantList(analyzedRestaurantData); // 将分析后的数据存入redux
+        // setData(analyzedRestaurantData);
+        return analyzedRestaurantData;
         // 添加到数据库
 
     };
 
-    const nearbySearchYelpFunc = async (lat, lng) => {
-        const { radius } = props;
+    const nearbySearchYelpFunc = async (radius,lat, lng) => {
+        // const { radius } = props;
         try {
             console.log("nearbySearchYelpFunc clicked, radius: ", radius);
 
@@ -94,7 +94,7 @@ function useFetchNewInfo() {
                     },
                 }
             );
-
+            console.log("nearbySearchYelpFunc res: ", res);
             const restaurantList = res.data.data;
             restInfoCount.current = restaurantList.length;
             console.log("nearbySearchYelpFunc res: ", restaurantList);
@@ -185,6 +185,6 @@ function useFetchNewInfo() {
     };
 
 
-    return run;
+    return fetchData;
 }
 export default useFetchNewInfo;

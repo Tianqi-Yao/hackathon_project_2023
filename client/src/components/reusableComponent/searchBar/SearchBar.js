@@ -1,5 +1,5 @@
 import "./SearchBar.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { actions } from "../../../actions";
 import locationIcon from "../../../assets/images/location.svg";
@@ -8,6 +8,7 @@ import micIcon from "../../../assets/images/mic.svg";
 import smallSearchIcon from "../../../assets/images/search-small.svg";
 import smallMicIcon from "../../../assets/images/mic-small.svg";
 import smallLocationIcon from "../../../assets/images/location-small.svg";
+import useFetchNewInfo from "../customHooks/useFetchNewInfo";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import tempData from "./restaurantList.json";
@@ -16,17 +17,31 @@ const SearchBar = (props) => {
   const navigate = useNavigate();
   const [analyzing, setAnalyzing] = useState(false);
   const [input, setInput] = useState("");
+  const fetchData = useFetchNewInfo();
+
+  useEffect(() => {
+    const radius = 1500;
+    const lat = props.userGeometry.lat
+    const lng = props.userGeometry.lng
+    fetchData(radius, lat, lng).then((data) => {
+      props.appendAnalyzedRestaurantList(data);
+    }
+    );
+  }, []);
 
   const handleSearchKeyDown = async (e) => {
     if (analyzing) {
       return;
     }
+    if(props.analyzedRestaurantData.length === 0){
+      return
+    }
     if (e.key === "Enter") {
       console.log("pressed enter");
-      setAnalyzing((cur) => !cur);
-      let analyzedRestaurantData = tempData;
-      let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData);
-      // let keyAttrList = keyAttrListFilterFunc(props.analyzedRestaurantData)
+      setAnalyzing(cur => !cur)
+      // let analyzedRestaurantData = tempData
+      // let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData)
+      let keyAttrList = keyAttrListFilterFunc(props.analyzedRestaurantData)
       // keyAttrList = keyAttrList.map((eachKeyAttrList,key) => {
       //   console.log("eachKeyAttrList: ", eachKeyAttrList);
       //   for (const key in eachKeyAttrList) {
@@ -66,14 +81,15 @@ const SearchBar = (props) => {
         for (const key in eachScoreObj) {
           console.log("key: ", key);
           if (existingKey.includes(key)) {
+          if (existingKey.includes(key)) {
             //replace
             console.log("replace");
-            combinedAIScore[existingKey.indexOf(key)] = eachScoreObj;
+            combinedAIScore[existingKey.indexOf(key)] = eachScoreObj
           } else {
-            combinedAIScore.push(eachScoreObj);
+            combinedAIScore.push(eachScoreObj)
           }
         }
-      });
+      }});
 
       // const combinedAIScore = AIScore.concat(props.meetUserDataList)
       console.log("combinedAIScore: ", combinedAIScore);
@@ -86,8 +102,8 @@ const SearchBar = (props) => {
         }
       });
       console.log("sortedAIScore: ", sortedAIScore);
-      props.appendMeetUserData(sortedAIScore);
-      setAnalyzing((cur) => !cur);
+      props.appendMeetUserData(sortedAIScore)
+      setAnalyzing(cur => !cur)
       navigate("/map");
     }
   };
@@ -159,12 +175,13 @@ const mapStateToProps = (state) => ({
   searchInput: state.home.searchInput,
   meetUserDataList: state.home.searchedDishId,
   analyzedRestaurantData: state.home.analyzedRestaurantData,
+  userGeometry:state.home.userGeometry
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getSearchInput: (input) => dispatch(actions.getSearchInput(input)),
-  appendMeetUserData: (payload) =>
-    dispatch(actions.appendMeetUserData(payload)),
+  appendMeetUserData: (payload) => dispatch(actions.appendMeetUserData(payload)),
+  appendAnalyzedRestaurantList: (payload) => dispatch(actions.appendAnalyzedRestaurantList(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

@@ -4,6 +4,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 import axios from "axios";
 import { connect } from "react-redux";
 import { actions } from "../../../actions";
+import useFetchNewInfo from "../customHooks/useFetchNewInfo";
 
 const MapComponent = (props) => {
   const restInfoCount = useRef(0);
@@ -16,7 +17,8 @@ const MapComponent = (props) => {
         version: "weekly",
       }),
     []
-  ); // 空依赖数组，确保 loader 只被创建一次
+  ); // 空依赖数组，确保 loader 只被创建一次  
+  const fetchData  = useFetchNewInfo();
 
   useEffect(() => {
     // 初始化Map
@@ -339,15 +341,11 @@ const MapComponent = (props) => {
 
 const mapStateToProps = (state) => ({
   radius: state.home.mapData.radius,
-  restaurantData: state.home.restaurantData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  appendRestaurantList: (payload) =>
-    dispatch(actions.appendRestaurantList(payload)),
   appendAnalyzedRestaurantList: (payload) =>
     dispatch(actions.appendAnalyzedRestaurantList(payload)),
-  emptyRestaurantList: () => dispatch(actions.emptyRestaurantList()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapComponent);

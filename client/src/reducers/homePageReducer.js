@@ -86,7 +86,7 @@ const homePageReducer = (state = initialState, action) => {
         restaurantData: [...state.restaurantData, ...action.payload],
       };
     case Actions.APPEND_ANALYZED_RESTAURANT_LIST:
-      // console.log("APPEND_ANALYZED_RESTAURANT_LIST action.payload: ", action.payload);
+      console.log("APPEND_ANALYZED_RESTAURANT_LIST action.payload: ", action.payload);
       return {
         ...state,
         analyzedRestaurantData: [
