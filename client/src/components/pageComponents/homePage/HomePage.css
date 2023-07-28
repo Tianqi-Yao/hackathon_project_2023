@@ -2,31 +2,33 @@
 
 .home-page {
     width: 100%;
-    height: 100vh;
-}
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
 .home-content {
-    padding: 5rem 8.62rem;
-
+    padding: 2.5rem 9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-between;
+    gap: 8rem;
+    height: 80%;
+    flex-grow: 1;
 }
 
 .home-content-left {
-    width: 50%;
-    border-right: 1px solid #3E4D67;
     display: flex;
     flex-direction: column;
 }
 
-.home-title-container {
+.home-titles-container {
     display: flex;
     flex-direction: column;
-}
-
-.home-title-subgroup {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-    gap: 1.5rem;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
 }
 
 .home-title {
@@ -46,32 +48,35 @@
     color: #FFF;
     font-size: 1rem;
     font-weight: 400;
-    width: 29rem;
-    margin-top: 12.75rem;
+    width: 40%;
+    text-align: right;
 }
 
 .home-input-bar {
     position: relative;
-    width: 28.4rem;
+    width: 50%;
     margin-top: 2.69rem;
+    margin-top: 3.5%;
 }
 
 .home-location-icon {
     position: absolute;
     left: 1.11rem;
     top: 1.2em;
+    cursor: pointer;
 }
 
 .home-input {
-    width: 28.4rem;
+    width: 100%;
     padding: 1.2rem 1rem 1.2rem 3.25rem;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     background: #525865;
-    box-shadow: 4px 4px 30px 10px rgba(28, 37, 53, 0.30);
+    box-shadow: 0.25rem 0.25rem 1.875rem 0.625rem rgba(28, 37, 53, 0.30);
     border: none;
     color: #fff;
     font-size: 14px;
     font-weight: 400;
+    font-family: inherit;
 }
 
 .home-input::placeholder{
@@ -83,7 +88,7 @@
 }
 
 .home-start-button {
-    border-radius: 30px 5px 5px 5px;
+    border-radius: 1.875rem 0.313rem 0.313rem 0.313rem;
     background: #ED7F42;
     color: white;
     padding: 0.63rem 1.3rem 0.63rem 2rem;
@@ -91,6 +96,8 @@
     position: absolute;
     right: 0.5rem;
     top: 0.5rem;
+    font-family: inherit;
+    width: 28%;
 }
 
 .home-start-icon {
@@ -99,4 +106,24 @@
     justify-content: center;
     align-items: center;
     gap: 0.62rem;
+}
+
+.home-content-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+h1,h3 {
+    padding: 0;
+    margin: 0;
+}
+
+footer {
+    color: #D0D0D0;
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding:  3rem 0;
+    text-align: center;
+    height: 10%;
 }

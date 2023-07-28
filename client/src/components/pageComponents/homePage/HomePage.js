@@ -21,14 +21,14 @@ const HomePage = (props) => {
       <main className="home-content">
         <div className="home-content-left">
           <div className="home-titles-container">
-            <h1 className="home-title">RESTAURANTS,</h1>
-            <div className="home-title-subgroup">
-              <h1 className="home-title">FOODS,</h1>
-              <h3 className="home-subtitle">but HEALTHIER.</h3>
-            </div>
+            <h1 className="home-title">RESTAURANTS and FOODS</h1>
+            <h3 className="home-subtitle">but HEALTHIER.</h3>
           </div>
+        </div>
+        <div className="home-content-right">
           <p className="home-decription">
-            An AI-powered food map generator with nutritional info in your area.
+            An AI-powered food map search engine to know your local foods and
+            restaurants better.
           </p>
           <div className="home-input-bar">
             <img
@@ -53,9 +53,8 @@ const HomePage = (props) => {
             </Link>
           </div>
         </div>
-        <div className="home-content-right"></div>
       </main>
-      {/* <footer>© 2023 all rights reserved.</footer> */}
+      <footer>© 2023 all rights reserved.</footer>
     </div>
   );
 };
