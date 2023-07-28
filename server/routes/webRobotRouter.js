@@ -5,6 +5,7 @@ const { searchBusinessByYelp } = require('../public/javascripts/yelp');
 const MenuScraper = require('../public/javascripts/MenuScraper');
 const ReviewsScraper = require('../public/javascripts/ReviewsScraper');
 const {getAIScore} = require('../public/javascripts/AI');
+const {getAllRestaurantID} = require('../models');
 const router = express.Router();
 const fs = require('fs');
 const { off } = require('process');
@@ -17,6 +18,7 @@ router.get('/', async (req, res) => {
         api2: "/api2",
         api3: "/api3",
         food: "/food/:food",
+        getAllRestaurantID:"/getAllRestaurantID",
         searchBusinessByYelp: "/searchBusinessByYelp?lat=30.2672&lng=-97.7431"
     })
 });
@@ -185,6 +187,16 @@ router.post('/AI', async (req, res) => {
     res.status(200).json({
         home: "/",
         message: "AI",
+        data: data
+    })
+}
+);
+
+router.get('/getAllRestaurantID', async (req, res) => {
+    const data = await getAllRestaurantID();
+    res.status(200).json({
+        home: "/",
+        message: "getAllRestaurantID",
         data: data
     })
 }

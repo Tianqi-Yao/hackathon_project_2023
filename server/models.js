@@ -1,3 +1,4 @@
+const { cos } = require('@tensorflow/tfjs');
 const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize('test', '3Q2G8WwNkXDPB8k.root', 'XssU3JLwr5dPmVES', {
@@ -114,13 +115,20 @@ const Review = sequelize.define('Review', {
 
 // Get add resturant id
 
-Restaurant.findAll({ attributes: ['id'] })
-  .then((restaurants) => {
-    const ids = restaurants.map((restaurant) => restaurant.id);
+const getAllRestaurantID = async() => {
+  try {
+    const restaurants = await Restaurant.findAll({
+      attributes: ['id'] 
+    });
+    
+    const ids = restaurants.map(restaurant => restaurant.id);
+    
     console.log(ids);
-  })
-  .catch((error) => {
+    return ids;
+    
+  } catch (error) {
     console.error('Error retrieving restaurants:', error);
-  });
+  }
+}
 
-module.exports = { sequelize, Restaurant, Category, Menu, Ingredient, Review };
+module.exports = { sequelize, Restaurant, Category, Menu, Ingredient, Review, getAllRestaurantID };
