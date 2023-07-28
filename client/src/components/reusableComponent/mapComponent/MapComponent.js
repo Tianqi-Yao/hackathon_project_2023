@@ -130,6 +130,12 @@ const MapComponent = (props) => {
     // setCurlocation({lat, lng})
     console.log(`Latitude: ${lat}, Longitude: ${lng}`);
     const filteredResults = await nearbySearchYelpFunc(lat, lng);
+
+    // 拿 database 数据, 对比filteredResults, 如果有重复的，就不再添加
+    // 拿 database id
+
+
+
     /************** start analyzeMenu ***************/
     console.log("start analyzeMenu");
     let ingradientsList = await analyzeMenu(filteredResults);
@@ -193,6 +199,8 @@ const MapComponent = (props) => {
     );
     props.emptyRestaurantList(); // 清空restaurantData
     props.appendAnalyzedRestaurantList(analyzedRestaurantData); // 将分析后的数据存入redux
+    // 添加到数据库
+
   };
 
   const nearbySearchYelpFunc = async (lat, lng) => {

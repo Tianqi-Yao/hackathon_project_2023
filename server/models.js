@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize('test', '4119qweDVJzJujk.root', '5ITiwv2Te7OO5J7s', {
+const sequelize = new Sequelize('test', '3Q2G8WwNkXDPB8k.root', 'XssU3JLwr5dPmVES', {
   host: 'gateway01.eu-central-1.prod.aws.tidbcloud.com',
   port: 4000,
   dialect: 'mysql',
