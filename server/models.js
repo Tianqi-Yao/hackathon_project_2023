@@ -31,7 +31,10 @@ const Restaurant = sequelize.define('Restaurant', {
   phone: DataTypes.STRING,
   display_phone: DataTypes.STRING,
   distance: DataTypes.DOUBLE,
-  averageCalorie: DataTypes.DOUBLE
+  averageCalorie: DataTypes.DOUBLE,
+  averageTotalFat: DataTypes.DOUBLE,
+  averageTotalProtien: DataTypes.DOUBLE,
+  averageTotalCarbohydrates: DataTypes.DOUBLE
 }, {
   timestamps: false
 });
@@ -103,5 +106,9 @@ const Review = sequelize.define('Review', {
 }, {
   timestamps: false
 });
+
+sequelize.sync()
+  .then(() => console.log('Database & tables created!'))
+  .catch(error => console.log('This error occurred', error));
 
 module.exports = { sequelize, Restaurant, Category, Menu, Ingredient, Review };

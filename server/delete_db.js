@@ -36,6 +36,14 @@ connection.connect(function(err) {
     });
 
     connection.query(`
+        DROP TABLE IF EXISTS Categories;
+    `, function(err) {
+        if (err) throw err;
+
+        console.log("Categories table dropped");
+    });
+
+    connection.query(`
         DROP TABLE IF EXISTS Reviews;
     `, function(err) {
         if (err) throw err;
