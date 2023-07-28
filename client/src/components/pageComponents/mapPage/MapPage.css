@@ -129,6 +129,13 @@
     cursor: pointer;
 }
 
+.loading {
+    color: #A6A6A6;
+    font-size: 1rem;
+    font-weight: 400;
+    display: none;
+}
+
 .restaurant-item {
     display: flex;
     flex-direction: column;

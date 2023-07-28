@@ -136,6 +136,7 @@ const MapPage = (props) => {
               </div>
             </div>
             <div className="restaurants-container" onScroll={handleScroll}>
+              <div className="loading">Loading...</div>
               {visibleData.map((restaurant) => (
                 <div className="restaurant-item-container" key={restaurant.id}>
                   <div
