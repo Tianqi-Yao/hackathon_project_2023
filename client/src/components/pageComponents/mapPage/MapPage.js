@@ -41,6 +41,8 @@ const MapPage = (props) => {
     restaurantId.includes(id)
       ? setRestaurantId(restaurantId.filter((existingId) => existingId !== id))
       : setRestaurantId((prev) => [...prev, id]);
+    props.searchedDishId.map((itemId) => console.log(Object.keys(itemId)));
+    console.log(props.searchedDishId);
   };
 
   const handleExpandDetail = (id) => {
@@ -298,114 +300,124 @@ const MapPage = (props) => {
                       ))}
                     {props.searchedDishId.length > 0 &&
                       !restaurantId.includes(restaurant.id) &&
-                      restaurant.menu.map(
-                        (item) =>
-                          props.searchedDishId.includes(item.uuid) && (
-                            <div
-                              className="dish-info-container"
-                              key={item.uuid}
-                            >
-                              <div className="dish-info-top">
-                                <div className="dish-info-top-left">
-                                  <div className="dish-name">{item.food}</div>
-                                  <div className="dish-calorie">
-                                    {" "}
-                                    {item.calorie === 0
-                                      ? "unavailable"
-                                      : `${Math.round(item.calorie)} cal`}
+                      restaurant.menu.map((item) =>
+                        props.searchedDishId.map(
+                          (itemId) =>
+                            Object.keys(itemId)[0] === item.uuid && (
+                              <div
+                                className="dish-info-container"
+                                key={item.uuid}
+                              >
+                                <div className="dish-info-top">
+                                  <div className="dish-info-top-left">
+                                    <div className="dish-name">{item.food}</div>
+                                    <div className="dish-calorie">
+                                      {" "}
+                                      {item.calorie === 0
+                                        ? "unavailable"
+                                        : `${Math.round(item.calorie)} cal`}
+                                    </div>
                                   </div>
-                                </div>
-                                {item.calorie === 0 ? (
-                                  <div className="dish-expand-container-disabled">
-                                    <div>expand</div>
-                                    <img
-                                      className="expand-disabled"
-                                      src={expandDetailIcon}
-                                      alt="expand icon"
-                                    />
-                                  </div>
-                                ) : (
-                                  <div
-                                    className="dish-expand-container"
-                                    onClick={() =>
-                                      handleExpandDetail(item.uuid)
-                                    }
-                                  >
-                                    <div>expand</div>
-                                    <img
-                                      className={
-                                        dishId.includes(item.uuid)
-                                          ? "expanded-detail"
-                                          : ""
+                                  {item.calorie === 0 ? (
+                                    <div className="dish-expand-container-disabled">
+                                      <div>expand</div>
+                                      <img
+                                        className="expand-disabled"
+                                        src={expandDetailIcon}
+                                        alt="expand icon"
+                                      />
+                                    </div>
+                                  ) : (
+                                    <div
+                                      className="dish-expand-container"
+                                      onClick={() =>
+                                        handleExpandDetail(item.uuid)
                                       }
-                                      src={expandDetailIcon}
-                                      alt="expand icon"
-                                    />
+                                    >
+                                      <div>expand</div>
+                                      <img
+                                        className={
+                                          dishId.includes(item.uuid)
+                                            ? "expanded-detail"
+                                            : ""
+                                        }
+                                        src={expandDetailIcon}
+                                        alt="expand icon"
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="dish-description">
+                                  {item.ingredients}
+                                </div>
+                                {dishId.includes(item.uuid) && (
+                                  <div className="nutrition-info-container">
+                                    <div className="nutrition-info-top">
+                                      <div className="calorie-info-container">
+                                        <div className="calorie-title">
+                                          Total Calorie
+                                        </div>
+                                        <div className="calorie">
+                                          {item.calorie === 0
+                                            ? "unavailable"
+                                            : `${Math.round(item.calorie)} cal`}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="nutrition-info-bottom">
+                                      <div className="nutrition-info-ring-container">
+                                        <div className="info-item">
+                                          <div class="nutrition-info-ring">
+                                            <span className="percentage-value">
+                                              10%
+                                            </span>
+                                          </div>
+                                          <div className="nutrition-info">
+                                            <div className="info-title">
+                                              Carbs
+                                            </div>
+                                            <div className="info-value">
+                                              30g
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="info-item">
+                                          <div class="nutrition-info-ring">
+                                            <span className="percentage-value">
+                                              10%
+                                            </span>
+                                          </div>
+                                          <div className="nutrition-info">
+                                            <div className="info-title">
+                                              Protein
+                                            </div>
+                                            <div className="info-value">
+                                              40g
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="info-item">
+                                          <div class="nutrition-info-ring">
+                                            <span className="percentage-value">
+                                              10%
+                                            </span>
+                                          </div>
+                                          <div className="nutrition-info">
+                                            <div className="info-title">
+                                              Fat
+                                            </div>
+                                            <div className="info-value">
+                                              250g
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 )}
                               </div>
-                              <div className="dish-description">
-                                {item.ingredients}
-                              </div>
-                              {dishId.includes(item.uuid) && (
-                                <div className="nutrition-info-container">
-                                  <div className="nutrition-info-top">
-                                    <div className="calorie-info-container">
-                                      <div className="calorie-title">
-                                        Total Calorie
-                                      </div>
-                                      <div className="calorie">
-                                        {item.calorie === 0
-                                          ? "unavailable"
-                                          : `${Math.round(item.calorie)} cal`}
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="nutrition-info-bottom">
-                                    <div className="nutrition-info-ring-container">
-                                      <div className="info-item">
-                                        <div class="nutrition-info-ring">
-                                          <span className="percentage-value">
-                                            10%
-                                          </span>
-                                        </div>
-                                        <div className="nutrition-info">
-                                          <div className="info-title">
-                                            Carbs
-                                          </div>
-                                          <div className="info-value">30g</div>
-                                        </div>
-                                      </div>
-                                      <div className="info-item">
-                                        <div class="nutrition-info-ring">
-                                          <span className="percentage-value">
-                                            10%
-                                          </span>
-                                        </div>
-                                        <div className="nutrition-info">
-                                          <div className="info-title">
-                                            Protein
-                                          </div>
-                                          <div className="info-value">40g</div>
-                                        </div>
-                                      </div>
-                                      <div className="info-item">
-                                        <div class="nutrition-info-ring">
-                                          <span className="percentage-value">
-                                            10%
-                                          </span>
-                                        </div>
-                                        <div className="nutrition-info">
-                                          <div className="info-title">Fat</div>
-                                          <div className="info-value">250g</div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          )
+                            )
+                        )
                       )}
                   </div>
                   <div className="line-break"></div>

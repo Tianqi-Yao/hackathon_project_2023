@@ -16,10 +16,10 @@ const initialState = {
   searchInputKeywords: [],
   displayedRestaurantsData: [],
   searchedDishId: [
-    "0e19bf86-3baf-4abf-ab2c-42596d725e1b",
-    "7252beb0-99e0-400d-849b-026baf8398ec",
-    "69a3ae5f-9ec1-4142-9467-b978359cdc5d",
-    "de360de6-f0ff-426e-92c6-8ad3c6075c95",
+    { "0e19bf86-3baf-4abf-ab2c-42596d725e1b": 10 },
+    { "7252beb0-99e0-400d-849b-026baf8398ec": 20 },
+    { "69a3ae5f-9ec1-4142-9467-b978359cdc5d": 30 },
+    { "de360de6-f0ff-426e-92c6-8ad3c6075c95": 40 },
   ], // data inside for testing
 };
 
