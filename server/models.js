@@ -107,8 +107,22 @@ const Review = sequelize.define('Review', {
   timestamps: false
 });
 
-sequelize.sync()
-  .then(() => console.log('Database & tables created!'))
-  .catch(error => console.log('This error occurred', error));
+// In sync (for init)
+// sequelize.sync()
+//   .then(() => console.log('Database & tables created!'))
+//   .catch(error => console.log('This error occurred', error));
+
+
+
+// Get add resturant id
+
+Restaurant.findAll({ attributes: ['id'] })
+  .then((restaurants) => {
+    const ids = restaurants.map((restaurant) => restaurant.id);
+    console.log(ids);
+  })
+  .catch((error) => {
+    console.error('Error retrieving restaurants:', error);
+  });
 
 module.exports = { sequelize, Restaurant, Category, Menu, Ingredient, Review };
