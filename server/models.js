@@ -111,6 +111,23 @@ const Review = sequelize.define('Review', {
 // Create mappings between table
 Restaurant.hasMany(Menu, { foreignKey: 'restaurant_id', as: 'menus' });
 Menu.belongsTo(Restaurant, { foreignKey: 'restaurant_id' });
+// In sync (for init)
+// sequelize.sync()
+//   .then(() => console.log('Database & tables created!'))
+//   .catch(error => console.log('This error occurred', error));
+
+
+
+// Get add resturant id
+
+Restaurant.findAll({ attributes: ['id'] })
+  .then((restaurants) => {
+    const ids = restaurants.map((restaurant) => restaurant.id);
+    console.log(ids);
+  })
+  .catch((error) => {
+    console.error('Error retrieving restaurants:', error);
+  });
 
 // In sync (for init)
 // sequelize.sync()
