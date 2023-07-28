@@ -16,19 +16,17 @@ const HomePage = (props) => {
   useEffect(() => {
     const loader = new Loader({
       apiKey: process.env.REACT_APP_MAP_API_KEY, // 在这里填写你的 Google Maps API Key
-      version: "weekly",
+      version: "weekly"
     });
 
     loader.importLibrary("places").then(() => {
-      const autocomplete = new window.google.maps.places.Autocomplete(
-        autocompleteRef.current
-      );
+      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteRef.current);
 
-      autocomplete.addListener("place_changed", function () {
+      autocomplete.addListener('place_changed', function() {
         const place = autocomplete.getPlace();
         if (!place.geometry) {
           // The user selected a place without a specific location.
-          console.error("No location data available for the selected place.");
+          console.error('No location data available for the selected place.');
           return;
         }
         const location = place.geometry.location;
@@ -91,9 +89,7 @@ const HomePage = (props) => {
               className="home-location-icon"
               src={locationIcon}
               alt="location icon"
-              onClick={() => {
-                handleLocationIcon();
-              }}
+              onClick={() => {handleLocationIcon()}}
             />
             <input
               className="home-input"
