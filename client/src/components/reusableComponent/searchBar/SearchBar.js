@@ -150,7 +150,7 @@ const SearchBar = (props,{ size, analyzedRestaurantData, meetUserDataList,append
 
 const mapStateToProps = (state) => ({
   searchInput: state.home.searchInput,
-  meetUserDataList:state.home.meetUserDataList,
+  meetUserDataList:state.home.searchedDishId,
   analyzedRestaurantData: state.home.analyzedRestaurantData,
 });
 
