@@ -16,7 +16,7 @@ const HomePage = (props) => {
   };
 
   return (
-    <div className="home">
+    <div className="home-page">
       <Navbar />
       <main className="home-content">
         <div className="home-content-left">
