@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import tempData from "./restaurantList.json";
 
-const SearchBar = (props,{ size, analyzedRestaurantData, meetUserDataList,appendMeetUserData }) => {
+const SearchBar = (props) => {
   const navigate = useNavigate();
   const [analyzing,setAnalyzing] = useState(false)
   const [input, setInput] = useState("");
@@ -26,6 +26,7 @@ const SearchBar = (props,{ size, analyzedRestaurantData, meetUserDataList,append
       setAnalyzing(cur=>!cur)
       let analyzedRestaurantData = tempData
       let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData)
+      // let keyAttrList = keyAttrListFilterFunc(props.analyzedRestaurantData)
       // keyAttrList = keyAttrList.map((eachKeyAttrList,key) => {
       //   console.log("eachKeyAttrList: ", eachKeyAttrList);
       //   for (const key in eachKeyAttrList) {
@@ -50,9 +51,10 @@ const SearchBar = (props,{ size, analyzedRestaurantData, meetUserDataList,append
         }
       }
       console.log("AIScore: ", AIScore);
-      // combine AIScore and meetUserDataList, just add new key object
-      const combinedAIScore = [...meetUserDataList]
-      const existingKey = meetUserDataList.map(eachMeetUserData => {
+      // combine AIScore and props.meetUserDataList, just add new key object
+      console.log("props.meetUserDataList: ", props.meetUserDataList);
+      const combinedAIScore = [...props.meetUserDataList]
+      const existingKey = props.meetUserDataList.map(eachMeetUserData => {
         for (const key in eachMeetUserData) {
           return key
         }
@@ -71,7 +73,7 @@ const SearchBar = (props,{ size, analyzedRestaurantData, meetUserDataList,append
         }
       });
 
-      // const combinedAIScore = AIScore.concat(meetUserDataList)
+      // const combinedAIScore = AIScore.concat(props.meetUserDataList)
       console.log("combinedAIScore: ", combinedAIScore);
       // sort AIScore by value
       const sortedAIScore = combinedAIScore.sort((a, b) => {
@@ -82,7 +84,7 @@ const SearchBar = (props,{ size, analyzedRestaurantData, meetUserDataList,append
         }
       })
       console.log("sortedAIScore: ", sortedAIScore);
-      appendMeetUserData(sortedAIScore)
+      props.appendMeetUserData(sortedAIScore)
       setAnalyzing(cur=>!cur)
       navigate("/map");
     }
@@ -150,7 +152,7 @@ const SearchBar = (props,{ size, analyzedRestaurantData, meetUserDataList,append
 
 const mapStateToProps = (state) => ({
   searchInput: state.home.searchInput,
-  meetUserDataList:state.home.searchedDishId,
+  meetUserDataList: state.home.searchedDishId,
   analyzedRestaurantData: state.home.analyzedRestaurantData,
 });
 
