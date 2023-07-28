@@ -4,6 +4,7 @@ const { getCalorieByFood } = require('../public/javascripts/calorie');
 const { searchBusinessByYelp } = require('../public/javascripts/yelp');
 const MenuScraper = require('../public/javascripts/MenuScraper');
 const ReviewsScraper = require('../public/javascripts/ReviewsScraper');
+const {getAIScore} = require('../public/javascripts/AI');
 const router = express.Router();
 const fs = require('fs');
 const { off } = require('process');
@@ -170,6 +171,20 @@ router.get('/searchBusinessByYelp', async (req, res) => {
     res.status(200).json({
         home: "/",
         message: "searchBusinessByYelp",
+        data: data
+    })
+}
+);
+
+router.post('/AI', async (req, res) => {
+    const prompt = req.body.prompt;
+    const keyAttrList = req.body.keyAttrList;
+    console.log("in router post")
+    const data = await getAIScore(prompt, keyAttrList);
+    // const data = await analyzingDataFromAIApi(prompt);
+    res.status(200).json({
+        home: "/",
+        message: "AI",
         data: data
     })
 }

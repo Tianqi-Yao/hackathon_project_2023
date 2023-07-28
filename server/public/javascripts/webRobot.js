@@ -105,14 +105,14 @@ async function getWebDataByPlaywright(url) {
     return plainText
 }
 
-async function analyzingDataFromAIApi(content) {
-    console.log("start use OpenAI");
-    console.log("content:", content);
+async function analyzingDataFromAIApi(prompt) {
+    console.log("start use AI to analyze data");
+    console.log("prompt:", prompt);
     const options = {
         method: 'POST',
         url: 'http://127.0.0.1:3010',
         data: {
-            content: content,
+            prompt: prompt,
         }
     };
     try {

@@ -14,6 +14,7 @@ const initialState = {
   searchInput: "",
   restaurantKeywords: [],
   searchInputKeywords: [],
+  meetUserDataList: [],
   displayedRestaurantsData: [],
   searchedDishId: [
     "0e19bf86-3baf-4abf-ab2c-42596d725e1b",
@@ -122,6 +123,11 @@ const homePageReducer = (state = initialState, action) => {
           ...state.mapData,
           radius: action.payload,
         },
+      };
+    case Actions.APPEND_MEET_USER_DATA:
+      return {
+        ...state,
+        meetUserDataList: action.payload,
       };
     default:
       return state;

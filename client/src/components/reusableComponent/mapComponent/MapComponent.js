@@ -181,9 +181,11 @@ const MapComponent = (props) => {
           ingradientsList: newIngradientList,
         }; // 每道菜
       });
-      const averageCalorie =
-        newMenu.reduce((acc, cur) => acc + cur.calorie, 0) / newMenu.length; // 计算平均卡路里
-      return { ...restaurant, averageCalorie, menu: newMenu }; //每个餐厅
+      const averageCalorie = newMenu.reduce((acc, cur) => acc + cur.calorie, 0) / newMenu.length; // 计算平均卡路里
+      const averageTotalFat = newMenu.reduce((acc, cur) => acc + cur.totalFat, 0) / newMenu.length;
+      const averageTotalProtien = newMenu.reduce((acc, cur) => acc + cur.totalProtien, 0) / newMenu.length;
+      const averageTotalCarbohydrates = newMenu.reduce((acc, cur) => acc + cur.totalCarbohydrates, 0) / newMenu.length;
+      return { ...restaurant, averageCalorie, averageTotalFat, averageTotalProtien, averageTotalCarbohydrates, menu: newMenu };  //每个餐厅
     });
     console.log(
       "finish assign, analyzedRestaurantData: ",

@@ -6,19 +6,20 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def chatgpt():
     data = request.get_json()  # 获取JSON数据
-    content = data.get('content')  # 从JSON数据中获取'number'字段
-    if content is None:
+    print("data from py:",data)
+    prompt = data.get('prompt')  # 从JSON数据中获取内容
+    if prompt is None:
         response = {
             'error': 'No number provided.',
         }
     else:
         print('connect to HF_spaces')
-        client = Client("https://jollyomnivore-fusion92-chatgpt-sandbox.hf.space/")
+        client = Client("https://ysharma-explore-llamav2-with-tgi.hf.space/")
         result = client.predict(
-            content,	# str  in 'user_input' Textbox component
-            "",	# str  in 'AI_Role' Textbox component
-            api_name="/predict"
+            prompt,	# str in 'parameter_6' Textbox component
+			api_name="/chat"
         )
+        print("result from py:",result)
         print('finish HF_spaces')
         response = {
             'result': result, 
