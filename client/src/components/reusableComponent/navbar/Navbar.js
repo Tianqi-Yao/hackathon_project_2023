@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <div className="navbar-container">
       <nav className="navbar">
-        <Link to="/">
+        <Link to="/" style={{ textDecoration: "none" }}>
           <div className="logo">
             <div>NutriMap</div>
           </div>
