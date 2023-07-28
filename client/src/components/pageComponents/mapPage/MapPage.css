@@ -28,7 +28,9 @@
 }
 
 .map-page-content {
-    margin-top: 3rem;
+    margin-top: 1.5rem;
+    height: 80%;
+    flex-grow: 1;
 }
 
 .map-main-content {
