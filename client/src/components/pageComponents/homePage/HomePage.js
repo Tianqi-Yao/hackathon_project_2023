@@ -55,6 +55,7 @@ const HomePage = (props) => {
         </div>
         <div className="home-content-right"></div>
       </main>
+      {/* <footer>© 2023 all rights reserved.</footer> */}
     </div>
   );
 };

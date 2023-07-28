@@ -201,7 +201,7 @@ const MapPage = (props) => {
                     </div>
                     {restaurantId.includes(restaurant.id) &&
                       restaurant.menu.map((item) => (
-                        <div className="dish-info-container">
+                        <div className="dish-info-container" key={item.uuid}>
                           <div className="dish-info-top">
                             <div className="dish-info-top-left">
                               <div className="dish-name">{item.food}</div>
@@ -301,7 +301,10 @@ const MapPage = (props) => {
                       restaurant.menu.map(
                         (item) =>
                           props.searchedDishId.includes(item.uuid) && (
-                            <div className="dish-info-container">
+                            <div
+                              className="dish-info-container"
+                              key={item.uuid}
+                            >
                               <div className="dish-info-top">
                                 <div className="dish-info-top-left">
                                   <div className="dish-name">{item.food}</div>
@@ -413,7 +416,7 @@ const MapPage = (props) => {
           {/* temp button */}
         </div>
       </main>
-      <footer>© 2023 all rights reserved.</footer>
+      {/* <footer>© 2023 all rights reserved.</footer> */}
     </div>
   );
 };

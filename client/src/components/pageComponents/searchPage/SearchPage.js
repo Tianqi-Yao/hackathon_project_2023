@@ -16,6 +16,7 @@ const SearchPage = (props) => {
         </div>
         <SearchBar />
       </main>
+      {/* <footer>© 2023 all rights reserved.</footer> */}
     </div>
   );
 };
