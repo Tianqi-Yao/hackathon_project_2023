@@ -23,22 +23,6 @@
     margin-top: 3rem;
 }
 
-.map-page-content {
-    margin-top: 3rem;
-}
-
-.map-page-content {
-    margin-top: 1.5rem;
-    height: 80%;
-    flex-grow: 1;
-}
-
-.search-bar-container {
-    width: 57%;
-    height: 20%;
-    flex-grow: 1;
-}
-
 .map-main-content {
     display: flex;
     flex-direction: row;
