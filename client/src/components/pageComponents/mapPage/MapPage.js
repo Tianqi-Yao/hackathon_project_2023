@@ -312,7 +312,6 @@ const MapPage = (props) => {
                                   <div className="dish-info-top-left">
                                     <div className="dish-name">{item.food}</div>
                                     <div className="dish-calorie">
-                                      {" "}
                                       {item.calorie === 0
                                         ? "unavailable"
                                         : `${Math.round(item.calorie)} cal`}
@@ -428,7 +427,7 @@ const MapPage = (props) => {
           {/* temp button */}
         </div>
       </main>
-      {/* <footer>© 2023 all rights reserved.</footer> */}
+      <footer>© 2023 all rights reserved.</footer>
     </div>
   );
 };
