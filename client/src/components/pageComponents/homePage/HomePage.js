@@ -8,8 +8,15 @@ import { connect } from "react-redux";
 import { actions } from "../../../actions";
 
 const HomePage = (props) => {
+  const [input, setInput] = useState("");
+
+  const handleInput = () => {
+    props.getInputLocation(input);
+    setInput("");
+  };
+
   return (
-    <div className="home">
+    <div className="home-page">
       <Navbar />
       <main className="home-content">
         <div className="home-content-left">
@@ -32,10 +39,12 @@ const HomePage = (props) => {
             <input
               className="home-input"
               type="text"
-              placeholder="Enter you city or zip code"
+              placeholder="Enter a city, address or zip code"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
             <Link to="/SearchPage">
-              <button className="home-start-button">
+              <button className="home-start-button" onClick={handleInput}>
                 <div className="home-start-icon">
                   <span>Start now</span>
                   <img src={startIcon} alt="startIcon" />
@@ -46,17 +55,17 @@ const HomePage = (props) => {
         </div>
         <div className="home-content-right"></div>
       </main>
+      {/* <footer>© 2023 all rights reserved.</footer> */}
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  count: state.home.count,
+  inputLocationStr: state.home.inputLocationStr,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addCount: () => dispatch(actions.addCounter()),
-  minusCount: () => dispatch(actions.minusCounter()),
+  getInputLocation: (location) => dispatch(actions.getInputLocation(location)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

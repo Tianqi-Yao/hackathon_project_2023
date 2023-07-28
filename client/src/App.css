@@ -3,13 +3,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* border: 1px solid red; */
 }
 
-html {
+body,html {
     font-size: clamp(1rem, 1vw, 2rem);
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
+.overlay {
+    position: relative;
+    height: 100%;
+    background-image: linear-gradient(rgba(28, 37, 53, 0.85), rgba(28, 37, 53, 0.85)), url('./assets/images/backgroundImage.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    overflow: auto;
 }

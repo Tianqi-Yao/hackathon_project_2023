@@ -27,7 +27,10 @@ const MapComponent = (props) => {
         // disableDefaultUI: true,
         styles: [
           { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-          { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+          {
+            elementType: "labels.text.stroke",
+            stylers: [{ color: "#242f3e" }],
+          },
           { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
           {
             featureType: "administrative.locality",
@@ -119,8 +122,6 @@ const MapComponent = (props) => {
     }
   };
 
-
-
   /************** help func ***************/
   // Find nearby restaurants and get information about their menus and reviews.
   const fetchAllRestaurantInfo = async (event) => {
@@ -145,7 +146,8 @@ const MapComponent = (props) => {
         let isSameItem = false;
         for (let i = 0; i < ingradientsList.length; i++) {
           for (const item of newIngradientList) {
-            if (item?.name.includes(ingradientsList[i].name)) {  // 如果newIngradientList里已经有了这个元素，就不再添加
+            if (item?.name.includes(ingradientsList[i].name)) {
+              // 如果newIngradientList里已经有了这个元素，就不再添加
               isSameItem = true;
               break;
             }
@@ -154,62 +156,94 @@ const MapComponent = (props) => {
             newIngradientList.push(ingradientsList[i]);
           }
         }
-        const calorie = newIngradientList.reduce((acc, cur) => acc + cur.calories, 0);
-        const totalFat = newIngradientList.reduce((acc, cur) => acc + cur.fat_total_g, 0);
-        const totalProtien = newIngradientList.reduce((acc, cur) => acc + cur.protein_g, 0);
-        const totalCarbohydrates = newIngradientList.reduce((acc, cur) => acc + cur.carbohydrates_total_g, 0);
-        return { ...menu, calorie, totalFat, totalProtien, totalCarbohydrates, ingradientsList: newIngradientList }; // 每道菜
+        const calorie = newIngradientList.reduce(
+          (acc, cur) => acc + cur.calories,
+          0
+        );
+        const totalFat = newIngradientList.reduce(
+          (acc, cur) => acc + cur.fat_total_g,
+          0
+        );
+        const totalProtien = newIngradientList.reduce(
+          (acc, cur) => acc + cur.protein_g,
+          0
+        );
+        const totalCarbohydrates = newIngradientList.reduce(
+          (acc, cur) => acc + cur.carbohydrates_total_g,
+          0
+        );
+        return {
+          ...menu,
+          calorie,
+          totalFat,
+          totalProtien,
+          totalCarbohydrates,
+          ingradientsList: newIngradientList,
+        }; // 每道菜
       });
-      const averageCalorie = newMenu.reduce((acc, cur) => acc + cur.calorie, 0) / newMenu.length; // 计算平均卡路里
-      return { ...restaurant, averageCalorie, menu: newMenu };  //每个餐厅
+      const averageCalorie =
+        newMenu.reduce((acc, cur) => acc + cur.calorie, 0) / newMenu.length; // 计算平均卡路里
+      return { ...restaurant, averageCalorie, menu: newMenu }; //每个餐厅
     });
-    console.log("finish assign, analyzedRestaurantData: ", analyzedRestaurantData);
-    props.emptyRestaurantList();  // 清空restaurantData
-    props.appendAnalyzedRestaurantList(analyzedRestaurantData);  // 将分析后的数据存入redux
-  }
-
+    console.log(
+      "finish assign, analyzedRestaurantData: ",
+      analyzedRestaurantData
+    );
+    props.emptyRestaurantList(); // 清空restaurantData
+    props.appendAnalyzedRestaurantList(analyzedRestaurantData); // 将分析后的数据存入redux
+  };
 
   const nearbySearchYelpFunc = async (lat, lng) => {
     const { radius } = props;
     try {
       console.log("nearbySearchYelpFunc clicked, radius: ", radius);
 
-      const res = await axios.get("http://localhost:3005/searchBusinessByYelp", {
-        params: {
-          lat: lat,
-          lng: lng,
-          radius: radius,
-        },
-      });
+      const res = await axios.get(
+        "http://localhost:3005/searchBusinessByYelp",
+        {
+          params: {
+            lat: lat,
+            lng: lng,
+            radius: radius,
+          },
+        }
+      );
 
       const restaurantList = res.data.data;
       restInfoCount.current = restaurantList.length;
       console.log("nearbySearchYelpFunc res: ", restaurantList);
 
-      const results = await Promise.all(restaurantList.map(async (item, i) => {
-        if (item.menu) {  // !!! 如果已经有menu, 则不再获取
-          return item;
-        }
-        console.log(`getInfo url - ${i}: `, item.url);
-        try {
-          const { menuDetails: menu, reviewDetails: reviews } = await getInfo(item.url);
-
-          restInfoCount.current--;
-          console.log("restInfoCount.current: ", restInfoCount.current);
-          if (menu === null) {
-            return item
-          } else {
-            const result = { ...item, menu, reviews };
-            return result;
+      const results = await Promise.all(
+        restaurantList.map(async (item, i) => {
+          if (item.menu) {
+            // !!! 如果已经有menu, 则不再获取
+            return item;
           }
-        } catch (error) {
-          console.error(`Error getting info for restaurant ${i}: ${error}`);
-          return item; // 返回原始项目，如果 getInfo 失败
-        }
-      }));
+          console.log(`getInfo url - ${i}: `, item.url);
+          try {
+            const { menuDetails: menu, reviewDetails: reviews } = await getInfo(
+              item.url
+            );
+
+            restInfoCount.current--;
+            console.log("restInfoCount.current: ", restInfoCount.current);
+            if (menu === null) {
+              return item;
+            } else {
+              const result = { ...item, menu, reviews };
+              return result;
+            }
+          } catch (error) {
+            console.error(`Error getting info for restaurant ${i}: ${error}`);
+            return item; // 返回原始项目，如果 getInfo 失败
+          }
+        })
+      );
 
       console.log("results: ", results);
-      const filteredResults = results.filter(result => result.menu && result.menu.length > 0);
+      const filteredResults = results.filter(
+        (result) => result.menu && result.menu.length > 0
+      );
       console.log("filteredResults: ", filteredResults);
       // await props.appendRestaurantList(filteredResults);
       console.log("nearbySearchYelpFunc end");
@@ -225,44 +259,44 @@ const MapComponent = (props) => {
         params: {
           url: url,
         },
-      })
+      });
       const menuDetails = res.data.data;
       const reviewDetails = res.data.data2;
       console.log("getInfo res: ", menuDetails);
       console.log("getInfo res2: ", reviewDetails);
-      return { menuDetails, reviewDetails }
+      return { menuDetails, reviewDetails };
     } catch (error) {
       console.log("getInfo err: ", error);
     }
-  }
+  };
 
   const analyzeMenu = async (filteredResults) => {
-    const ingredientsStrList = []
-    let ingredientsStr = ''
-    await Promise.all(filteredResults.map(async (restaurant) => {
-      restaurant.menu.forEach((menu) => {
-        ingredientsStr += menu.ingredients + ' '
-        if (ingredientsStr.length > 1200) {
-          ingredientsStrList.push(ingredientsStr)
-          ingredientsStr = ''
-        }
+    const ingredientsStrList = [];
+    let ingredientsStr = "";
+    await Promise.all(
+      filteredResults.map(async (restaurant) => {
+        restaurant.menu.forEach((menu) => {
+          ingredientsStr += menu.ingredients + " ";
+          if (ingredientsStr.length > 1200) {
+            ingredientsStrList.push(ingredientsStr);
+            ingredientsStr = "";
+          }
+        });
       })
-    }))
+    );
     console.log("ingredientsStrList: ", ingredientsStrList);
     try {
       const res = await axios.post("http://localhost:3005/ingradients", {
         ingredientsStrList,
-      })
+      });
       const ingradientsList = res.data.message;
       console.log("analyzeMenu res: ", ingradientsList);
       return ingradientsList;
-
     } catch (error) {
       console.log("analyzeMenu err: ", error);
-      return false
+      return false;
     }
-
-  }
+  };
 
   return (
     <>
@@ -281,16 +315,15 @@ const MapComponent = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  count: state.home.count,
   radius: state.home.mapData.radius,
   restaurantData: state.home.restaurantData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addCount: () => dispatch(actions.addCounter()),
-  minusCount: () => dispatch(actions.minusCounter()),
-  appendRestaurantList: (payload) => dispatch(actions.appendRestaurantList(payload)),
-  appendAnalyzedRestaurantList: (payload) => dispatch(actions.appendAnalyzedRestaurantList(payload)),
+  appendRestaurantList: (payload) =>
+    dispatch(actions.appendRestaurantList(payload)),
+  appendAnalyzedRestaurantList: (payload) =>
+    dispatch(actions.appendAnalyzedRestaurantList(payload)),
   emptyRestaurantList: () => dispatch(actions.emptyRestaurantList()),
 });
 

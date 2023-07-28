@@ -7,21 +7,32 @@ import smallSearchIcon from "../../../assets/images/search-small.svg";
 import smallMicIcon from "../../../assets/images/mic-small.svg";
 import smallLocationIcon from "../../../assets/images/location-small.svg";
 import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { actions } from "../../../actions";
 
-const SearchBar = ({ size }) => {
+const SearchBar = (props) => {
   const navigate = useNavigate();
+  const [input, setInput] = useState("");
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      props.getSearchInput(input);
+      navigate("/map");
+    }
+  };
+
   return (
-    <div className={`search-bar${size ? `-${size}` : ""}`}>
+    <div className={`search-bar${props.size ? `-${props.size}` : ""}`}>
       <input
-        className={`search-bar-input${size ? `-${size}` : ""}`}
+        className={`search-bar-input${props.size ? `-${props.size}` : ""}`}
         type="text"
         placeholder="Search for anything..."
-        onKeyDown={(e) => {
-          e.key === "Enter" && navigate("/map");
-        }}
+        onKeyDown={handleSearch}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
       />
 
-      {size ? (
+      {props.size ? (
         <>
           <img
             src={smallSearchIcon}
@@ -50,4 +61,12 @@ const SearchBar = ({ size }) => {
   );
 };
 
-export default SearchBar;
+const mapStateToProps = (state) => ({
+  searchInput: state.home.searchInput,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getSearchInput: (input) => dispatch(actions.getSearchInput(input)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

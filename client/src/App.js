@@ -9,15 +9,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          {/* <Demo /> */}
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/map" element={<MapPage />}></Route>
-          <Route path="/SearchPage" element={<SearchPage />}></Route>
-          {/* <Route path="/demo" element={<DemoPage />} /> */}
-          <Route path="/api" element={<ApiPage />} />
-        </Routes>
+      <div className="overlay">
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="/map" element={<MapPage />}></Route>
+            <Route path="/SearchPage" element={<SearchPage />}></Route>
+            <Route path="/api" element={<ApiPage />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
