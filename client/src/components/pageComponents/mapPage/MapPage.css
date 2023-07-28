@@ -4,6 +4,10 @@
     color: white;
 }
 
+.map-page-content {
+    margin-top: 3rem;
+}
+
 .map-main-content {
     display: flex;
     flex-direction: row;
