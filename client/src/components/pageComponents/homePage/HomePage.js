@@ -22,7 +22,7 @@ const HomePage = (props) => {
     loader.importLibrary("places").then(() => {
       const autocomplete = new window.google.maps.places.Autocomplete(autocompleteRef.current);
 
-      autocomplete.addListener('place_changed', function() {
+      autocomplete.addListener('place_changed', function () {
         const place = autocomplete.getPlace();
         if (!place.geometry) {
           // The user selected a place without a specific location.
@@ -89,7 +89,7 @@ const HomePage = (props) => {
               className="home-location-icon"
               src={locationIcon}
               alt="location icon"
-              onClick={() => {handleLocationIcon()}}
+              onClick={() => { handleLocationIcon() }}
             />
             <input
               className="home-input"

@@ -43,12 +43,15 @@ const SearchBar = (props) => {
     if (analyzing) {
       return;
     }
+    if(props.analyzedRestaurantData.length === 0){
+      return
+    }
     if (e.key === "Enter") {
       console.log("pressed enter");
-      setAnalyzing((cur) => !cur);
-      let analyzedRestaurantData = tempData;
-      let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData);
-      // let keyAttrList = keyAttrListFilterFunc(props.analyzedRestaurantData)
+      setAnalyzing(cur => !cur)
+      // let analyzedRestaurantData = tempData
+      // let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData)
+      let keyAttrList = keyAttrListFilterFunc(props.analyzedRestaurantData)
       // keyAttrList = keyAttrList.map((eachKeyAttrList,key) => {
       //   console.log("eachKeyAttrList: ", eachKeyAttrList);
       //   for (const key in eachKeyAttrList) {
@@ -88,14 +91,15 @@ const SearchBar = (props) => {
         for (const key in eachScoreObj) {
           console.log("key: ", key);
           if (existingKey.includes(key)) {
+          if (existingKey.includes(key)) {
             //replace
             console.log("replace");
-            combinedAIScore[existingKey.indexOf(key)] = eachScoreObj;
+            combinedAIScore[existingKey.indexOf(key)] = eachScoreObj
           } else {
-            combinedAIScore.push(eachScoreObj);
+            combinedAIScore.push(eachScoreObj)
           }
         }
-      });
+      }});
 
       // const combinedAIScore = AIScore.concat(props.meetUserDataList)
       console.log("combinedAIScore: ", combinedAIScore);
@@ -108,8 +112,8 @@ const SearchBar = (props) => {
         }
       });
       console.log("sortedAIScore: ", sortedAIScore);
-      props.appendMeetUserData(sortedAIScore);
-      setAnalyzing((cur) => !cur);
+      props.appendMeetUserData(sortedAIScore)
+      setAnalyzing(cur => !cur)
       navigate("/map");
     }
   };
