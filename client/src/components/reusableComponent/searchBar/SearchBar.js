@@ -84,7 +84,7 @@ const SearchBar = (props,{ size, analyzedRestaurantData, meetUserDataList,append
       console.log("sortedAIScore: ", sortedAIScore);
       appendMeetUserData(sortedAIScore)
       setAnalyzing(cur=>!cur)
-      // navigate("/map");
+      navigate("/map");
     }
   }
 
