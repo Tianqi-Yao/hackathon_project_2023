@@ -112,8 +112,6 @@ const Review = sequelize.define('Review', {
 //   .then(() => console.log('Database & tables created!'))
 //   .catch(error => console.log('This error occurred', error));
 
-
-
 // Get add resturant id
 
 Restaurant.findAll({ attributes: ['id'] })

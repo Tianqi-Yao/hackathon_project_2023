@@ -1,14 +1,61 @@
 import "./HomePage.css";
 import locationIcon from "../../../assets/images/mdi-location.svg";
 import startIcon from "../../../assets/images/arrow-up.svg";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "../../reusableComponent/navbar/Navbar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { actions } from "../../../actions";
+import { Loader } from "@googlemaps/js-api-loader";
+
 
 const HomePage = (props) => {
   const [input, setInput] = useState("");
+  const autocompleteRef = useRef(null);
+
+  useEffect(() => {
+    const loader = new Loader({
+      apiKey: process.env.REACT_APP_MAP_API_KEY, // 在这里填写你的 Google Maps API Key
+      version: "weekly"
+    });
+
+    loader.importLibrary("places").then(() => {
+      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteRef.current);
+
+      autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          // The user selected a place without a specific location.
+          console.error('No location data available for the selected place.');
+          return;
+        }
+        const location = place.geometry.location;
+        const address = place.formatted_address;
+        console.log("location",location);
+        console.log('Latitude: ' + location.lat());
+        console.log('Longitude: ' + location.lng());
+        console.log('Address: ' + address);
+        props.setUserAddress(address);
+        props.setUserGeometry({lat: location.lat(), lng: location.lng()})
+      });
+    });
+
+  }, []);
+
+  const handleLocationIcon = () => {
+    if (!navigator.geolocation) {
+      console.error('Geolocation is not supported by your browser.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      console.log("latitude my", latitude);
+      console.log("longitude my", longitude);
+    });
+    setInput("Your current address has been located.");
+  }
 
   const handleInput = () => {
     props.getInputLocation(input);
@@ -35,10 +82,12 @@ const HomePage = (props) => {
               className="home-location-icon"
               src={locationIcon}
               alt="location icon"
+              onClick={() => {handleLocationIcon()}}
             />
             <input
               className="home-input"
               type="text"
+              ref={autocompleteRef}
               placeholder="Enter a city, address or zip code"
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -65,6 +114,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getInputLocation: (location) => dispatch(actions.getInputLocation(location)),
+  setUserAddress: (address) => dispatch(actions.setUserAddress(address)),
+  setUserGeometry: (geometry) => dispatch(actions.setUserGeometry(geometry)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

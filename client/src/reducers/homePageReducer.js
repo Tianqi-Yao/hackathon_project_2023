@@ -3,6 +3,8 @@ import Actions from "../constants";
 const initialState = {
   analyzedRestaurantData: [],
   restaurantData: [],
+  userAddress: "",
+  userGeometry: {},
   mapData: {
     radius: 1500, // 0 - 40000 meters
     inputLocationStr: "",
@@ -122,6 +124,16 @@ const homePageReducer = (state = initialState, action) => {
       return {
         ...state,
         searchedDishId: action.payload,
+      };
+    case Actions.SET_USER_ADDRESS:
+      return {
+        ...state,
+        userAddress: action.payload,
+      };
+    case Actions.SET_USER_GEOMETRY_DATA:
+      return {
+        ...state,
+        userGeometry: action.payload,
       };
     default:
       return state;
