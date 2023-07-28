@@ -21,12 +21,11 @@ const SearchPage = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  count: state.home.count,
+  searchInput: state.home.searchInput,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addCount: () => dispatch(actions.addCounter()),
-  minusCount: () => dispatch(actions.minusCounter()),
+  getSearchInput: (input) => dispatch(actions.getSearchInput(input)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

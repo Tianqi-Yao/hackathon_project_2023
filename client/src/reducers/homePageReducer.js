@@ -15,9 +15,12 @@ const initialState = {
   restaurantKeywords: [],
   searchInputKeywords: [],
   displayedRestaurantsData: [],
-  isSearchingDish: false,
-  searchedDishId: [],
-  count: 1, // test
+  searchedDishId: [
+    "0e19bf86-3baf-4abf-ab2c-42596d725e1b",
+    "7252beb0-99e0-400d-849b-026baf8398ec",
+    "69a3ae5f-9ec1-4142-9467-b978359cdc5d",
+    "de360de6-f0ff-426e-92c6-8ad3c6075c95",
+  ], // data inside for testing
 };
 
 // restaurantData: [
@@ -79,16 +82,6 @@ const initialState = {
 
 const homePageReducer = (state = initialState, action) => {
   switch (action.type) {
-    case Actions.ADD_COUNT:
-      return {
-        ...state,
-        count: state.count + action.payload,
-      };
-    case Actions.MINUS_COUNT:
-      return {
-        ...state,
-        count: state.count - action.payload,
-      };
     case Actions.APPEND_RESTAURANT_LIST:
       // console.log("APPEND_RESTAURANT_LIST action.payload: ", action.payload);
       return {

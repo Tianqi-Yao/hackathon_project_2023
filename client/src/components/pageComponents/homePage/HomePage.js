@@ -60,13 +60,10 @@ const HomePage = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  count: state.home.count,
   inputLocationStr: state.home.inputLocationStr,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addCount: () => dispatch(actions.addCounter()),
-  minusCount: () => dispatch(actions.minusCounter()),
   getInputLocation: (location) => dispatch(actions.getInputLocation(location)),
 });
 

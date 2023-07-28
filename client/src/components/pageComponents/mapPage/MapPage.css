@@ -255,6 +255,10 @@
     cursor: default;
 }
 
+/* .expand-disabled svg {
+    fill: #616161;
+} */
+
 .expanded-detail {
     transform: rotate(90deg);
 }
@@ -311,6 +315,70 @@
     background: #303845;
 }
 
+.nutrition-info-ring-container{
+    height: 6.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.nutrition-info-ring {
+    position: relative;
+    height: 2.688rem;
+    width: 2.688rem;
+    background-color: #AFF9B2;
+    border-radius: 50%;
+    background: conic-gradient(#AFF9B2 60deg, #525B69 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nutrition-info-ring::before {
+    content: '';
+    position: absolute;
+    height: 2.3rem;
+    width: 2.3rem;
+    border-radius: 50%;
+    background-color: #303845;
+}
+
+.percentage-value {
+    position: relative;
+    color: #CBD2DF;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: -0.01875rem;
+}
+
+.nutrition-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-title {
+    color: #FFF;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.info-value {
+    color: #AEB7C7;
+    font-size: 0.625rem;
+    font-weight: 400;
+}
+
 .line-break {
     border: solid 0.063rem #3A4455;
     margin: 0 -2rem;
@@ -323,3 +391,7 @@ footer {
     margin: 2.56rem auto;
     width: 100vh;
 }
+
+/* .gm-style div .gmnoprint .gm-style-mtc button{
+    background-color:#1c2535 !important;
+   } */
