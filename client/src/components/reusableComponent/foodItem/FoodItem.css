@@ -1,0 +1,56 @@
+.dish-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.19rem 0;
+    border-top:solid #253249 0.063rem;
+ }
+ 
+ .dish-info-top {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     font-size: 0.75rem;
+     font-weight: 400;
+     margin-bottom: 0.44rem;
+ }
+ 
+ .dish-info-top-left {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 2.38rem;
+ }
+ 
+ .dish-calorie {
+     color: #96D198;
+ }
+ 
+ .dish-expand-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 0.44rem;
+     color: #fff;
+     cursor: pointer;
+ }
+ 
+ .dish-expand-container-disabled {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 0.44rem;
+     color: #616161;
+     cursor: default;
+ }
+ 
+ .expanded-detail {
+     transform: rotate(90deg);
+ }
+ 
+ .dish-description {
+     color: #898989;
+     font-family: Poppins;
+     font-size: 0.75rem;
+     font-weight: 400;
+ }
