@@ -73,6 +73,15 @@ function useFetchNewInfo() {
 
 
         // TODO
+        // await axios.post('http://localhost:3005/updateRestaurantAllInfo',
+        //     {
+        //         analyzedRestaurantData,
+        //     });
+        // const tempdata = res.data.message;
+        // console.log("tempdata res: ", tempdata);
+
+
+
         // setData(analyzedRestaurantData);
         if (analyzedRestaurantData.length === 0) {
             return false;

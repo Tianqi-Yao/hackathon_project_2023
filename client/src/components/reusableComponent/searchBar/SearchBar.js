@@ -14,8 +14,8 @@ import axios from "axios";
 import tempData from "./restaurantList.json";
 
 const SearchBar = (props) => {
-  const [hint,setHint] = useState("")
-  const [hintFeaching,setHintFeaching] = useState(true)
+  const [hint, setHint] = useState("")
+  const [hintFeaching, setHintFeaching] = useState(true)
   const navigate = useNavigate();
   const [analyzing, setAnalyzing] = useState(false);
   const [input, setInput] = useState("");
@@ -25,21 +25,32 @@ const SearchBar = (props) => {
     const radius = 1500;
     const lat = props.userGeometry.lat
     const lng = props.userGeometry.lng
-    if (props.analyzedRestaurantData.length !== 0) {
-      return
-    }
+    // if (props.analyzedRestaurantData.length !== 0) {
+    //   return
+    // }
     // fetchData(radius, lat, lng).then((data) => {
     //   if (data === false) {
     //     setHint("Sorry, we can't find any restaurant nearby you, please try again later")
     //     return;
-    //   } else {  
-        
+    //   } else {
+
     //     props.appendAnalyzedRestaurantList(data);
     //   }
     //   setHintFeaching(false)
     // }
     // );
     props.appendAnalyzedRestaurantList(tempData);
+    console.log("12");
+    axios.post('http://localhost:3005/updateRestaurantAllInfo',
+      {
+        analyzedRestaurantData:tempData,
+      }).then((res) => {
+        const tempdata = res.data.message;
+        console.log("tempdata res: ", tempdata);
+      }).catch((err) => {
+        console.error(err);
+      });
+
   }, []);
 
   const handleSearchKeyDown = async (e) => {

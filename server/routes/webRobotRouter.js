@@ -9,6 +9,7 @@ const {getAllRestaurantID} = require('../models');
 const router = express.Router();
 const fs = require('fs');
 const { off } = require('process');
+const { sequelize, Restaurant, Category, Menu, Ingredient, Review } = require('../models')
 
 
 // default route
@@ -203,11 +204,78 @@ router.get('/getAllRestaurantID', async (req, res) => {
 );
 
 router.post('/updateRestaurantAllInfo', async (req, res) => {
+    console.log("inin");
     
-    const jsonFile = req.files.jsonFile; 
-    const jsonData = JSON.parse(jsonFile);
-    //将jsonData fs存入到本地json 文件
-    fs.writeFileSync('../restaurant_data.json', jsonData);
+    const analyzedRestaurantData = req.body.analyzedRestaurantData;
+    analyzedRestaurantData.forEach((restaurantData) => {
+        Restaurant.findOrCreate({
+            where: { id: restaurantData.id },
+            defaults: {
+            alias: restaurantData.alias,
+            name: restaurantData.name,
+            image_url: restaurantData.image_url,
+            is_closed: restaurantData.is_closed,
+            url: restaurantData.url,
+            review_count: restaurantData.review_count,
+            rating: restaurantData.rating,
+            coordinates: restaurantData.coordinates,
+            transactions: restaurantData.transactions,
+            price: restaurantData.price,
+            location: restaurantData.location,
+            phone: restaurantData.phone,
+            display_phone: restaurantData.display_phone,
+            distance: restaurantData.distance,
+            averageCalorie: restaurantData.averageCalorie,
+            averageTotalFat: restaurantData.averageTotalFat,
+            averageTotalProtien: restaurantData.averageTotalProtien,
+            averageTotalCarbohydrates: restaurantData.averageTotalCarbohydrates
+            }
+        }).then(([restaurant, created]) => {
+            const categories = restaurantData.categories.map(category => {
+            return {
+                alias: category.alias,
+                title: category.title,
+                restaurant_id: restaurant.id
+            };
+            });
+        
+            Category.bulkCreate(categories);
+        
+            const menus = restaurantData.menu.map(menuItem => {
+            return {
+                food: menuItem.food,
+                ingredients: menuItem.ingredients,
+                imgSrc: menuItem.imgSrc,
+                calorie: menuItem.calorie,
+                restaurant_id: restaurant.id
+            };
+            });
+        
+            Menu.bulkCreate(menus).then(createdMenus => {
+            createdMenus.forEach((menu, index) => {
+                const ingredients = restaurantData.menu[index].ingradientsList.map(ingredient => {
+                return {
+                    ...ingredient,
+                    menu_id: menu.id
+                };
+                });
+        
+                Ingredient.bulkCreate(ingredients);
+            });
+            });
+        
+            const reviews = restaurantData.reviews.map(review => {
+            return {
+                username: review.username,
+                review: review.review,
+                restaurant_id: restaurant.id
+            };
+            });
+        
+            Review.bulkCreate(reviews);
+        }).catch(error => console.log('Error inserting data: ', error));
+    });
+    console.log("finish");
     res.status(200).json({
         home: "/",
         message: "get file",
