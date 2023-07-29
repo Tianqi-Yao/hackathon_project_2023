@@ -28,17 +28,18 @@ const SearchBar = (props) => {
     if (props.analyzedRestaurantData.length !== 0) {
       return
     }
-    fetchData(radius, lat, lng).then((data) => {
-      if (data === false) {
-        setHint("Sorry, we can't find any restaurant nearby you, please try again later")
-        return;
-      } else {  
+    // fetchData(radius, lat, lng).then((data) => {
+    //   if (data === false) {
+    //     setHint("Sorry, we can't find any restaurant nearby you, please try again later")
+    //     return;
+    //   } else {  
         
-        props.appendAnalyzedRestaurantList(data);
-      }
-      setHintFeaching(false)
-    }
-    );
+    //     props.appendAnalyzedRestaurantList(data);
+    //   }
+    //   setHintFeaching(false)
+    // }
+    // );
+    props.appendAnalyzedRestaurantList(tempData);
   }, []);
 
   const handleSearchKeyDown = async (e) => {
