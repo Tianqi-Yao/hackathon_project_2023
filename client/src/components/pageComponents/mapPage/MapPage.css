@@ -4,6 +4,7 @@
     flex-direction: column;
     min-height: 100vh;
     color: #fff;
+    overflow: auto;
 }
 
 .map-page-content {
@@ -12,10 +13,18 @@
     flex-grow: 1;
 }
 
+.search-bar-container {
+    width: 57%;
+    height: 20%;
+    flex-grow: 1;
+}
+
 .map-main-content {
     display: flex;
     flex-direction: row;
     margin-top: 2rem;
+    height: 80%;
+    flex-grow: 1;
 }
 
 .result-content-container {
@@ -129,14 +138,17 @@
     cursor: pointer;
 }
 
+.loading-icon-container {
+    display: flex;
+}
+
 .loading {
     color: #A6A6A6;
     font-size: 1rem;
     font-weight: 400;
-    display: none;
 }
 
-.restaurant-item {
+/* .restaurant-item {
     display: flex;
     flex-direction: column;
     padding-top: 1.5rem;
@@ -275,7 +287,6 @@
     justify-content: center;
     align-items: center;
     gap: 0.44rem;
-    /* color: #898989; */
     color: #fff;
     cursor: pointer;
 }
@@ -289,10 +300,6 @@
     cursor: default;
 }
 
-/* .expand-disabled svg {
-    fill: #616161;
-} */
-
 .expanded-detail {
     transform: rotate(90deg);
 }
@@ -304,119 +311,10 @@
     font-weight: 400;
 }
 
-.nutrition-info-container {
-    /* width: 25.9375rem; */
-    width: 80%;
-    height: 9rem;
-    margin: 1.62rem auto 0.8rem auto;
-    border-radius: 0.625rem;
-    box-shadow: 0px 0px 16px 3px rgba(0, 0, 0, 0.30);
-}
-
-.nutrition-info-top {
-    height: 2.75rem;
-    border-radius: 0.625rem 0.625rem 0rem 0rem;
-    background: #D4672A;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4.88rem;
-}
-
-.calorie-info-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.56rem;
-}
-
-.calorie {
-    color: #FFF;
-    font-weight: 600;
-    font-size: 0.875rem;
-}
-
-.calorie-title {
-    color: #EFCCB9;
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: #EFCCB9;
-}
-
-.nutrition-info-bottom {
-    height: 6.25rem;
-    border-radius: 0rem 0rem 0.625rem 0.625rem;
-    background: #303845;
-}
-
-.nutrition-info-ring-container{
-    height: 6.25rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-}
-
-.info-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.45rem;
-}
-
-.nutrition-info-ring {
-    position: relative;
-    height: 2.688rem;
-    width: 2.688rem;
-    background-color: #AFF9B2;
-    border-radius: 50%;
-    background: conic-gradient(#AFF9B2 60deg, #525B69 0deg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.nutrition-info-ring::before {
-    content: '';
-    position: absolute;
-    height: 2.3rem;
-    width: 2.3rem;
-    border-radius: 50%;
-    background-color: #303845;
-}
-
-.percentage-value {
-    position: relative;
-    color: #CBD2DF;
-    font-size: 0.625rem;
-    font-weight: 600;
-    letter-spacing: -0.01875rem;
-}
-
-.nutrition-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.info-title {
-    color: #FFF;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.info-value {
-    color: #AEB7C7;
-    font-size: 0.625rem;
-    font-weight: 400;
-}
-
 .line-break {
     border: solid 0.063rem #3A4455;
     margin: 0 -2rem;
-}
+} */
 
 footer {
     color: #D0D0D0;

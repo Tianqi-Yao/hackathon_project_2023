@@ -1,0 +1,49 @@
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to { 
+        transform: rotate(360deg);
+    }
+}
+     
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to { 
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.69rem;
+}
+    
+.loading-icon {
+    width: 1.625rem;
+    height: 1.625rem;
+    border: solid 0.25rem #A6A6A6;
+    border-radius: 50%;
+    border-right-color: #555555;
+    border-bottom-color: #A6A6A6;
+    -webkit-transition: all 0.5s ease-in;
+    -webkit-animation-name: rotate; 
+    -webkit-animation-duration: 1.0s; 
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    transition: all 0.5s ease-in;
+    animation-name: rotate; 
+    animation-duration: 1.0s; 
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+
+.loading-text {
+    color: #A6A6A6;
+    font-size: 1rem;
+    font-weight: 400;
+}

@@ -1,0 +1,167 @@
+.restaurant-item {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.restaurant-item-first {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.5rem;
+}
+
+.restaurant-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-between;
+    padding-bottom: 1.31rem;
+}
+
+.restaurant-info-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.38rem;
+    margin-bottom: 0.44rem;
+}
+
+.restaurant-info-left-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.81rem;
+    max-width: 70%;
+}
+
+.restaurant-name {
+    color: #FFF;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.restaurant-distance {
+    color: #ED7F42;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.restaurant-rating {
+    color: #ED7F42;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.restaurant-address-container {
+    display: flex;
+    color: #898989;
+    font-size: 0.75rem;
+    font-weight: 400;
+    gap: 0.3rem;
+}
+
+.restaurant-info-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 1.19rem;
+}
+
+.tags-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    max-width: 70%;
+}
+
+.average-calorie{
+    border-radius: 0.3125rem;
+    background: #96D198;   
+    padding: 0.19rem 0.45rem;
+    color: #1C2535;
+}
+
+.categories {
+    border-radius: 0.3125rem;
+    background: #D4672A;
+    padding: 0.19rem 0.45rem;
+    color: #fff;
+}
+
+.menu-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.44rem;
+    color: #ED7F42;
+    cursor: pointer;
+}
+
+.expanded-menu {
+    transform: rotate(90deg);
+}
+
+/* .dish-info-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   padding: 1.19rem 0;
+   border-top:solid #253249 0.063rem;
+}
+
+.dish-info-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-bottom: 0.44rem;
+}
+
+.dish-info-top-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.38rem;
+}
+
+.dish-calorie {
+    color: #96D198;
+}
+
+.dish-expand-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.44rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.dish-expand-container-disabled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.44rem;
+    color: #616161;
+    cursor: default;
+}
+
+.expanded-detail {
+    transform: rotate(90deg);
+}
+
+.dish-description {
+    color: #898989;
+    font-family: Poppins;
+    font-size: 0.75rem;
+    font-weight: 400;
+} */
+
+.line-break {
+    border: solid 0.063rem #3A4455;
+    margin: 0 -2rem;
+}

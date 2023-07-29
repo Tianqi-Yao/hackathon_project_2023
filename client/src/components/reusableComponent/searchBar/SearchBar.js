@@ -14,18 +14,18 @@ import tempData from "./restaurantList.json";
 
 const SearchBar = (props) => {
   const navigate = useNavigate();
-  const [analyzing,setAnalyzing] = useState(false)
+  const [analyzing, setAnalyzing] = useState(false);
   const [input, setInput] = useState("");
 
   const handleSearchKeyDown = async (e) => {
     if (analyzing) {
-      return
+      return;
     }
     if (e.key === "Enter") {
       console.log("pressed enter");
-      setAnalyzing(cur=>!cur)
-      let analyzedRestaurantData = tempData
-      let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData)
+      setAnalyzing((cur) => !cur);
+      let analyzedRestaurantData = tempData;
+      let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData);
       // let keyAttrList = keyAttrListFilterFunc(props.analyzedRestaurantData)
       // keyAttrList = keyAttrList.map((eachKeyAttrList,key) => {
       //   console.log("eachKeyAttrList: ", eachKeyAttrList);
@@ -36,40 +36,42 @@ const SearchBar = (props) => {
 
       console.log("keyAttrList: ", keyAttrList);
       if (keyAttrList.length === 0) {
-        keyAttrList = ["food", "restaurant"]
+        keyAttrList = ["food", "restaurant"];
       }
 
-      const AIScore = []
+      const AIScore = [];
       for (const eachKeyAttr of keyAttrList) {
         for (const key in eachKeyAttr) {
           const AIResponse = await axios.post("http://localhost:3005/AI", {
             prompt: e.target.value,
-            keyAttrList: eachKeyAttr[key]
+            keyAttrList: eachKeyAttr[key],
           });
           console.log(`AIResponse-${key}: `, AIResponse.data);
-          AIScore.push({ [key]: AIResponse.data.data.reduce((acc, cur) => acc + cur, 0) })
+          AIScore.push({
+            [key]: AIResponse.data.data.reduce((acc, cur) => acc + cur, 0),
+          });
         }
       }
       console.log("AIScore: ", AIScore);
       // combine AIScore and props.meetUserDataList, just add new key object
       console.log("props.meetUserDataList: ", props.meetUserDataList);
-      const combinedAIScore = [...props.meetUserDataList]
-      const existingKey = props.meetUserDataList.map(eachMeetUserData => {
+      const combinedAIScore = [...props.meetUserDataList];
+      const existingKey = props.meetUserDataList.map((eachMeetUserData) => {
         for (const key in eachMeetUserData) {
-          return key
+          return key;
         }
-      })
+      });
       console.log("existingKey: ", existingKey);
-      AIScore.forEach(eachScoreObj => {
+      AIScore.forEach((eachScoreObj) => {
         for (const key in eachScoreObj) {
           console.log("key: ", key);
-          if(existingKey.includes(key)){
+          if (existingKey.includes(key)) {
             //replace
             console.log("replace");
-            combinedAIScore[existingKey.indexOf(key)] = eachScoreObj
-          }else{
-            combinedAIScore.push(eachScoreObj)
-          } 
+            combinedAIScore[existingKey.indexOf(key)] = eachScoreObj;
+          } else {
+            combinedAIScore.push(eachScoreObj);
+          }
         }
       });
 
@@ -79,34 +81,37 @@ const SearchBar = (props) => {
       const sortedAIScore = combinedAIScore.sort((a, b) => {
         for (const key in a) {
           for (const key2 in b) {
-            return b[key2] - a[key]
+            return b[key2] - a[key];
           }
         }
-      })
+      });
       console.log("sortedAIScore: ", sortedAIScore);
-      props.appendMeetUserData(sortedAIScore)
-      setAnalyzing(cur=>!cur)
+      props.appendMeetUserData(sortedAIScore);
+      setAnalyzing((cur) => !cur);
       navigate("/map");
     }
-  }
-
+  };
 
   const keyAttrListFilterFunc = (restaurantList) => {
     let out = [];
     for (const eachDetailData of restaurantList) {
       // console.log("eachDetailData: ", eachDetailData)
       // out = [...out, { ID: eachDetailData.id, categories: eachDetailData.categories.map(eachCategory => eachCategory.alias) }]
-      const categories = eachDetailData.categories.map(eachCategory => eachCategory.alias)
+      const categories = eachDetailData.categories.map(
+        (eachCategory) => eachCategory.alias
+      );
       // const food = eachDetailData.menu.map(eachMenu => eachMenu.food)
-      const food = []
-      const ingradients = eachDetailData.menu.map(eachMenu => eachMenu.ingradients)
-      const content = categories.concat(food)
-      const ID = eachDetailData.id
-      out = [...out, { [ID]: content }]
+      const food = [];
+      const ingradients = eachDetailData.menu.map(
+        (eachMenu) => eachMenu.ingradients
+      );
+      const content = categories.concat(food);
+      const ID = eachDetailData.id;
+      out = [...out, { [ID]: content }];
     }
     console.log("out: ", out);
-    return out
-  }
+    return out;
+  };
   return (
     <div className={`search-bar${props.size ? `-${props.size}` : ""}`}>
       <input
@@ -158,7 +163,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getSearchInput: (input) => dispatch(actions.getSearchInput(input)),
-  appendMeetUserData: (payload) => dispatch(actions.appendMeetUserData(payload)),
+  appendMeetUserData: (payload) =>
+    dispatch(actions.appendMeetUserData(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
