@@ -59,20 +59,6 @@ const MapPage = (props) => {
     setIsChangingRadius(false);
   };
 
-  const handleExpandMenu = (id) => {
-    restaurantId.includes(id)
-      ? setRestaurantId(restaurantId.filter((existingId) => existingId !== id))
-      : setRestaurantId((prev) => [...prev, id]);
-    props.searchedDishId.map((itemId) => console.log(Object.keys(itemId)));
-    console.log(props.searchedDishId);
-  };
-
-  const handleExpandDetail = (id) => {
-    dishId.includes(id)
-      ? setDishId(dishId.filter((existingId) => existingId !== id))
-      : setDishId((prev) => [...prev, id]);
-  };
-
   const restaurantDistance = (distance) => {
     let convertedDistance = Math.round(distance) / 1000;
     return convertedDistance.toFixed(1);
