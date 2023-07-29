@@ -2,6 +2,8 @@ import "./MapPage.css";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import MapComponent from "../../reusableComponent/mapComponent/MapComponent";
+import expandMenuIcon from "../../../assets/images/menu-expand.svg";
+import expandDetailIcon from "../../../assets/images/detail-expand.svg";
 import RestaurantItem from "../../reusableComponent/restaurantItem/RestaurantItem";
 import Loading from "../../reusableComponent/loading/Loading";
 import Nav from "../../reusableComponent/navComponent/Nav";
@@ -125,9 +127,7 @@ const MapPage = (props) => {
       <Navbar />
       {/* <Nav /> */}
       <main className="map-page-content">
-        <div className="search-bar-container">
-          <SearchBar size={"small"} />
-        </div>
+        
         <div className="search-bar-container">
           <SearchBar size={"small"} />
         </div>
