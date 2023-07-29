@@ -113,6 +113,8 @@ const MapComponent = (props) => {
           },
         ],
       });
+      
+      
       mapObjRef.current = map; // 将创建的map对象保存到ref中
       // 设置点击事件
       map.addListener("click", (e) => handleClickMap(e));

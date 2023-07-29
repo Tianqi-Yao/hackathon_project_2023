@@ -10,6 +10,7 @@ import Navbar from "../../reusableComponent/navbar/Navbar";
 import SearchBar from "../../reusableComponent/searchBar/SearchBar";
 import dropdownIcon from "../../../assets/images/dropdown.svg";
 import { data } from "../../../assets/data/testData.js";
+import { useNavigate } from "react-router-dom";
 
 const MapPage = (props) => {
   const [restaurantId, setRestaurantId] = useState([]);
@@ -20,8 +21,12 @@ const MapPage = (props) => {
   const [visibleData, setVisibleData] = useState([]);
   const [nutritionValue, setNutritionValue] = useState(20);
   const shownItems = 5;
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (props.searchedDishId.length === 0) {
+      navigate("/");
+    }
     updateVisibleData();
   }, []);
 
