@@ -14,6 +14,8 @@ import axios from "axios";
 import tempData from "./restaurantList.json";
 
 const SearchBar = (props) => {
+  const [hintFeaching,setHintFeaching] = useState(true)
+  const [hint,setHint] = useState("")
   const navigate = useNavigate();
   const [analyzing, setAnalyzing] = useState(false);
   const [input, setInput] = useState("");
@@ -43,7 +45,7 @@ const SearchBar = (props) => {
     if (analyzing) {
       return;
     }
-    if(props.analyzedRestaurantData.length === 0){
+    if (props.analyzedRestaurantData !==false && props.analyzedRestaurantData.length === 0) {
       return
     }
     if (e.key === "Enter") {
