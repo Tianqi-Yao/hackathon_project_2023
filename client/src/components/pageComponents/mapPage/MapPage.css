@@ -33,6 +33,12 @@
     flex-grow: 1;
 }
 
+.search-bar-container {
+    width: 57%;
+    height: 20%;
+    flex-grow: 1;
+}
+
 .map-main-content {
     display: flex;
     flex-direction: row;

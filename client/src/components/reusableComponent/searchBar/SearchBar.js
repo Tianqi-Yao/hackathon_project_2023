@@ -45,10 +45,10 @@ const SearchBar = (props) => {
     }
     if (e.key === "Enter") {
       console.log("pressed enter");
-      setAnalyzing(cur => !cur)
-      // let analyzedRestaurantData = tempData
-      // let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData)
-      let keyAttrList = keyAttrListFilterFunc(props.analyzedRestaurantData)
+      setAnalyzing((cur) => !cur);
+      let analyzedRestaurantData = tempData;
+      let keyAttrList = keyAttrListFilterFunc(analyzedRestaurantData);
+      // let keyAttrList = keyAttrListFilterFunc(props.analyzedRestaurantData)
       // keyAttrList = keyAttrList.map((eachKeyAttrList,key) => {
       //   console.log("eachKeyAttrList: ", eachKeyAttrList);
       //   for (const key in eachKeyAttrList) {
