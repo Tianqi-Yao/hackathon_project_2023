@@ -202,4 +202,18 @@ router.get('/getAllRestaurantID', async (req, res) => {
 }
 );
 
+router.post('/updateRestaurantAllInfo', async (req, res) => {
+    
+    const jsonFile = req.files.jsonFile; 
+    const jsonData = JSON.parse(jsonFile);
+    //将jsonData fs存入到本地json 文件
+    fs.writeFileSync('../restaurant_data.json', jsonData);
+    res.status(200).json({
+        home: "/",
+        message: "get file",
+    })
+}
+);
+
+
 module.exports = router;

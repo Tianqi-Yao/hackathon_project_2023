@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import MapComponent from "../../reusableComponent/mapComponent/MapComponent";
 import RestaurantItem from "../../reusableComponent/restaurantItem/RestaurantItem";
 import Loading from "../../reusableComponent/loading/Loading";
-import RestaurantItem from "../../reusableComponent/restaurantItem/RestaurantItem";
-import Loading from "../../reusableComponent/loading/Loading";
 import Nav from "../../reusableComponent/navComponent/Nav";
 import { actions } from "../../../actions";
 import Navbar from "../../reusableComponent/navbar/Navbar";
@@ -75,20 +73,6 @@ const MapPage = (props) => {
   const handleRadiusValue = (value) => {
     props.setRadius(value);
     setIsChangingRadius(false);
-  };
-
-  const handleExpandMenu = (id) => {
-    restaurantId.includes(id)
-      ? setRestaurantId(restaurantId.filter((existingId) => existingId !== id))
-      : setRestaurantId((prev) => [...prev, id]);
-    props.searchedDishId.map((itemId) => console.log(Object.keys(itemId)));
-    console.log(props.searchedDishId);
-  };
-
-  const handleExpandDetail = (id) => {
-    dishId.includes(id)
-      ? setDishId(dishId.filter((existingId) => existingId !== id))
-      : setDishId((prev) => [...prev, id]);
   };
 
   const restaurantDistance = (distance) => {
