@@ -7,7 +7,7 @@ async function searchBusinessByYelp(lat, lng, radius = 2000, offset) {
     method: "GET",
     url: "https://api.yelp.com/v3/businesses/search",
     // limit: 0 - 50;  radius: 0 - 40000; offset: 0 - 1000
-    params: { latitude: lat, longitude: lng, limit: 10, radius: radius, offset: offset, term: 'restaurants' },  
+    params: { latitude: lat, longitude: lng, limit: 5, radius: radius, offset: offset, term: 'restaurants' },  
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${process.env.YELP_API_KEY}`

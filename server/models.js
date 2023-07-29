@@ -1,6 +1,7 @@
+const { cos } = require('@tensorflow/tfjs');
 const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize('test', '4119qweDVJzJujk.root', '5ITiwv2Te7OO5J7s', {
+const sequelize = new Sequelize('test', '3Q2G8WwNkXDPB8k.root', 'XssU3JLwr5dPmVES', {
   host: 'gateway01.eu-central-1.prod.aws.tidbcloud.com',
   port: 4000,
   dialect: 'mysql',
@@ -112,8 +113,26 @@ Restaurant.hasMany(Menu, { foreignKey: 'restaurant_id', as: 'menus' });
 Menu.belongsTo(Restaurant, { foreignKey: 'restaurant_id' });
 
 // In sync (for init)
-sequelize.sync()
-  .then(() => console.log('Database & tables created!'))
-  .catch(error => console.log('This error occurred', error));
+// sequelize.sync()
+//   .then(() => console.log('Database & tables created!'))
+//   .catch(error => console.log('This error occurred', error));
 
-module.exports = { sequelize, Restaurant, Category, Menu, Ingredient, Review };
+// Get add resturant id
+
+const getAllRestaurantID = async() => {
+  try {
+    const restaurants = await Restaurant.findAll({
+      attributes: ['id'] 
+    });
+    
+    const ids = restaurants.map(restaurant => restaurant.id);
+    
+    console.log(ids);
+    return ids;
+    
+  } catch (error) {
+    console.error('Error retrieving restaurants:', error);
+  }
+}
+
+module.exports = { sequelize, Restaurant, Category, Menu, Ingredient, Review, getAllRestaurantID };

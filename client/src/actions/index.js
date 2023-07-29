@@ -34,6 +34,16 @@ const appendMeetUserData = (payload) => ({
   payload,
 });
 
+const setUserAddress = (payload) => ({
+  type: Actions.SET_USER_ADDRESS,
+  payload,
+});
+
+const setUserGeometry = (payload) => ({
+  type: Actions.SET_USER_GEOMETRY_DATA,
+  payload,
+});
+
 
 export const actions = {
   appendRestaurantList,
@@ -43,4 +53,6 @@ export const actions = {
   getSearchInput,
   setRadius,
   appendMeetUserData,
+  setUserAddress,
+  setUserGeometry,
 };
