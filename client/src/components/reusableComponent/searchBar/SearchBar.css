@@ -1,7 +1,9 @@
 .search-bar {
     position: relative;
-    width: 56%;
+    width: 100%;
     height: 4.25rem;
+    margin: 0 auto;
+
 }
 
 .search-bar-small {
@@ -21,10 +23,11 @@
     padding-right: 7.75rem;
     border-radius: 0.625rem;
     background: #525865;
-    box-shadow: 4px 4px 30px 20px rgba(28, 37, 53, 0.30);
+    box-shadow: 0.25rem 0.25rem 1.875rem 1.25rem rgba(28, 37, 53, 0.30);
     border:none;
     font-size: 1.25rem;
     color: white;
+    font-family: inherit;
 }
 
 .search-bar-input-small {
@@ -34,10 +37,11 @@
     padding-right: 5.375rem;
     border-radius: 0.625rem;
     background: #525865;
-    box-shadow: 4px 4px 30px 20px rgba(28, 37, 53, 0.30);
+    box-shadow: 0.25rem 0.25rem 1.875rem 1.25rem rgba(28, 37, 53, 0.30);
     border:none;
     font-size: 0.875rem;
     color: white;
+    font-family: inherit;
 }
 
 .search-bar-input::placeholder{
@@ -84,10 +88,12 @@
     position: absolute;
     top: 1.25rem;
     right: 2rem;
+    cursor: pointer;
 }
 
 .location-icon-small {
     position: absolute;
     top: 0.75rem;
     right: 1.75rem;
+    cursor: pointer;
 }
