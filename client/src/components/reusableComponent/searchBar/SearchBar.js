@@ -14,8 +14,6 @@ import axios from "axios";
 import tempData from "./restaurantList.json";
 
 const SearchBar = (props) => {
-  const [hintFeaching,setHintFeaching] = useState(true)
-  const [hint,setHint] = useState("")
   const navigate = useNavigate();
   const [analyzing, setAnalyzing] = useState(false);
   const [input, setInput] = useState("");
@@ -44,9 +42,6 @@ const SearchBar = (props) => {
   const handleSearchKeyDown = async (e) => {
     if (analyzing) {
       return;
-    }
-    if (props.analyzedRestaurantData !==false && props.analyzedRestaurantData.length === 0) {
-      return
     }
     if (e.key === "Enter") {
       console.log("pressed enter");
@@ -93,15 +88,14 @@ const SearchBar = (props) => {
         for (const key in eachScoreObj) {
           console.log("key: ", key);
           if (existingKey.includes(key)) {
-          if (existingKey.includes(key)) {
             //replace
             console.log("replace");
-            combinedAIScore[existingKey.indexOf(key)] = eachScoreObj
+            combinedAIScore[existingKey.indexOf(key)] = eachScoreObj;
           } else {
-            combinedAIScore.push(eachScoreObj)
+            combinedAIScore.push(eachScoreObj);
           }
         }
-      }});
+      });
 
       // const combinedAIScore = AIScore.concat(props.meetUserDataList)
       console.log("combinedAIScore: ", combinedAIScore);
@@ -114,8 +108,8 @@ const SearchBar = (props) => {
         }
       });
       console.log("sortedAIScore: ", sortedAIScore);
-      props.appendMeetUserData(sortedAIScore)
-      setAnalyzing(cur => !cur)
+      props.appendMeetUserData(sortedAIScore);
+      setAnalyzing((cur) => !cur);
       navigate("/map");
     }
   };

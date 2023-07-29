@@ -17,7 +17,7 @@ const initialState = {
   restaurantKeywords: [],
   searchInputKeywords: [],
   displayedRestaurantsData: [],
-  searchedDishId: [], // data inside for testing
+  searchedDishId: [{ "0e19bf86-3baf-4abf-ab2c-42596d725e1b": 20 }], // data inside for testing
 };
 
 // restaurantData: [

@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import MapComponent from "../../reusableComponent/mapComponent/MapComponent";
 import RestaurantItem from "../../reusableComponent/restaurantItem/RestaurantItem";
 import Loading from "../../reusableComponent/loading/Loading";
+import RestaurantItem from "../../reusableComponent/restaurantItem/RestaurantItem";
+import Loading from "../../reusableComponent/loading/Loading";
 import Nav from "../../reusableComponent/navComponent/Nav";
 import { actions } from "../../../actions";
 import Navbar from "../../reusableComponent/navbar/Navbar";
@@ -33,6 +35,22 @@ const MapPage = (props) => {
   useEffect(() => {
     updateVisibleData();
   }, [startIndex, data]);
+
+  // useEffect(() => {
+  //   const progress = setInterval(() => {
+  //     setNutritionValue((prev) => {
+  //       const newProgress = prev++;
+  //       if (newProgress >= 80) {
+  //         clearInterval(progress);
+  //       }
+  //       return newProgress;
+  //     });
+  //   }, 100);
+
+  //   return () => {
+  //     clearInterval(progress);
+  //   };
+  // }, []);
 
   // useEffect(() => {
   //   const progress = setInterval(() => {
@@ -126,6 +144,9 @@ const MapPage = (props) => {
         <div className="search-bar-container">
           <SearchBar size={"small"} />
         </div>
+        <div className="search-bar-container">
+          <SearchBar size={"small"} />
+        </div>
         <div className="map-main-content">
           <MapComponent />
           <div className="result-content-container">
@@ -182,6 +203,9 @@ const MapPage = (props) => {
               </div>
             </div>
             <div className="restaurants-container" onScroll={handleScroll}>
+              {/* <div className="loading-icon-container">
+                <Loading />
+              </div> */}
               {/* <div className="loading-icon-container">
                 <Loading />
               </div> */}
