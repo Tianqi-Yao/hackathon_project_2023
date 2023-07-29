@@ -1,4 +1,4 @@
-import {useRef } from 'react';
+import { useRef } from 'react';
 import axios from "axios";
 
 
@@ -7,10 +7,7 @@ function useFetchNewInfo() {
     const restInfoCount = useRef(0);
 
     const fetchData = async (radius, lat, lng) => {
-        const filteredResults = await nearbySearchYelpFunc(radius,lat, lng);
-
-        // 拿 database 数据, 对比filteredResults, 如果有重复的，就不再添加
-        // 拿 database id
+        const filteredResults = await nearbySearchYelpFunc(radius, lat, lng);
 
         /************** start analyzeMenu ***************/
         console.log("start analyzeMenu");
@@ -74,12 +71,16 @@ function useFetchNewInfo() {
             analyzedRestaurantData
         );
         // setData(analyzedRestaurantData);
-        return analyzedRestaurantData;
+        if (analyzedRestaurantData.length === 0) {
+            return false;
+        } else {
+            return analyzedRestaurantData;
+        }
         // 添加到数据库
 
     };
 
-    const nearbySearchYelpFunc = async (radius,lat, lng) => {
+    const nearbySearchYelpFunc = async (radius, lat, lng) => {
         // const { radius } = props;
         try {
             console.log("nearbySearchYelpFunc clicked, radius: ", radius);
@@ -94,10 +95,31 @@ function useFetchNewInfo() {
                     },
                 }
             );
-            console.log("nearbySearchYelpFunc res: ", res);
-            const restaurantList = res.data.data;
+            let restaurantList = res.data.data;
             restInfoCount.current = restaurantList.length;
             console.log("nearbySearchYelpFunc res: ", restaurantList);
+
+            // 拿 database 数据, 对比filteredResults, 如果有重复的，就不再添加
+            // 拿 database id
+            try {
+                const res = await axios.get("http://localhost:3005/getAllRestaurantID");
+                const databaseIDList = res.data.data;
+                console.log("databaseIDList: ", databaseIDList);
+                // 比较两个id list, 如果有重复的,就不再添加
+                const newRestaurantList = restaurantList.filter(
+                    each => !databaseIDList.includes(each.id)
+                );
+                console.log("newRestaurantList:", newRestaurantList);
+                // 如果没有新的数据,就返回false
+                if (newRestaurantList.length === 0) {
+                    return false;
+                }
+                // 如果有新的数据,就添加到database
+                restaurantList = newRestaurantList
+            } catch (err) {
+                console.log(err);
+                return false;
+            }
 
             const results = await Promise.all(
                 restaurantList.map(async (item, i) => {

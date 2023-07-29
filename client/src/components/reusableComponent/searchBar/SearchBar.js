@@ -14,6 +14,8 @@ import axios from "axios";
 import tempData from "./restaurantList.json";
 
 const SearchBar = (props) => {
+  const [hintFeaching,setHintFeaching] = useState(true)
+  const [hint,setHint] = useState("")
   const navigate = useNavigate();
   const [analyzing, setAnalyzing] = useState(false);
   const [input, setInput] = useState("");
@@ -23,8 +25,18 @@ const SearchBar = (props) => {
     const radius = 1500;
     const lat = props.userGeometry.lat
     const lng = props.userGeometry.lng
+    if (props.analyzedRestaurantData.length !== 0) {
+      return
+    }
     fetchData(radius, lat, lng).then((data) => {
-      props.appendAnalyzedRestaurantList(data);
+      if (data === false) {
+        setHint("Sorry, we can't find any restaurant nearby you, please try again later")
+        return;
+      } else {  
+        
+        props.appendAnalyzedRestaurantList(data);
+      }
+      setHintFeaching(false)
     }
     );
   }, []);
@@ -33,7 +45,7 @@ const SearchBar = (props) => {
     if (analyzing) {
       return;
     }
-    if(props.analyzedRestaurantData.length === 0){
+    if (props.analyzedRestaurantData !==false && props.analyzedRestaurantData.length === 0) {
       return
     }
     if (e.key === "Enter") {
@@ -175,7 +187,7 @@ const mapStateToProps = (state) => ({
   searchInput: state.home.searchInput,
   meetUserDataList: state.home.searchedDishId,
   analyzedRestaurantData: state.home.analyzedRestaurantData,
-  userGeometry:state.home.userGeometry
+  userGeometry: state.home.userGeometry
 });
 
 const mapDispatchToProps = (dispatch) => ({

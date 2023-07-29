@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import "./MapComponent.css";
 import { Loader } from "@googlemaps/js-api-loader";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { actions } from "../../../actions";
 import useFetchNewInfo from "../customHooks/useFetchNewInfo";
 
 const MapComponent = (props) => {
+  const [hint,setHint] = useState("")
   const restInfoCount = useRef(0);
   const mapRef = useRef(null);
   const mapObjRef = useRef(null); // 用于存储map对象
@@ -17,8 +18,9 @@ const MapComponent = (props) => {
         version: "weekly",
       }),
     []
-  ); // 空依赖数组，确保 loader 只被创建一次  
-  const fetchData  = useFetchNewInfo();
+  ); // 空依赖数组，确保 loader 只被创建一次 
+
+  const fetchData = useFetchNewInfo();
 
   useEffect(() => {
     // 初始化Map
