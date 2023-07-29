@@ -108,6 +108,10 @@ const Review = sequelize.define('Review', {
   timestamps: false
 });
 
+// Create mappings between table
+Restaurant.hasMany(Menu, { foreignKey: 'restaurant_id', as: 'menus' });
+Menu.belongsTo(Restaurant, { foreignKey: 'restaurant_id' });
+
 // In sync (for init)
 // sequelize.sync()
 //   .then(() => console.log('Database & tables created!'))
