@@ -70,6 +70,9 @@ function useFetchNewInfo() {
             "finish assign, analyzedRestaurantData: ",
             analyzedRestaurantData
         );
+
+
+        // TODO
         // setData(analyzedRestaurantData);
         if (analyzedRestaurantData.length === 0) {
             return false;
