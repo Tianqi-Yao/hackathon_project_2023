@@ -22,6 +22,9 @@ const MapPage = (props) => {
   const shownItems = 5;
 
   useEffect(() => {
+    // if (props.searchedDishId.length === 0) {
+    //   navigate("/");
+    // }
     updateVisibleData();
   }, []);
 
