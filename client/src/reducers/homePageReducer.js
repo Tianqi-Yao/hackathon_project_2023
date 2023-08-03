@@ -3,6 +3,8 @@ import Actions from "../constants";
 const initialState = {
   analyzedRestaurantData: [],
   restaurantData: [],
+  userAddress: "",
+  userGeometry: {},
   mapData: {
     radius: 1500, // 0 - 40000 meters
     inputLocationStr: "",
@@ -84,7 +86,7 @@ const homePageReducer = (state = initialState, action) => {
         restaurantData: [...state.restaurantData, ...action.payload],
       };
     case Actions.APPEND_ANALYZED_RESTAURANT_LIST:
-      // console.log("APPEND_ANALYZED_RESTAURANT_LIST action.payload: ", action.payload);
+      console.log("APPEND_ANALYZED_RESTAURANT_LIST action.payload: ", action.payload);
       return {
         ...state,
         analyzedRestaurantData: [
@@ -122,6 +124,16 @@ const homePageReducer = (state = initialState, action) => {
       return {
         ...state,
         searchedDishId: action.payload,
+      };
+    case Actions.SET_USER_ADDRESS:
+      return {
+        ...state,
+        userAddress: action.payload,
+      };
+    case Actions.SET_USER_GEOMETRY_DATA:
+      return {
+        ...state,
+        userGeometry: action.payload,
       };
     default:
       return state;

@@ -9,6 +9,7 @@ import questionIcon from "../../../assets/images/question-icon.svg";
 
 const SearchPage = (props) => {
   const [loading, setLoading] = useState(true);
+  const [analyzing, setAnalyzing] = useState(true);
   const handleSampleQuestion = () => {};
 
   return (
@@ -72,7 +73,7 @@ const SearchPage = (props) => {
               >
                 <div className="question">
                   Sit faucibus vivamus tellus nibh rutrum amet. Vel sit enim
-                  nunc elit eget vivamusel nibh.{" "}
+                  nunc elit eget vivamusel nibh.
                 </div>
                 <img
                   className="question-icon"
@@ -81,8 +82,10 @@ const SearchPage = (props) => {
                 />
               </div>
             </div>
+          ) : analyzing ? (
+            <Loading term={"Analyzing"} />
           ) : (
-            <Loading />
+            <Loading term={"Loading"} />
           )}
         </div>
       </main>

@@ -98,6 +98,7 @@
     top: 0.5rem;
     font-family: inherit;
     width: 28%;
+    cursor: pointer;
 }
 
 .home-start-icon {

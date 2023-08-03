@@ -1,11 +1,13 @@
-import { useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import "./MapComponent.css";
 import { Loader } from "@googlemaps/js-api-loader";
 import axios from "axios";
 import { connect } from "react-redux";
 import { actions } from "../../../actions";
+import useFetchNewInfo from "../customHooks/useFetchNewInfo";
 
 const MapComponent = (props) => {
+  const [hint,setHint] = useState("")
   const restInfoCount = useRef(0);
   const mapRef = useRef(null);
   const mapObjRef = useRef(null); // 用于存储map对象
@@ -16,7 +18,9 @@ const MapComponent = (props) => {
         version: "weekly",
       }),
     []
-  ); // 空依赖数组，确保 loader 只被创建一次
+  ); // 空依赖数组，确保 loader 只被创建一次 
+
+  const fetchData = useFetchNewInfo();
 
   useEffect(() => {
     // 初始化Map
@@ -109,6 +113,8 @@ const MapComponent = (props) => {
           },
         ],
       });
+      
+      
       mapObjRef.current = map; // 将创建的map对象保存到ref中
       // 设置点击事件
       map.addListener("click", (e) => handleClickMap(e));
@@ -130,6 +136,12 @@ const MapComponent = (props) => {
     // setCurlocation({lat, lng})
     console.log(`Latitude: ${lat}, Longitude: ${lng}`);
     const filteredResults = await nearbySearchYelpFunc(lat, lng);
+
+    // 拿 database 数据, 对比filteredResults, 如果有重复的，就不再添加
+    // 拿 database id
+
+
+
     /************** start analyzeMenu ***************/
     console.log("start analyzeMenu");
     let ingradientsList = await analyzeMenu(filteredResults);
@@ -206,6 +218,8 @@ const MapComponent = (props) => {
     );
     props.emptyRestaurantList(); // 清空restaurantData
     props.appendAnalyzedRestaurantList(analyzedRestaurantData); // 将分析后的数据存入redux
+    // 添加到数据库
+
   };
 
   const nearbySearchYelpFunc = async (lat, lng) => {
@@ -331,15 +345,11 @@ const MapComponent = (props) => {
 
 const mapStateToProps = (state) => ({
   radius: state.home.mapData.radius,
-  restaurantData: state.home.restaurantData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  appendRestaurantList: (payload) =>
-    dispatch(actions.appendRestaurantList(payload)),
   appendAnalyzedRestaurantList: (payload) =>
     dispatch(actions.appendAnalyzedRestaurantList(payload)),
-  emptyRestaurantList: () => dispatch(actions.emptyRestaurantList()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapComponent);

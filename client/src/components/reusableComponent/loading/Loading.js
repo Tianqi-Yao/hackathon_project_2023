@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./Loading.css";
 
-const Loading = () => {
+const Loading = ({ term }) => {
   return (
     <div className="loading-container">
       <div className="loading-icon"></div>
-      <div className="loading-text">Loading...</div>
+      <div className="loading-text">{term}...</div>
     </div>
   );
 };
