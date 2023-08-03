@@ -79,18 +79,18 @@ const SearchBar = (props) => {
       }
 
       const AIScore = [];
-      for (const eachKeyAttr of keyAttrList) {
-        for (const key in eachKeyAttr) {
-          const AIResponse = await axios.post("http://localhost:3005/AI", {
-            prompt: e.target.value,
-            keyAttrList: eachKeyAttr[key],
-          });
-          console.log(`AIResponse-${key}: `, AIResponse.data);
-          AIScore.push({
-            [key]: AIResponse.data.data.reduce((acc, cur) => acc + cur, 0),
-          });
-        }
-      }
+      // for (const eachKeyAttr of keyAttrList) {
+      //   for (const key in eachKeyAttr) {
+      //     const AIResponse = await axios.post("http://localhost:3005/AI", {
+      //       prompt: e.target.value,
+      //       keyAttrList: eachKeyAttr[key],
+      //     });
+      //     console.log(`AIResponse-${key}: `, AIResponse.data);
+      //     AIScore.push({
+      //       [key]: AIResponse.data.data.reduce((acc, cur) => acc + cur, 0),
+      //     });
+      //   }
+      // }
       console.log("AIScore: ", AIScore);
       // combine AIScore and props.meetUserDataList, just add new key object
       console.log("props.meetUserDataList: ", props.meetUserDataList);
